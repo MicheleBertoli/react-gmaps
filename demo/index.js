@@ -2,7 +2,7 @@ var React = require('react'),
   Gmaps = require('../src/gmaps');
 
 function onClick() {
-  alert('onClick');
+  console.log('onClick');
 }
 
 var gmaps = (

@@ -1,10 +1,10 @@
 var React = require('react'),
   Events = require('../src/events');
 
-var map = null, 
-  events = [];
-
 var Gmaps = React.createClass({
+
+  map: null,
+  events: [],
 
   componentDidMount() {
     this.loadMaps();
@@ -42,20 +42,20 @@ var Gmaps = React.createClass({
       },
       zoom: this.props.zoom
     };
-    map = new google.maps.Map(this.getDOMNode(), mapOptions);
+    this.map = new google.maps.Map(this.getDOMNode(), mapOptions);
   },
 
   bindEvents() {
     for (prop in this.props) {
       if (this.props.hasOwnProperty(prop) && Events[prop]) {
-        var e = google.maps.event.addListener(map, Events[prop], this.props[prop]);
-        events.push(e);
+        var e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
+        this.events.push(e);
       }
     }
   },
 
   unbindEvents() {
-    events.forEach(function(e) {
+    this.events.forEach(function(e) {
       google.maps.event.removeListener(e);
     });
   }
