@@ -1,18 +1,25 @@
 var React = require('react'),
   Gmaps = require('../src/gmaps');
 
-function onClick() {
-  console.log('onClick');
-}
+var App = React.createClass({
 
-var gmaps = (
-  <Gmaps 
-    width={'100%'}
-    height={'100%'}
-    lat={-34.397} 
-    lng={150.644} 
-    zoom={8} 
-    onClick={onClick} />
-);
+  render() {
+    return (
+      <Gmaps 
+        ref='Gmaps'
+        width={'100%'}
+        height={'100%'}
+        lat={-34.397} 
+        lng={150.644} 
+        zoom={8} 
+        onClick={this.onClick} />
+    );
+  },
 
-React.render(gmaps, document.getElementById('gmaps'));
+  onClick() {
+    console.log('onClick');
+  }
+
+});
+
+React.render(<App />, document.getElementById('gmaps'));

@@ -6,6 +6,10 @@ var Gmaps = React.createClass({
   map: null,
   events: [],
 
+  getMap() {
+    return this.map;
+  },
+
   componentDidMount() {
     this.loadMaps();
   },
