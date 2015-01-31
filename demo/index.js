@@ -1,5 +1,6 @@
 var React = require('react'),
-  Gmaps = require('../src/gmaps');
+  Gmaps = require('../src/gmaps'),
+  Marker = require('../src/marker');
 
 var App = React.createClass({
 
@@ -12,7 +13,12 @@ var App = React.createClass({
         lat={-34.397} 
         lng={150.644} 
         zoom={8} 
-        onClick={this.onClick} />
+        onClick={this.onClick}>
+        <Marker 
+          lat={-34.397} 
+          lng={150.644} 
+          title={'Hello, React!'} />
+      </Gmaps>
     );
   },
 

@@ -1,6 +1,6 @@
 jest.dontMock('../gmaps');
 
-describe('Gmaps', function() {
+describe('Gmaps', () => {
 
   var React = require('react/addons');
   var TestUtils = React.addons.TestUtils;
@@ -29,20 +29,20 @@ describe('Gmaps', function() {
     gmaps.mapsCallback();
   });
 
-  it('applies the style', function() {
+  it('applies the style', () => {
     expect(gmaps.getDOMNode().style.width).toBe(width);
     expect(gmaps.getDOMNode().style.height).toBe(height);
   });
 
-  it('creates a map', function() {
+  it('creates a map', () => {
     expect(gmaps.getMap()).not.toBe(null);
   });
 
-  it('binds events', function() {
+  it('binds events', () => {
     expect(window.google.maps.event.addListener).toBeCalled();
   });
 
-  it('unbinds events', function() {
+  it('unbinds events', () => {
     gmaps.componentWillUnmount();
     expect(window.google.maps.event.removeListener).toBeCalled();
   });

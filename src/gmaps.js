@@ -1,4 +1,5 @@
 var React = require('react'),
+  cloneWithProps = require('react/lib/cloneWithProps'),
   Events = require('../src/events');
 
 var Gmaps = React.createClass({
@@ -23,7 +24,12 @@ var Gmaps = React.createClass({
       width: this.props.width,
       height: this.props.height
     };
-    return <div style={style}>Loading...</div>;
+    return (
+      <div style={style}>
+        Loading...
+        {this.state ? this.state.children : null}
+      </div>
+    );
   },
 
   loadMaps() {
@@ -35,6 +41,7 @@ var Gmaps = React.createClass({
   
   mapsCallback() {
     this.createMap();
+    this.createMarkers();
     this.bindEvents();
   },
 
@@ -49,6 +56,17 @@ var Gmaps = React.createClass({
     this.map = new google.maps.Map(this.getDOMNode(), mapOptions);
   },
 
+  createMarkers() {
+    var children = React.Children.map(this.props.children, (child) => {
+      return cloneWithProps(child, {
+        map: this.map
+      })
+    });
+    this.setState({
+      children: children
+    });
+  },
+
   bindEvents() {
     for (prop in this.props) {
       if (this.props.hasOwnProperty(prop) && Events[prop]) {
@@ -59,7 +77,7 @@ var Gmaps = React.createClass({
   },
 
   unbindEvents() {
-    this.events.forEach(function(e) {
+    this.events.forEach((e) => {
       google.maps.event.removeListener(e);
     });
   }
