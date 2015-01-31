@@ -1,0 +1,49 @@
+{
+  "name": "react-gmaps",
+  "version": "1.0.0",
+  "description": "A Google Maps component for React.js",
+  "main": "src/gmaps.js",
+  "scripts": {
+    "build": "browserify ./demo/index.js -o ./demo/build.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MicheleBertoli/react-gmaps"
+  },
+  "keywords": [
+    "React.js",
+    "Google Maps"
+  ],
+  "author": "Michele Bertoli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MicheleBertoli/react-gmaps/issues"
+  },
+  "homepage": "https://github.com/MicheleBertoli/react-gmaps",
+  "devDependencies": {
+    "jest-cli": "^0.2.2"
+  },
+  "dependencies": {
+    "browserify": "^8.1.1",
+    "react": "^0.12.2",
+    "react-tools": "^0.12.2",
+    "reactify": "^1.0.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/preprocessor.js",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react"
+    ]
+  }
+}
