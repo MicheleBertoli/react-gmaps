@@ -2,6 +2,11 @@ var React = require('react'),
   Gmaps = require('../src/gmaps'),
   Marker = require('../src/marker');
 
+var coords = {
+  lat: 51.5258541,
+  lng: -0.08040660000006028 
+}
+
 var App = React.createClass({
 
   render() {
@@ -10,14 +15,14 @@ var App = React.createClass({
         ref='Gmaps'
         width={'100%'}
         height={'100%'}
-        lat={-34.397} 
-        lng={150.644} 
-        zoom={8} 
+        lat={coords.lat} 
+        lng={coords.lng} 
+        zoom={12} 
         onMapCreated={this.onMapCreated}
         onClick={this.onClick}>
         <Marker 
-          lat={-34.397} 
-          lng={150.644} />
+          lat={coords.lat} 
+          lng={coords.lng} />
       </Gmaps>
     );
   },
