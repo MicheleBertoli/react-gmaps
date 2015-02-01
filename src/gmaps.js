@@ -63,6 +63,9 @@ var Gmaps = React.createClass({
 
   createChildren() {
     var children = React.Children.map(this.props.children, (child) => {
+      if (!React.isValidElement(child)) {
+        return child;
+      }
       return cloneWithProps(child, {
         map: this.map
       });
