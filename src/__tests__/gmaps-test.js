@@ -9,6 +9,7 @@ describe('Gmaps', () => {
   var gmaps;
   var width = '100%';
   var height = '100%';
+  var onMapCreated = jest.genMockFunction();
 
   beforeEach(() => {
     delete window.google;
@@ -16,6 +17,7 @@ describe('Gmaps', () => {
       <Gmaps 
         width={width}
         height={height} 
+        onMapCreated={onMapCreated}
         onClick={jest.genMockFunction()} />
     );
     window.google = {
@@ -43,6 +45,10 @@ describe('Gmaps', () => {
 
   it('creates a map', () => {
     expect(gmaps.getMap()).not.toBe(null);
+  });
+
+  it('calls `onMapCreated`', () => {
+    expect(onMapCreated).toBeCalled();
   });
 
   it('binds events', () => {

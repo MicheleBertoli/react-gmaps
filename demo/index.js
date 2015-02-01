@@ -13,13 +13,20 @@ var App = React.createClass({
         lat={-34.397} 
         lng={150.644} 
         zoom={8} 
+        onMapCreated={this.onMapCreated}
         onClick={this.onClick}>
         <Marker 
           lat={-34.397} 
-          lng={150.644} 
-          title={'Hello, React!'} />
+          lng={150.644} />
       </Gmaps>
     );
+  },
+
+  onMapCreated() {
+    console.log('onMapCreated', this.refs.Gmaps.getMap());
+    this.refs.Gmaps.getMap().setOptions({
+      disableDefaultUI: true
+    });
   },
 
   onClick() {

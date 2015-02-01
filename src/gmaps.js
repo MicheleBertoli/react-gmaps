@@ -46,19 +46,21 @@ var Gmaps = React.createClass({
   mapsCallback() {
     delete window.mapsCallback;
     this.createMap();
-    this.createMarkers();
+    this.createChildren();
     this.bindEvents();
   },
 
   createMap() {
-    var mapOptions = {
+    this.map = new google.maps.Map(this.getDOMNode(), {
       center: new google.maps.LatLng(this.props.lat, this.props.lng),
       zoom: this.props.zoom
-    };
-    this.map = new google.maps.Map(this.getDOMNode(), mapOptions);
+    });
+    if (this.props.onMapCreated) {
+      this.props.onMapCreated();
+    }
   },
 
-  createMarkers() {
+  createChildren() {
     var children = React.Children.map(this.props.children, (child) => {
       return cloneWithProps(child, {
         map: this.map
