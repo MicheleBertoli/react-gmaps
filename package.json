@@ -5,6 +5,7 @@
   "main": "src/gmaps.js",
   "scripts": {
     "build": "browserify ./demo/index.js -o ./demo/build.js",
+    "pretest": "jsxhint --harmony ./src",
     "test": "jest"
   },
   "repository": {
@@ -22,7 +23,8 @@
   },
   "homepage": "https://github.com/MicheleBertoli/react-gmaps",
   "devDependencies": {
-    "jest-cli": "^0.2.2"
+    "jest-cli": "^0.2.2",
+    "jsxhint": "^0.9.0"
   },
   "dependencies": {
     "browserify": "^8.1.1",

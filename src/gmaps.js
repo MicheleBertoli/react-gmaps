@@ -64,7 +64,7 @@ var Gmaps = React.createClass({
     var children = React.Children.map(this.props.children, (child) => {
       return cloneWithProps(child, {
         map: this.map
-      })
+      });
     });
     this.setState({
       children: children
@@ -72,7 +72,7 @@ var Gmaps = React.createClass({
   },
 
   bindEvents() {
-    for (prop in this.props) {
+    for (var prop in this.props) {
       if (this.props.hasOwnProperty(prop) && Events[prop]) {
         var e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
         this.events.push(e);

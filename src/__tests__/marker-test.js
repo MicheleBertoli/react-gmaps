@@ -14,7 +14,7 @@ describe('Marker', () => {
         Marker: jest.genMockFunction(),
         LatLng: jest.genMockFunction()
       }
-    }
+    };
     marker = TestUtils.renderIntoDocument(
       <Marker />
     );

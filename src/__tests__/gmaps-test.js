@@ -29,7 +29,7 @@ describe('Gmaps', () => {
           removeListener: jest.genMockFunction()
         }
       }
-    }
+    };
     window.mapsCallback();
   });
 

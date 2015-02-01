@@ -18,6 +18,6 @@ var Events = {
   onTilesLoaded: 'tilesloaded',
   onTiltChanged: 'tilt_changed',
   onZoomChanged: 'zoom_changed'
-}
+};
 
 module.exports = Events;
