@@ -24,4 +24,9 @@ describe('Marker', () => {
     expect(window.google.maps.Marker).toBeCalled();
   });
 
+  it('creates a marker once', () => {
+    marker.render();
+    expect(window.google.maps.Marker.mock.calls.length).toBe(1);
+  });
+
 });

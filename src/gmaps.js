@@ -33,13 +33,18 @@ var Gmaps = React.createClass({
   },
 
   loadMaps() {
-    window.mapsCallback = this.mapsCallback;
-    var script = document.createElement('script');
-    script.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?callback=mapsCallback');
-    document.head.appendChild(script);
+    if (!window.google) {
+      window.mapsCallback = this.mapsCallback;
+      var script = document.createElement('script');
+      script.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?callback=mapsCallback');
+      document.head.appendChild(script);
+    } else {
+      this.mapsCallback();
+    }
   },
   
   mapsCallback() {
+    delete window.mapsCallback;
     this.createMap();
     this.createMarkers();
     this.bindEvents();
@@ -47,10 +52,7 @@ var Gmaps = React.createClass({
 
   createMap() {
     var mapOptions = {
-      center: {
-        lat: this.props.lat,
-        lng: this.props.lng
-      },
+      center: new google.maps.LatLng(this.props.lat, this.props.lng),
       zoom: this.props.zoom
     };
     this.map = new google.maps.Map(this.getDOMNode(), mapOptions);
