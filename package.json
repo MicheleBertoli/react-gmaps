@@ -2,7 +2,7 @@
   "name": "react-gmaps",
   "version": "1.0.0",
   "description": "A Google Maps component for React.js",
-  "main": "src/gmaps.js",
+  "main": "index.js",
   "scripts": {
     "build": "browserify ./demo/index.js -o ./demo/build.js",
     "pretest": "jsxhint --harmony ./src",
@@ -24,13 +24,13 @@
   "homepage": "https://github.com/MicheleBertoli/react-gmaps",
   "devDependencies": {
     "jest-cli": "^0.2.2",
-    "jsxhint": "^0.9.0"
+    "react-tools": "0.12.x",
+    "jsxhint": "^0.9.0",
+    "browserify": "^8.1.1",
+    "reactify": "^1.0.0"
   },
   "dependencies": {
-    "browserify": "^8.1.1",
-    "react": "^0.12.2",
-    "react-tools": "^0.12.2",
-    "reactify": "^1.0.0"
+    "react": "0.12.x"
   },
   "browserify": {
     "transform": [

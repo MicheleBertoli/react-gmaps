@@ -1,6 +1,6 @@
 var React = require('react'),
-  Gmaps = require('../src/gmaps'),
-  Marker = require('../src/marker');
+  ReactGmaps = require('../index');
+var { Gmaps, Marker } = ReactGmaps;
 
 var coords = {
   lat: 51.5258541,
