@@ -35,8 +35,9 @@ var Gmaps = React.createClass({
   loadMaps() {
     if (!window.google) {
       window.mapsCallback = this.mapsCallback;
+      var src = `https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=${this.props.libraries || ''}`;
       var script = document.createElement('script');
-      script.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?callback=mapsCallback');
+      script.setAttribute('src', src);
       document.head.appendChild(script);
     } else {
       this.mapsCallback();
