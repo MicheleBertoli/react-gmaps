@@ -11,8 +11,15 @@ Features
 - Lazy Google Maps loading
 - Easy to use
 
+Installation
+------------
+
+```sh
+$ npm install react-gmaps --save
+```
+
 Usage
-----
+-----
 
 ```javascript
 var React = require('react'),
