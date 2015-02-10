@@ -2,9 +2,9 @@
   "name": "react-gmaps",
   "version": "1.0.0",
   "description": "A Google Maps component for React.js",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "browserify ./demo/index.js -o ./demo/build.js",
+    "build": "jsx --harmony --no-cache-dir ./src ./dist index components/*.js",
     "pretest": "jsxhint --harmony ./src",
     "test": "jest"
   },
@@ -25,22 +25,10 @@
   "devDependencies": {
     "jest-cli": "^0.2.2",
     "react-tools": "0.12.x",
-    "jsxhint": "^0.9.0",
-    "browserify": "^8.1.1",
-    "reactify": "^1.0.0"
+    "jsxhint": "^0.9.0"
   },
   "dependencies": {
     "react": "0.12.x"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "reactify",
-        {
-          "es6": true
-        }
-      ]
-    ]
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/preprocessor.js",

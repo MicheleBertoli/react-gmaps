@@ -11,13 +11,54 @@ Features
 - Lazy Google Maps loading
 - Easy to use
 
-Demo
+Usage
 ----
 
-```sh
-$ npm run build
+```javascript
+var React = require('react'),
+  ReactGmaps = require('react-gmaps');
+var { Gmaps, Marker } = ReactGmaps;
+
+var coords = {
+  lat: 51.5258541,
+  lng: -0.08040660000006028 
+}
+
+var App = React.createClass({
+
+  render() {
+    return (
+      <Gmaps 
+        ref='Gmaps'
+        width={'100%'}
+        height={'100%'}
+        lat={coords.lat} 
+        lng={coords.lng} 
+        zoom={12} 
+        onMapCreated={this.onMapCreated}
+        onClick={this.onClick}>
+        <Marker 
+          lat={coords.lat} 
+          lng={coords.lng} />
+      </Gmaps>
+    );
+  },
+
+  onMapCreated() {
+    console.log('onMapCreated', this.refs.Gmaps.getMap());
+    this.refs.Gmaps.getMap().setOptions({
+      disableDefaultUI: true
+    });
+  },
+
+  onClick() {
+    console.log('onClick');
+  }
+
+});
+
+React.render(<App />, document.getElementById('gmaps'));
 ```
-Open `demo/index.html`
 
 Test
 ----

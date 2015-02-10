@@ -1,41 +1,41 @@
 var React = require('react'),
   cloneWithProps = require('react/lib/cloneWithProps'),
-  Events = require('../src/events');
+  Events = require('./events');
 
-var Gmaps = React.createClass({
+var Gmaps = React.createClass({displayName: "Gmaps",
 
   map: null,
   events: [],
 
-  getMap() {
+  getMap:function() {
     return this.map;
   },
 
-  componentDidMount() {
+  componentDidMount:function() {
     this.loadMaps();
   },
 
-  componentWillUnmount() {
+  componentWillUnmount:function() {
     this.unbindEvents();
   },
   
-  render() {
+  render:function() {
     var style = {
       width: this.props.width,
       height: this.props.height
     };
     return (
-      <div style={style}>
-        Loading...
-        {this.state ? this.state.children : null}
-      </div>
+      React.createElement("div", {style: style}, 
+        "Loading...", 
+        this.state ? this.state.children : null
+      )
     );
   },
 
-  loadMaps() {
+  loadMaps:function() {
     if (!window.google) {
       window.mapsCallback = this.mapsCallback;
-      var src = `https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=${this.props.libraries || ''}`;
+      var src = ("https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=" + (this.props.libraries || ''));
       var script = document.createElement('script');
       script.setAttribute('src', src);
       document.head.appendChild(script);
@@ -44,14 +44,14 @@ var Gmaps = React.createClass({
     }
   },
   
-  mapsCallback() {
+  mapsCallback:function() {
     delete window.mapsCallback;
     this.createMap();
     this.createChildren();
     this.bindEvents();
   },
 
-  createMap() {
+  createMap:function() {
     this.map = new google.maps.Map(this.getDOMNode(), {
       center: new google.maps.LatLng(this.props.lat, this.props.lng),
       zoom: this.props.zoom
@@ -61,21 +61,21 @@ var Gmaps = React.createClass({
     }
   },
 
-  createChildren() {
-    var children = React.Children.map(this.props.children, (child) => {
+  createChildren:function() {
+    var children = React.Children.map(this.props.children, function(child)  {
       if (!React.isValidElement(child)) {
         return child;
       }
       return cloneWithProps(child, {
         map: this.map
       });
-    });
+    }.bind(this));
     this.setState({
       children: children
     });
   },
 
-  bindEvents() {
+  bindEvents:function() {
     for (var prop in this.props) {
       if (this.props.hasOwnProperty(prop) && Events[prop]) {
         var e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
@@ -84,8 +84,8 @@ var Gmaps = React.createClass({
     }
   },
 
-  unbindEvents() {
-    this.events.forEach((e) => {
+  unbindEvents:function() {
+    this.events.forEach(function(e)  {
       google.maps.event.removeListener(e);
     });
   }
