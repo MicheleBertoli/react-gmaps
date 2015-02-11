@@ -6,7 +6,10 @@
   "scripts": {
     "build": "jsx --harmony --no-cache-dir ./src ./dist index components/*.js",
     "pretest": "jsxhint --harmony ./src",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "npm run demo",
+    "demo": "browserify ./demo/index.js -o ./demo/build.js",
+    "start": "node server"
   },
   "repository": {
     "type": "git",
@@ -24,11 +27,24 @@
   "homepage": "https://github.com/MicheleBertoli/react-gmaps",
   "devDependencies": {
     "jest-cli": "^0.2.2",
-    "react-tools": "0.12.x",
-    "jsxhint": "^0.9.0"
+    "jsxhint": "^0.9.0",
+    "react-tools": "0.12.x"
   },
   "dependencies": {
-    "react": "0.12.x"
+    "express": "^4.11.2",
+    "react": "0.12.x",
+    "browserify": "^8.1.3",
+    "reactify": "^1.0.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/preprocessor.js",
