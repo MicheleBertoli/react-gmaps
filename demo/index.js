@@ -1,42 +1,60 @@
 var React = require('react'),
-  ReactGmaps = require('../dist');
+  ReactGmaps = require('../dist'),
+  Events = require('../dist/components/events');
 var { Gmaps, Marker } = ReactGmaps;
 
-var coords = {
-  lat: 51.5258541,
-  lng: -0.08040660000006028 
-}
+var styles = {
+  item: {
+    backgroundColor: 'white',
+    transition: 'background-color 0.2s linear'
+  },
+  cols: {
+    float: 'left'
+  }
+};
 
 var App = React.createClass({
 
   render() {
+
+    var events = [];
+    var handlers = {};
+    for (var _event in Events) {
+      if (Events.hasOwnProperty(_event)) {
+        events.push(
+          <li ref={Events[_event]} style={styles.item}>
+            {Events[_event]}
+          </li>
+        );
+        handlers[_event] = this.handler.bind(this, Events[_event]);
+      }
+    }
+
     return (
-      <Gmaps 
-        ref='Gmaps'
-        width={'100%'}
-        height={'100%'}
-        lat={coords.lat} 
-        lng={coords.lng} 
-        zoom={12} 
-        onMapCreated={this.onMapCreated}
-        onClick={this.onClick}>
-        <Marker 
-          lat={coords.lat} 
-          lng={coords.lng} />
-      </Gmaps>
+      <div>
+        <Gmaps 
+          width={'50%'}
+          height={'500px'}
+          style={styles.cols}
+          lat={51.5258541} 
+          lng={-0.08040660000006028} 
+          zoom={12} 
+          {...handlers} />
+        <ul style={styles.cols}>
+          {events}
+        </ul>
+      </div>
     );
+
   },
 
-  onMapCreated() {
-    console.log('onMapCreated', this.refs.Gmaps.getMap());
-    this.refs.Gmaps.getMap().setOptions({
-      disableDefaultUI: true
-    });
+  handler(_event) {
+    var item = this.refs[_event].getDOMNode();
+    item.style.backgroundColor = '#99ccff';
+    setTimeout(function() {
+      item.style.backgroundColor = styles.item.backgroundColor;
+    }, 500);
   },
-
-  onClick() {
-    console.log('onClick');
-  }
 
 });
 

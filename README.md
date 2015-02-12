@@ -18,6 +18,11 @@ Installation
 $ npm install react-gmaps --save
 ```
 
+Demo
+------------
+
+[http://react-gmaps.herokuapp.com/](http://react-gmaps.herokuapp.com/)
+
 Usage
 -----
 
