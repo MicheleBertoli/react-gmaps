@@ -1,5 +1,6 @@
 var React = require('react'),
   cloneWithProps = require('react/lib/cloneWithProps'),
+  assign = require('react/lib/Object.assign'),
   Events = require('./events');
 
 var Gmaps = React.createClass({
@@ -20,10 +21,10 @@ var Gmaps = React.createClass({
   },
   
   render() {
-    var style = {
+    var style = assign({
       width: this.props.width,
       height: this.props.height
-    };
+    }, this.props.style);
     return (
       <div style={style}>
         Loading...

@@ -9,6 +9,9 @@ describe('Gmaps', () => {
   var gmaps;
   var width = '100%';
   var height = '100%';
+  var style = {
+    backgroundColor: 'black'
+  };
   var onMapCreated = jest.genMockFunction();
 
   beforeEach(() => {
@@ -17,6 +20,7 @@ describe('Gmaps', () => {
       <Gmaps 
         width={width}
         height={height} 
+        style={style}
         onMapCreated={onMapCreated}
         onClick={jest.genMockFunction()} />
     );
@@ -36,6 +40,7 @@ describe('Gmaps', () => {
   it('applies the style', () => {
     expect(gmaps.getDOMNode().style.width).toBe(width);
     expect(gmaps.getDOMNode().style.height).toBe(height);
+    expect(gmaps.getDOMNode().style.backgroundColor).toBe(style.backgroundColor);
   });
 
   it('loads maps once', () => {
