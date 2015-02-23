@@ -1,6 +1,6 @@
 {
   "name": "react-gmaps",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
@@ -17,7 +17,8 @@
   },
   "keywords": [
     "React.js",
-    "Google Maps"
+    "Google Maps",
+    "react-component"
   ],
   "author": "Michele Bertoli",
   "license": "MIT",
