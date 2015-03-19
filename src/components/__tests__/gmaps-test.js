@@ -12,6 +12,7 @@ describe('Gmaps', () => {
   var style = {
     backgroundColor: 'black'
   };
+  var className = 'className';
   var onMapCreated = jest.genMockFunction();
 
   beforeEach(() => {
@@ -21,6 +22,7 @@ describe('Gmaps', () => {
         width={width}
         height={height} 
         style={style}
+        className={className}
         onMapCreated={onMapCreated}
         onClick={jest.genMockFunction()} />
     );
@@ -41,6 +43,10 @@ describe('Gmaps', () => {
     expect(gmaps.getDOMNode().style.width).toBe(width);
     expect(gmaps.getDOMNode().style.height).toBe(height);
     expect(gmaps.getDOMNode().style.backgroundColor).toBe(style.backgroundColor);
+  });
+
+  it('applies the class name', () => {
+    expect(gmaps.getDOMNode().className).toBe(className);
   });
 
   it('loads maps once', () => {
