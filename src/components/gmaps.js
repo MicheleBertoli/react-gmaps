@@ -26,7 +26,7 @@ var Gmaps = React.createClass({
       height: this.props.height
     }, this.props.style);
     return (
-      <div style={style}>
+      <div style={style} className={this.props.className}>
         Loading...
         {this.state ? this.state.children : null}
       </div>
