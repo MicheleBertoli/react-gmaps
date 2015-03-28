@@ -8,7 +8,7 @@ describe("Marker", function () {
   var TestUtils = React.addons.TestUtils;
   var Marker = require("../marker");
 
-  var marker;
+  var marker = undefined;
 
   beforeEach(function () {
     window.google = {

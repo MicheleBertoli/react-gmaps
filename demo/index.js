@@ -1,9 +1,8 @@
-var React = require('react'),
-  ReactGmaps = require('../dist'),
-  Events = require('../dist/components/events');
-var { Gmaps, Marker } = ReactGmaps;
+import React from 'react';
+import {Gmaps, Marker} from '../dist';
+import Events from '../dist/components/events';
 
-var styles = {
+let styles = {
   item: {
     backgroundColor: 'white',
     transition: 'background-color 0.2s linear'
@@ -13,16 +12,16 @@ var styles = {
   }
 };
 
-var App = React.createClass({
+let App = React.createClass({
 
   render() {
 
-    var events = [];
-    var handlers = {};
-    for (var _event in Events) {
+    let events = [];
+    let handlers = {};
+    for (let _event in Events) {
       if (Events.hasOwnProperty(_event)) {
         events.push(
-          <li ref={Events[_event]} style={styles.item}>
+          <li key={Events[_event]} ref={Events[_event]} style={styles.item}>
             {Events[_event]}
           </li>
         );
@@ -49,7 +48,7 @@ var App = React.createClass({
   },
 
   handler(_event) {
-    var item = this.refs[_event].getDOMNode();
+    let item = this.refs[_event].getDOMNode();
     item.style.backgroundColor = '#99ccff';
     setTimeout(function() {
       item.style.backgroundColor = styles.item.backgroundColor;

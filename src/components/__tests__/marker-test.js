@@ -2,11 +2,11 @@ jest.dontMock('../marker');
 
 describe('Marker', () => {
 
-  var React = require('react/addons');
-  var TestUtils = React.addons.TestUtils;
-  var Marker = require('../marker');
+  let React = require('react/addons');
+  let TestUtils = React.addons.TestUtils;
+  let Marker = require('../marker');
 
-  var marker;
+  let marker;
 
   beforeEach(() => {
     window.google = {

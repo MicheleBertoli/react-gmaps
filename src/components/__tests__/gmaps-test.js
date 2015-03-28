@@ -2,18 +2,18 @@ jest.dontMock('../gmaps');
 
 describe('Gmaps', () => {
 
-  var React = require('react/addons');
-  var TestUtils = React.addons.TestUtils;
-  var Gmaps = require('../gmaps');
+  let React = require('react/addons');
+  let TestUtils = React.addons.TestUtils;
+  let Gmaps = require('../gmaps');
 
-  var gmaps;
-  var width = '100%';
-  var height = '100%';
-  var style = {
+  let gmaps;
+  let width = '100%';
+  let height = '100%';
+  let style = {
     backgroundColor: 'black'
   };
-  var className = 'className';
-  var onMapCreated = jest.genMockFunction();
+  let className = 'className';
+  let onMapCreated = jest.genMockFunction();
 
   beforeEach(() => {
     delete window.google;

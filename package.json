@@ -1,13 +1,12 @@
 {
   "name": "react-gmaps",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel ./src --out-dir ./dist",
-    "pretest": "jsxhint --harmony ./src",
+    "pretest": "jsxhint --babel ./src",
     "test": "jest",
-    "postinstall": "npm run demo",
     "demo": "browserify ./demo/index.js -o ./demo/build.js",
     "start": "node server"
   },
@@ -28,27 +27,26 @@
   "homepage": "https://github.com/MicheleBertoli/react-gmaps",
   "devDependencies": {
     "babel": "^4.7.16",
+    "babel-jest": "^4.0.0",
+    "babelify": "^5.0.4",
     "jest-cli": "^0.2.2",
-    "jsxhint": "^0.9.0"
+    "jsxhint": "^0.13.3"
   },
   "dependencies": {
     "browserify": "^8.1.3",
     "express": "^4.11.2",
-    "react": "^0.13.1",
-    "reactify": "^1.0.0"
+    "react": "^0.13.1"
   },
   "browserify": {
     "transform": [
       [
-        "reactify",
-        {
-          "es6": true
-        }
+        "babelify"
       ]
     ]
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/preprocessor.js",
+    "testPathDirs": ["./src"],
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react"
     ]

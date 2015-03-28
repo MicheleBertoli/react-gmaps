@@ -1,6 +1,8 @@
 language: node_js
 node_js:
 - 0.10.33
+before_deploy:
+- npm run demo
 deploy:
   provider: heroku
   api_key:

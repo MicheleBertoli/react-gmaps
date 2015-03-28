@@ -8,7 +8,7 @@ describe("Gmaps", function () {
   var TestUtils = React.addons.TestUtils;
   var Gmaps = require("../gmaps");
 
-  var gmaps;
+  var gmaps = undefined;
   var width = "100%";
   var height = "100%";
   var style = {
