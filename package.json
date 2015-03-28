@@ -4,7 +4,7 @@
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
-    "build": "jsx --harmony --no-cache-dir ./src ./dist index components/*.js",
+    "build": "babel ./src --out-dir ./dist",
     "pretest": "jsxhint --harmony ./src",
     "test": "jest",
     "postinstall": "npm run demo",
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/MicheleBertoli/react-gmaps",
   "devDependencies": {
+    "babel": "^4.7.16",
     "jest-cli": "^0.2.2",
     "jsxhint": "^0.9.0",
     "react-tools": "0.12.x"

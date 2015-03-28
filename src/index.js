@@ -1,2 +1,4 @@
-module.exports.Gmaps = require('./components/gmaps');
-module.exports.Marker = require('./components/marker');
+import Gmaps from './components/gmaps';
+import Marker from './components/marker';
+
+export {Gmaps, Marker};

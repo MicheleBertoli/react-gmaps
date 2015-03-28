@@ -1,4 +1,4 @@
-var Events = {
+let Events = {
   onBoundsChanged: 'bounds_changed',
   onCenterChanged: 'center_changed',
   onClick: 'click',
@@ -20,4 +20,4 @@ var Events = {
   onZoomChanged: 'zoom_changed'
 };
 
-module.exports = Events;
+export default Events;

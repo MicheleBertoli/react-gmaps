@@ -1,8 +1,13 @@
-var React = require('react');
+"use strict";
 
-var Marker = React.createClass({displayName: "Marker",
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-  componentDidMount:function() {
+var React = _interopRequire(require("react"));
+
+var Marker = React.createClass({
+  displayName: "Marker",
+
+  componentDidMount: function componentDidMount() {
     var marker = new google.maps.Marker({
       map: this.props.map,
       position: new google.maps.LatLng(this.props.lat, this.props.lng),
@@ -10,7 +15,7 @@ var Marker = React.createClass({displayName: "Marker",
     });
   },
 
-  render:function() {
+  render: function render() {
     return null;
   }
 

@@ -1,9 +1,9 @@
-var React = require('react'),
-  cloneWithProps = require('react/lib/cloneWithProps'),
-  assign = require('react/lib/Object.assign'),
-  Events = require('./events');
+import React from 'react';
+import cloneWithProps from 'react/lib/cloneWithProps';
+import assign from 'react/lib/Object.assign';
+import Events from './events';
 
-var Gmaps = React.createClass({
+let Gmaps = React.createClass({
 
   map: null,
   events: [],
@@ -21,7 +21,7 @@ var Gmaps = React.createClass({
   },
   
   render() {
-    var style = assign({
+    let style = assign({
       width: this.props.width,
       height: this.props.height
     }, this.props.style);
@@ -36,8 +36,8 @@ var Gmaps = React.createClass({
   loadMaps() {
     if (!window.google) {
       window.mapsCallback = this.mapsCallback;
-      var src = `https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=${this.props.libraries || ''}`;
-      var script = document.createElement('script');
+      let src = `https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=${this.props.libraries || ''}`;
+      let script = document.createElement('script');
       script.setAttribute('src', src);
       document.head.appendChild(script);
     } else {
@@ -63,7 +63,7 @@ var Gmaps = React.createClass({
   },
 
   createChildren() {
-    var children = React.Children.map(this.props.children, (child) => {
+    let children = React.Children.map(this.props.children, (child) => {
       if (!React.isValidElement(child)) {
         return child;
       }
@@ -77,9 +77,9 @@ var Gmaps = React.createClass({
   },
 
   bindEvents() {
-    for (var prop in this.props) {
+    for (let prop in this.props) {
       if (this.props.hasOwnProperty(prop) && Events[prop]) {
-        var e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
+        let e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
         this.events.push(e);
       }
     }
@@ -93,4 +93,4 @@ var Gmaps = React.createClass({
 
 });
 
-module.exports = Gmaps;
+export default Gmaps;

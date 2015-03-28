@@ -1,9 +1,9 @@
-var React = require('react');
+import React from 'react';
 
-var Marker = React.createClass({
+let Marker = React.createClass({
 
   componentDidMount() {
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       map: this.props.map,
       position: new google.maps.LatLng(this.props.lat, this.props.lng),
       icon: this.props.icon
@@ -16,4 +16,4 @@ var Marker = React.createClass({
 
 });
 
-module.exports = Marker;
+export default Marker;
