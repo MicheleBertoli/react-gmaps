@@ -51,7 +51,8 @@ var App = React.createClass({
         onClick={this.onClick}>
         <Marker 
           lat={coords.lat} 
-          lng={coords.lng} />
+          lng={coords.lng}
+          draggable={true} />
       </Gmaps>
     );
   },
