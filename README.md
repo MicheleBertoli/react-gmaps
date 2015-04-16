@@ -51,7 +51,9 @@ var App = React.createClass({
         onClick={this.onClick}>
         <Marker 
           lat={coords.lat} 
-          lng={coords.lng} />
+          lng={coords.lng}
+          draggable={true}
+          onDragEnd={this.onDragEnd} />
       </Gmaps>
     );
   },
@@ -61,6 +63,10 @@ var App = React.createClass({
     this.refs.Gmaps.getMap().setOptions({
       disableDefaultUI: true
     });
+  },
+
+  onDragEnd(event) {
+    console.log('onDragEnd', event);
   },
 
   onClick() {
