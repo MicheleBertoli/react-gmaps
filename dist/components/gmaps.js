@@ -26,7 +26,7 @@ var Gmaps = React.createClass({displayName: "Gmaps",
       height: this.props.height
     }, this.props.style);
     return (
-      React.createElement("div", {style: style}, 
+      React.createElement("div", {style: style, className: this.props.className}, 
         "Loading...", 
         this.state ? this.state.children : null
       )
