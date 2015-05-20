@@ -1,3 +1,4 @@
+jest.dontMock('../listener');
 jest.dontMock('../marker');
 
 describe('Marker', () => {
@@ -12,11 +13,15 @@ describe('Marker', () => {
     window.google = {
       maps: {
         Marker: jest.genMockFunction(),
-        LatLng: jest.genMockFunction()
+        LatLng: jest.genMockFunction(),
+        event: {
+          addListener: jest.genMockFunction(),
+          removeListener: jest.genMockFunction()
+        }
       }
     };
     marker = TestUtils.renderIntoDocument(
-      <Marker />
+      <Marker onClick={jest.genMockFunction()} />
     );
   });
 
@@ -27,6 +32,15 @@ describe('Marker', () => {
   it('creates a marker once', () => {
     marker.render();
     expect(window.google.maps.Marker.mock.calls.length).toBe(1);
+  });
+
+  it('binds events', () => {
+    expect(window.google.maps.event.addListener).toBeCalled();
+  });
+
+  it('unbinds events', () => {
+    marker.componentWillUnmount();
+    expect(window.google.maps.event.removeListener).toBeCalled();
   });
 
 });
