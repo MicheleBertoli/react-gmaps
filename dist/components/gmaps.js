@@ -10,11 +10,14 @@ var assign = _interopRequire(require("react/lib/Object.assign"));
 
 var MapEvents = require("./events").MapEvents;
 
+var Listener = _interopRequire(require("./listener"));
+
 var Gmaps = React.createClass({
   displayName: "Gmaps",
 
+  mixins: [Listener],
+
   map: null,
-  events: [],
 
   getMap: function getMap() {
     return this.map;
@@ -25,7 +28,7 @@ var Gmaps = React.createClass({
   },
 
   componentWillUnmount: function componentWillUnmount() {
-    this.unbindEvents();
+    this.removeListeners();
   },
 
   render: function render() {
@@ -57,7 +60,7 @@ var Gmaps = React.createClass({
     delete window.mapsCallback;
     this.createMap();
     this.createChildren();
-    this.bindEvents();
+    this.addListeners(this.map, MapEvents);
   },
 
   createMap: function createMap() {
@@ -83,21 +86,6 @@ var Gmaps = React.createClass({
     });
     this.setState({
       children: children
-    });
-  },
-
-  bindEvents: function bindEvents() {
-    for (var prop in this.props) {
-      if (this.props.hasOwnProperty(prop) && MapEvents[prop]) {
-        var e = google.maps.event.addListener(this.map, MapEvents[prop], this.props[prop]);
-        this.events.push(e);
-      }
-    }
-  },
-
-  unbindEvents: function unbindEvents() {
-    this.events.forEach(function (e) {
-      google.maps.event.removeListener(e);
     });
   }
 

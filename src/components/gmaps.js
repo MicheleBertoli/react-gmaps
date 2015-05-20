@@ -2,11 +2,13 @@ import React from 'react';
 import cloneWithProps from 'react/lib/cloneWithProps';
 import assign from 'react/lib/Object.assign';
 import {MapEvents} from './events';
+import Listener from './listener';
 
 let Gmaps = React.createClass({
 
+  mixins: [Listener],
+
   map: null,
-  events: [],
 
   getMap() {
     return this.map;
@@ -17,7 +19,7 @@ let Gmaps = React.createClass({
   },
 
   componentWillUnmount() {
-    this.unbindEvents();
+    this.removeListeners();
   },
   
   render() {
@@ -49,7 +51,7 @@ let Gmaps = React.createClass({
     delete window.mapsCallback;
     this.createMap();
     this.createChildren();
-    this.bindEvents();
+    this.addListeners(this.map, MapEvents);
   },
 
   createMap() {
@@ -73,21 +75,6 @@ let Gmaps = React.createClass({
     });
     this.setState({
       children: children
-    });
-  },
-
-  bindEvents() {
-    for (let prop in this.props) {
-      if (this.props.hasOwnProperty(prop) && MapEvents[prop]) {
-        let e = google.maps.event.addListener(this.map, MapEvents[prop], this.props[prop]);
-        this.events.push(e);
-      }
-    }
-  },
-
-  unbindEvents() {
-    this.events.forEach((e) => {
-      google.maps.event.removeListener(e);
     });
   }
 
