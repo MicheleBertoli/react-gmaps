@@ -1,7 +1,7 @@
 import React from 'react';
 import cloneWithProps from 'react/lib/cloneWithProps';
 import assign from 'react/lib/Object.assign';
-import Events from './events';
+import {MapEvents} from './events';
 
 let Gmaps = React.createClass({
 
@@ -78,8 +78,8 @@ let Gmaps = React.createClass({
 
   bindEvents() {
     for (let prop in this.props) {
-      if (this.props.hasOwnProperty(prop) && Events[prop]) {
-        let e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
+      if (this.props.hasOwnProperty(prop) && MapEvents[prop]) {
+        let e = google.maps.event.addListener(this.map, MapEvents[prop], this.props[prop]);
         this.events.push(e);
       }
     }

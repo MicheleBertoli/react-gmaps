@@ -1,6 +1,9 @@
 "use strict";
 
-var Events = {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var MapEvents = {
   onBoundsChanged: "bounds_changed",
   onCenterChanged: "center_changed",
   onClick: "click",
@@ -22,4 +25,29 @@ var Events = {
   onZoomChanged: "zoom_changed"
 };
 
-module.exports = Events;
+var MarkerEvents = {
+  onAnimationChanged: "animation_changed",
+  onClick: "click",
+  onClickableChanged: "clickable_changed",
+  onCursorChanged: "cursor_changed",
+  onDblClick: "dblclick",
+  onDrag: "drag",
+  onDragEnd: "dragend",
+  onDraggableChanged: "draggable_changed",
+  onDragStart: "dragstart",
+  onFlatChanged: "flat_changed",
+  onIconChanged: "icon_changed",
+  onMouseDown: "mousedown",
+  onMouseOut: "mouseout",
+  onMouseOver: "mouseover",
+  onMouseUp: "mouseup",
+  onPositionChanged: "position_changed",
+  onRightClick: "rightclick",
+  onShapeChanged: "shape_changed",
+  onTitleChanged: "title_changed",
+  onVisibleChanged: "visible_changed",
+  onZindexChanged: "zindex_changed"
+};
+
+exports.MapEvents = MapEvents;
+exports.MarkerEvents = MarkerEvents;

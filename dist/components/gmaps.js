@@ -8,7 +8,7 @@ var cloneWithProps = _interopRequire(require("react/lib/cloneWithProps"));
 
 var assign = _interopRequire(require("react/lib/Object.assign"));
 
-var Events = _interopRequire(require("./events"));
+var MapEvents = require("./events").MapEvents;
 
 var Gmaps = React.createClass({
   displayName: "Gmaps",
@@ -88,8 +88,8 @@ var Gmaps = React.createClass({
 
   bindEvents: function bindEvents() {
     for (var prop in this.props) {
-      if (this.props.hasOwnProperty(prop) && Events[prop]) {
-        var e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
+      if (this.props.hasOwnProperty(prop) && MapEvents[prop]) {
+        var e = google.maps.event.addListener(this.map, MapEvents[prop], this.props[prop]);
         this.events.push(e);
       }
     }

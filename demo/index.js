@@ -1,6 +1,6 @@
 import React from 'react';
 import {Gmaps, Marker} from '../dist';
-import Events from '../dist/components/events';
+import {MapEvents} from '../dist/components/events';
 
 let styles = {
   item: {
@@ -18,14 +18,14 @@ let App = React.createClass({
 
     let events = [];
     let handlers = {};
-    for (let _event in Events) {
-      if (Events.hasOwnProperty(_event)) {
+    for (let _event in MapEvents) {
+      if (MapEvents.hasOwnProperty(_event)) {
         events.push(
-          <li key={Events[_event]} ref={Events[_event]} style={styles.item}>
-            {Events[_event]}
+          <li key={MapEvents[_event]} ref={MapEvents[_event]} style={styles.item}>
+            {MapEvents[_event]}
           </li>
         );
-        handlers[_event] = this.handler.bind(this, Events[_event]);
+        handlers[_event] = this.handler.bind(this, MapEvents[_event]);
       }
     }
 
