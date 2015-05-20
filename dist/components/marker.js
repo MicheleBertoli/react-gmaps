@@ -17,7 +17,8 @@ var Marker = React.createClass({
     var marker = new google.maps.Marker({
       map: this.props.map,
       position: new google.maps.LatLng(this.props.lat, this.props.lng),
-      icon: this.props.icon
+      icon: this.props.icon,
+      draggable: this.props.draggable
     });
     this.addListeners(marker, MarkerEvents);
   },
