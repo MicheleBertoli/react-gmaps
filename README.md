@@ -27,34 +27,15 @@ Usage
 -----
 
 ```javascript
-var React = require('react'),
-  ReactGmaps = require('react-gmaps');
-var { Gmaps, Marker } = ReactGmaps;
+import React from 'react';
+import {Gmaps, Marker} from 'react-gmaps';
 
-var coords = {
+const coords = {
   lat: 51.5258541,
   lng: -0.08040660000006028 
 }
 
-var App = React.createClass({
-
-  render() {
-    return (
-      <Gmaps 
-        ref='Gmaps'
-        width={'100%'}
-        height={'100%'}
-        lat={coords.lat} 
-        lng={coords.lng} 
-        zoom={12} 
-        onMapCreated={this.onMapCreated}
-        onClick={this.onClick}>
-        <Marker 
-          lat={coords.lat} 
-          lng={coords.lng} />
-      </Gmaps>
-    );
-  },
+const App = React.createClass({
 
   onMapCreated() {
     console.log('onMapCreated', this.refs.Gmaps.getMap());
@@ -63,8 +44,32 @@ var App = React.createClass({
     });
   },
 
-  onClick() {
-    console.log('onClick');
+  onClick(e) {
+    console.log('onClick', e);
+  },
+
+  onDragEnd(e) {
+    console.log('onDragEnd', e);
+  },
+
+  render() {
+    return (
+      <Gmaps 
+        ref='Gmaps'
+        width={'800px'}
+        height={'600px'}
+        lat={coords.lat} 
+        lng={coords.lng} 
+        zoom={12} 
+        onMapCreated={this.onMapCreated}
+        onClick={this.onClick}>
+        <Marker 
+          lat={coords.lat} 
+          lng={coords.lng}
+          draggable={true}
+          onDragEnd={this.onDragEnd} />
+      </Gmaps>
+    );
   }
 
 });
