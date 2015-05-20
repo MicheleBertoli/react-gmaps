@@ -10,10 +10,6 @@ let Gmaps = React.createClass({
 
   map: null,
 
-  getMap() {
-    return this.map;
-  },
-
   componentDidMount() {
     this.loadMaps();
   },
@@ -21,18 +17,9 @@ let Gmaps = React.createClass({
   componentWillUnmount() {
     this.removeListeners();
   },
-  
-  render() {
-    let style = assign({
-      width: this.props.width,
-      height: this.props.height
-    }, this.props.style);
-    return (
-      <div style={style} className={this.props.className}>
-        Loading...
-        {this.state ? this.state.children : null}
-      </div>
-    );
+
+  getMap() {
+    return this.map;
   },
 
   loadMaps() {
@@ -76,7 +63,20 @@ let Gmaps = React.createClass({
     this.setState({
       children: children
     });
-  }
+  },
+
+  render() {
+    let style = assign({
+      width: this.props.width,
+      height: this.props.height
+    }, this.props.style);
+    return (
+      <div style={style} className={this.props.className}>
+        Loading...
+        {this.state ? this.state.children : null}
+      </div>
+    );
+  },
 
 });
 

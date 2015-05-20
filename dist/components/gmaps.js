@@ -19,10 +19,6 @@ var Gmaps = React.createClass({
 
   map: null,
 
-  getMap: function getMap() {
-    return this.map;
-  },
-
   componentDidMount: function componentDidMount() {
     this.loadMaps();
   },
@@ -31,17 +27,8 @@ var Gmaps = React.createClass({
     this.removeListeners();
   },
 
-  render: function render() {
-    var style = assign({
-      width: this.props.width,
-      height: this.props.height
-    }, this.props.style);
-    return React.createElement(
-      "div",
-      { style: style, className: this.props.className },
-      "Loading...",
-      this.state ? this.state.children : null
-    );
+  getMap: function getMap() {
+    return this.map;
   },
 
   loadMaps: function loadMaps() {
@@ -87,8 +74,19 @@ var Gmaps = React.createClass({
     this.setState({
       children: children
     });
-  }
+  },
 
-});
+  render: function render() {
+    var style = assign({
+      width: this.props.width,
+      height: this.props.height
+    }, this.props.style);
+    return React.createElement(
+      "div",
+      { style: style, className: this.props.className },
+      "Loading...",
+      this.state ? this.state.children : null
+    );
+  } });
 
 module.exports = Gmaps;
