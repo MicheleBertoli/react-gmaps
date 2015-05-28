@@ -1,36 +1,25 @@
 import React from 'react';
 import cloneWithProps from 'react/lib/cloneWithProps';
 import assign from 'react/lib/Object.assign';
-import Events from './events';
+import {MapEvents} from './events';
+import Listener from './listener';
 
 let Gmaps = React.createClass({
 
-  map: null,
-  events: [],
+  mixins: [Listener],
 
-  getMap() {
-    return this.map;
-  },
+  map: null,
 
   componentDidMount() {
     this.loadMaps();
   },
 
   componentWillUnmount() {
-    this.unbindEvents();
+    this.removeListeners();
   },
-  
-  render() {
-    let style = assign({
-      width: this.props.width,
-      height: this.props.height
-    }, this.props.style);
-    return (
-      <div style={style} className={this.props.className}>
-        Loading...
-        {this.state ? this.state.children : null}
-      </div>
-    );
+
+  getMap() {
+    return this.map;
   },
 
   loadMaps() {
@@ -49,7 +38,7 @@ let Gmaps = React.createClass({
     delete window.mapsCallback;
     this.createMap();
     this.createChildren();
-    this.bindEvents();
+    this.addListeners(this.map, MapEvents);
   },
 
   createMap() {
@@ -76,20 +65,18 @@ let Gmaps = React.createClass({
     });
   },
 
-  bindEvents() {
-    for (let prop in this.props) {
-      if (this.props.hasOwnProperty(prop) && Events[prop]) {
-        let e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
-        this.events.push(e);
-      }
-    }
+  render() {
+    let style = assign({
+      width: this.props.width,
+      height: this.props.height
+    }, this.props.style);
+    return (
+      <div style={style} className={this.props.className}>
+        Loading...
+        {this.state ? this.state.children : null}
+      </div>
+    );
   },
-
-  unbindEvents() {
-    this.events.forEach((e) => {
-      google.maps.event.removeListener(e);
-    });
-  }
 
 });
 

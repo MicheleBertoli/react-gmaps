@@ -8,37 +8,27 @@ var cloneWithProps = _interopRequire(require("react/lib/cloneWithProps"));
 
 var assign = _interopRequire(require("react/lib/Object.assign"));
 
-var Events = _interopRequire(require("./events"));
+var MapEvents = require("./events").MapEvents;
+
+var Listener = _interopRequire(require("./listener"));
 
 var Gmaps = React.createClass({
   displayName: "Gmaps",
 
-  map: null,
-  events: [],
+  mixins: [Listener],
 
-  getMap: function getMap() {
-    return this.map;
-  },
+  map: null,
 
   componentDidMount: function componentDidMount() {
     this.loadMaps();
   },
 
   componentWillUnmount: function componentWillUnmount() {
-    this.unbindEvents();
+    this.removeListeners();
   },
 
-  render: function render() {
-    var style = assign({
-      width: this.props.width,
-      height: this.props.height
-    }, this.props.style);
-    return React.createElement(
-      "div",
-      { style: style, className: this.props.className },
-      "Loading...",
-      this.state ? this.state.children : null
-    );
+  getMap: function getMap() {
+    return this.map;
   },
 
   loadMaps: function loadMaps() {
@@ -57,7 +47,7 @@ var Gmaps = React.createClass({
     delete window.mapsCallback;
     this.createMap();
     this.createChildren();
-    this.bindEvents();
+    this.addListeners(this.map, MapEvents);
   },
 
   createMap: function createMap() {
@@ -86,21 +76,17 @@ var Gmaps = React.createClass({
     });
   },
 
-  bindEvents: function bindEvents() {
-    for (var prop in this.props) {
-      if (this.props.hasOwnProperty(prop) && Events[prop]) {
-        var e = google.maps.event.addListener(this.map, Events[prop], this.props[prop]);
-        this.events.push(e);
-      }
-    }
-  },
-
-  unbindEvents: function unbindEvents() {
-    this.events.forEach(function (e) {
-      google.maps.event.removeListener(e);
-    });
-  }
-
-});
+  render: function render() {
+    var style = assign({
+      width: this.props.width,
+      height: this.props.height
+    }, this.props.style);
+    return React.createElement(
+      "div",
+      { style: style, className: this.props.className },
+      "Loading...",
+      this.state ? this.state.children : null
+    );
+  } });
 
 module.exports = Gmaps;

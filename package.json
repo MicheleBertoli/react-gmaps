@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel ./src --out-dir ./dist",
-    "pretest": "jsxhint --babel ./src",
+    "pretest": "jsxhint --babel ./src/**/*",
     "test": "jest",
     "demo": "browserify ./demo/index.js -o ./demo/build.js",
     "start": "node server"

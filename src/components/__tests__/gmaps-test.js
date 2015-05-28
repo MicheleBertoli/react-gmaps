@@ -1,3 +1,4 @@
+jest.dontMock('../listener');
 jest.dontMock('../gmaps');
 
 describe('Gmaps', () => {
