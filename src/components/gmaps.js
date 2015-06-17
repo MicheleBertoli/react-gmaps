@@ -1,8 +1,9 @@
 import React from 'react';
 import cloneWithProps from 'react/lib/cloneWithProps';
 import assign from 'react/lib/Object.assign';
-import {MapEvents} from './events';
+import {MapEvents, MarkerEvents} from './events';
 import Listener from './listener';
+import Marker from './marker';
 
 let Gmaps = React.createClass({
 
@@ -33,7 +34,7 @@ let Gmaps = React.createClass({
       this.mapsCallback();
     }
   },
-  
+
   mapsCallback() {
     delete window.mapsCallback;
     this.createMap();
@@ -70,11 +71,18 @@ let Gmaps = React.createClass({
       width: this.props.width,
       height: this.props.height
     }, this.props.style);
+    let markers = this.props.markers || [];
+    let map = this.getMap();
+
     return (
-      <div style={style} className={this.props.className}>
-        Loading...
-        {this.state ? this.state.children : null}
-      </div>
+        <div style={style} className={this.props.className}>
+          Loading...
+          {this.state ? this.state.children : null}
+
+          {markers.map(function (markerProps) {
+            return <Marker map={map} {...markerProps} />
+          })}
+        </div>
     );
   },
 
