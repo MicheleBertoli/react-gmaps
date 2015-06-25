@@ -10,5 +10,8 @@ var Gmaps = _interopRequire(require("./components/gmaps"));
 
 var Marker = _interopRequire(require("./components/marker"));
 
+var InfoWindow = _interopRequire(require("./components/infoWindow"));
+
 exports.Gmaps = Gmaps;
 exports.Marker = Marker;
+exports.InfoWindow = InfoWindow;
