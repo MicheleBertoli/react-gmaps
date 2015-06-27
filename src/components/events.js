@@ -44,4 +44,10 @@ let MarkerEvents = {
   onZindexChanged: 'zindex_changed'
 };
 
-export {MapEvents, MarkerEvents};
+let InfoWindowEvents = {
+  onCloseClick: 'closeclick',
+  onContentChanged: 'content_changed',
+  onPositionChanged: 'position_changed',
+  onZindexChanged: 'zindex_changed'
+};
+export {MapEvents, MarkerEvents, InfoWindowEvents};

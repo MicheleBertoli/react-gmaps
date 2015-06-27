@@ -1,5 +1,5 @@
 import React from 'react';
-import {Gmaps, Marker} from '../dist';
+import {Gmaps, Marker, InfoWindow} from '../dist';
 import {MapEvents} from '../dist/components/events';
 
 let styles = {
@@ -39,14 +39,25 @@ let App = React.createClass({
 
     return (
       <div>
-        <Gmaps 
+        <Gmaps
           width={'50%'}
           height={'500px'}
           style={styles.cols}
-          lat={51.5258541} 
-          lng={-0.08040660000006028} 
-          zoom={12} 
-          {...handlers} />
+          lat={51.5258541}
+          lng={-0.08040660000006028}
+          zoom={12}
+          {...handlers}>
+            <Marker
+              lat={51.5258541}
+              lng={-0.08040660000006028}
+            />
+            <InfoWindow
+              content={'<h1>InfoWindow</h1>'}
+              lat={51.5258541}
+              lng={-0.08040660000006028}
+              open={true}
+            />
+          </Gmaps>
         <ul style={styles.cols}>
           {events}
         </ul>
