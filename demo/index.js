@@ -1,8 +1,8 @@
 import React from 'react';
-import {Gmaps, Marker, InfoWindow} from '../dist';
+import {Gmaps} from '../dist';
 import {MapEvents} from '../dist/components/events';
 
-let styles = {
+const styles = {
   item: {
     backgroundColor: 'white',
     transition: 'background-color 0.2s linear'
@@ -12,10 +12,10 @@ let styles = {
   }
 };
 
-let App = React.createClass({
+const App = React.createClass({
 
   handler(_event) {
-    let item = this.refs[_event].getDOMNode();
+    const item = this.refs[_event].getDOMNode();
     item.style.backgroundColor = '#99ccff';
     setTimeout(function() {
       item.style.backgroundColor = styles.item.backgroundColor;
@@ -24,8 +24,8 @@ let App = React.createClass({
 
   render() {
 
-    let events = [];
-    let handlers = {};
+    const events = [];
+    const handlers = {};
     for (let _event in MapEvents) {
       if (MapEvents.hasOwnProperty(_event)) {
         events.push(
@@ -46,18 +46,7 @@ let App = React.createClass({
           lat={51.5258541}
           lng={-0.08040660000006028}
           zoom={12}
-          {...handlers}>
-            <Marker
-              lat={51.5258541}
-              lng={-0.08040660000006028}
-            />
-            <InfoWindow
-              content={'<h1>InfoWindow</h1>'}
-              lat={51.5258541}
-              lng={-0.08040660000006028}
-              open={true}
-            />
-          </Gmaps>
+          {...handlers} />
         <ul style={styles.cols}>
           {events}
         </ul>

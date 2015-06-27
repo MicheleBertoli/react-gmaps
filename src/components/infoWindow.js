@@ -13,7 +13,7 @@ let InfoWindow = React.createClass({
       position: new google.maps.LatLng(this.props.lat, this.props.lng),
     });
 
-    if(this.props.open === true) {
+    if (this.props.open) {
       this.open();
     }
     this.addListeners(this.infoWindow, InfoWindowEvents);
@@ -24,11 +24,11 @@ let InfoWindow = React.createClass({
   },
 
   open() {
-    this.infoWindow.open(this.props.map)
+    this.infoWindow.open(this.props.map);
   },
 
   close() {
-    this.infoWindow.close()
+    this.infoWindow.close();
   },
 
   render() {

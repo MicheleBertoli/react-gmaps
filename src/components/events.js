@@ -47,7 +47,9 @@ let MarkerEvents = {
 let InfoWindowEvents = {
   onCloseClick: 'closeclick',
   onContentChanged: 'content_changed',
+  onDOMReady: 'domready',
   onPositionChanged: 'position_changed',
   onZindexChanged: 'zindex_changed'
 };
+
 export {MapEvents, MarkerEvents, InfoWindowEvents};

@@ -52,9 +52,11 @@ var MarkerEvents = {
 var InfoWindowEvents = {
   onCloseClick: "closeclick",
   onContentChanged: "content_changed",
+  onDOMReady: "domready",
   onPositionChanged: "position_changed",
   onZindexChanged: "zindex_changed"
 };
+
 exports.MapEvents = MapEvents;
 exports.MarkerEvents = MarkerEvents;
 exports.InfoWindowEvents = InfoWindowEvents;

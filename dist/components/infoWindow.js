@@ -19,7 +19,7 @@ var InfoWindow = React.createClass({
       content: this.props.content,
       position: new google.maps.LatLng(this.props.lat, this.props.lng) });
 
-    if (this.props.open === true) {
+    if (this.props.open) {
       this.open();
     }
     this.addListeners(this.infoWindow, InfoWindowEvents);

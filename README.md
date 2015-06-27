@@ -28,7 +28,7 @@ Usage
 
 ```javascript
 import React from 'react';
-import {Gmaps, Marker} from 'react-gmaps';
+import {Gmaps, Marker, InfoWindow} from 'react-gmaps';
 
 const coords = {
   lat: 51.5258541,
@@ -52,6 +52,10 @@ const App = React.createClass({
     console.log('onDragEnd', e);
   },
 
+  onCloseClick() {
+    console.log('onCloseClick');
+  },
+
   render() {
     return (
       <Gmaps 
@@ -68,6 +72,12 @@ const App = React.createClass({
           lng={coords.lng}
           draggable={true}
           onDragEnd={this.onDragEnd} />
+        <InfoWindow
+          content={'Hello, React :)'}
+          lat={coords.lat}
+          lng={coords.lng}
+          open={true} 
+          onCloseClick={this.onCloseClick} />
       </Gmaps>
     );
   }
