@@ -39,7 +39,7 @@ var Gmaps = React.createClass({
       script.setAttribute("src", src);
       document.head.appendChild(script);
     } else {
-      this.mapsCallback();
+      setTimeout(this.mapsCallback);
     }
   },
 
