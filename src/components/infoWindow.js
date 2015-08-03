@@ -11,6 +11,8 @@ let InfoWindow = React.createClass({
     this.infoWindow = new google.maps.InfoWindow({
       content: this.props.content,
       position: new google.maps.LatLng(this.props.lat, this.props.lng),
+      disableAutoPan: this.props.disableAutoPan ? this.props.disableAutoPan : false,
+      maxWidth: this.props.maxWidth ? this.props.maxWidth : null
     });
 
     if (this.props.open) {
