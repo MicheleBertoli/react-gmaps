@@ -4,11 +4,17 @@ import assign from 'react/lib/Object.assign';
 import {MapEvents} from './events';
 import Listener from './listener';
 
-let Gmaps = React.createClass({
+const Gmaps = React.createClass({
 
   mixins: [Listener],
 
   map: null,
+
+  getInitialState() {
+    return {
+      isMapCreated: false
+    }
+  },
 
   componentDidMount() {
     this.loadMaps();
@@ -25,8 +31,8 @@ let Gmaps = React.createClass({
   loadMaps() {
     if (!window.google) {
       window.mapsCallback = this.mapsCallback;
-      let src = `https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=${this.props.libraries || ''}`;
-      let script = document.createElement('script');
+      const src = `https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=${this.props.libraries || ''}`;
+      const script = document.createElement('script');
       script.setAttribute('src', src);
       document.head.appendChild(script);
     } else {
@@ -37,7 +43,6 @@ let Gmaps = React.createClass({
   mapsCallback() {
     delete window.mapsCallback;
     this.createMap();
-    this.createChildren();
     this.addListeners(this.map, MapEvents);
   },
 
@@ -46,13 +51,16 @@ let Gmaps = React.createClass({
       center: new google.maps.LatLng(this.props.lat, this.props.lng),
       zoom: this.props.zoom
     });
+    this.setState({
+      isMapCreated: true
+    });
     if (this.props.onMapCreated) {
       this.props.onMapCreated();
     }
   },
 
-  createChildren() {
-    let children = React.Children.map(this.props.children, (child) => {
+  getChildren() {
+    return React.Children.map(this.props.children, (child) => {
       if (!React.isValidElement(child)) {
         return child;
       }
@@ -60,20 +68,17 @@ let Gmaps = React.createClass({
         map: this.map
       });
     });
-    this.setState({
-      children: children
-    });
   },
 
   render() {
-    let style = assign({
+    const style = assign({
       width: this.props.width,
       height: this.props.height
     }, this.props.style);
     return (
       <div style={style} className={this.props.className}>
         Loading...
-        {this.state ? this.state.children : null}
+        {this.state.isMapCreated ? this.getChildren() : null}
       </div>
     );
   },
