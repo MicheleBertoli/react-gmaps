@@ -10,6 +10,7 @@ describe("Gmaps", function () {
   var Gmaps = require("../gmaps");
 
   var gmaps = undefined;
+
   var width = "100%";
   var height = "100%";
   var style = {
@@ -20,13 +21,24 @@ describe("Gmaps", function () {
 
   beforeEach(function () {
     delete window.google;
-    gmaps = TestUtils.renderIntoDocument(React.createElement(Gmaps, {
-      width: width,
-      height: height,
-      style: style,
-      className: className,
-      onMapCreated: onMapCreated,
-      onClick: jest.genMockFunction() }));
+    var Child = React.createClass({
+      displayName: "Child",
+
+      render: function render() {
+        return null;
+      }
+    });
+    gmaps = TestUtils.renderIntoDocument(React.createElement(
+      Gmaps,
+      {
+        width: width,
+        height: height,
+        style: style,
+        className: className,
+        onMapCreated: onMapCreated,
+        onClick: jest.genMockFunction() },
+      React.createElement(Child, null)
+    ));
     window.google = {
       maps: {
         Map: jest.genMockFunction(),
@@ -61,6 +73,10 @@ describe("Gmaps", function () {
 
   it("calls `onMapCreated`", function () {
     expect(onMapCreated).toBeCalled();
+  });
+
+  it("clones children with map", function () {
+    expect(gmaps.getChildren()[".0"].props.map).toBeDefined();
   });
 
   it("binds events", function () {

@@ -15,18 +15,27 @@ var InfoWindow = React.createClass({
   infoWindow: null,
 
   componentDidMount: function componentDidMount() {
-    this.infoWindow = new google.maps.InfoWindow({
-      content: this.props.content,
-      position: new google.maps.LatLng(this.props.lat, this.props.lng) });
-
+    var options = this.getOptions(this.props);
+    this.infoWindow = new google.maps.InfoWindow(options);
+    this.addListeners(this.infoWindow, InfoWindowEvents);
     if (this.props.open) {
       this.open();
     }
-    this.addListeners(this.infoWindow, InfoWindowEvents);
   },
 
   componentWillUnmount: function componentWillUnmount() {
     this.removeListeners();
+  },
+
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    var options = this.getOptions(nextProps);
+    this.infoWindow.setOptions(options);
+  },
+
+  getOptions: function getOptions(props) {
+    return {
+      content: props.content,
+      position: new google.maps.LatLng(props.lat, props.lng) };
   },
 
   open: function open() {

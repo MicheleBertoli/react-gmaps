@@ -42,4 +42,29 @@ describe("InfoWindow", function () {
     infoWindow.componentWillUnmount();
     expect(window.google.maps.event.removeListener).toBeCalled();
   });
+
+  it("calls `setOptions` when receive new props", function () {
+    window.google.maps.InfoWindow = function () {
+      return {
+        setOptions: jest.genMockFunction()
+      };
+    };
+    var Parent = React.createClass({
+      displayName: "Parent",
+
+      getInitialState: function getInitialState() {
+        return {
+          content: "1"
+        };
+      },
+      render: function render() {
+        return React.createElement(InfoWindow, { ref: "child", content: this.state.testState });
+      }
+    });
+    var parent = TestUtils.renderIntoDocument(React.createElement(Parent, null));
+    parent.setState({
+      content: "2"
+    });
+    expect(parent.refs.child.infoWindow.setOptions).toBeCalled();
+  });
 });

@@ -19,6 +19,12 @@ var Gmaps = React.createClass({
 
   map: null,
 
+  getInitialState: function getInitialState() {
+    return {
+      isMapCreated: false
+    };
+  },
+
   componentDidMount: function componentDidMount() {
     this.loadMaps();
   },
@@ -46,7 +52,6 @@ var Gmaps = React.createClass({
   mapsCallback: function mapsCallback() {
     delete window.mapsCallback;
     this.createMap();
-    this.createChildren();
     this.addListeners(this.map, MapEvents);
   },
 
@@ -55,24 +60,24 @@ var Gmaps = React.createClass({
       center: new google.maps.LatLng(this.props.lat, this.props.lng),
       zoom: this.props.zoom
     });
+    this.setState({
+      isMapCreated: true
+    });
     if (this.props.onMapCreated) {
       this.props.onMapCreated();
     }
   },
 
-  createChildren: function createChildren() {
+  getChildren: function getChildren() {
     var _this = this;
 
-    var children = React.Children.map(this.props.children, function (child) {
+    return React.Children.map(this.props.children, function (child) {
       if (!React.isValidElement(child)) {
         return child;
       }
       return cloneWithProps(child, {
         map: _this.map
       });
-    });
-    this.setState({
-      children: children
     });
   },
 
@@ -85,7 +90,7 @@ var Gmaps = React.createClass({
       "div",
       { style: style, className: this.props.className },
       "Loading...",
-      this.state ? this.state.children : null
+      this.state.isMapCreated ? this.getChildren() : null
     );
   } });
 
