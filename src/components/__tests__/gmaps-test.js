@@ -3,21 +3,27 @@ jest.dontMock('../gmaps');
 
 describe('Gmaps', () => {
 
-  let React = require('react/addons');
-  let TestUtils = React.addons.TestUtils;
-  let Gmaps = require('../gmaps');
+  const React = require('react/addons');
+  const TestUtils = React.addons.TestUtils;
+  const Gmaps = require('../gmaps');
 
   let gmaps;
-  let width = '100%';
-  let height = '100%';
-  let style = {
+
+  const width = '100%';
+  const height = '100%';
+  const style = {
     backgroundColor: 'black'
   };
-  let className = 'className';
-  let onMapCreated = jest.genMockFunction();
+  const className = 'className';
+  const onMapCreated = jest.genMockFunction();
 
   beforeEach(() => {
     delete window.google;
+    const Child = React.createClass({
+      render() {
+        return null;
+      }
+    });
     gmaps = TestUtils.renderIntoDocument(
       <Gmaps 
         width={width}
@@ -25,7 +31,9 @@ describe('Gmaps', () => {
         style={style}
         className={className}
         onMapCreated={onMapCreated}
-        onClick={jest.genMockFunction()} />
+        onClick={jest.genMockFunction()}>
+         <Child />
+      </Gmaps>
     );
     window.google = {
       maps: {
@@ -61,6 +69,10 @@ describe('Gmaps', () => {
 
   it('calls `onMapCreated`', () => {
     expect(onMapCreated).toBeCalled();
+  });
+
+  it('clones children with map', () => {
+    expect(gmaps.getChildren()['.0'].props.map).toBeDefined();
   });
 
   it('binds events', () => {
