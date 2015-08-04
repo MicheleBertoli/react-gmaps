@@ -35,7 +35,12 @@ var InfoWindow = React.createClass({
   getOptions: function getOptions(props) {
     return {
       content: props.content,
-      position: new google.maps.LatLng(props.lat, props.lng) };
+      disableAutoPan: props.disableAutoPan,
+      maxWidth: props.maxWidth,
+      pixelOffset: props.pixelOffset,
+      position: new google.maps.LatLng(props.lat, props.lng),
+      zIndex: props.zIndex
+    };
   },
 
   open: function open() {
