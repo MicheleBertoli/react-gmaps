@@ -25,9 +25,9 @@ describe('Gmaps', () => {
       }
     });
     gmaps = TestUtils.renderIntoDocument(
-      <Gmaps 
+      <Gmaps
         width={width}
-        height={height} 
+        height={height}
         style={style}
         className={className}
         onMapCreated={onMapCreated}
@@ -49,9 +49,10 @@ describe('Gmaps', () => {
   });
 
   it('applies the style', () => {
-    expect(gmaps.getDOMNode().style.width).toBe(width);
-    expect(gmaps.getDOMNode().style.height).toBe(height);
-    expect(gmaps.getDOMNode().style.backgroundColor).toBe(style.backgroundColor);
+    const node = gmaps.getDOMNode();
+    expect(node.style.width).toBe(width);
+    expect(node.style.height).toBe(height);
+    expect(node.style.backgroundColor).toBe(style.backgroundColor);
   });
 
   it('applies the class name', () => {

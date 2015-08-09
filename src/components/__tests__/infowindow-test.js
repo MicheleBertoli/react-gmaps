@@ -26,7 +26,9 @@ describe('InfoWindow', () => {
     beforeEach(() => {
       window.google.maps.InfoWindow= jest.genMockFunction();
       infoWindow = TestUtils.renderIntoDocument(
-        <InfoWindow onCloseClick={jest.genMockFunction()} content={'<h1>InfoWindow</h1>'} />
+        <InfoWindow
+          onCloseClick={jest.genMockFunction()}
+          content={'<h1>InfoWindow</h1>'} />
       );
     });
 
@@ -57,7 +59,9 @@ describe('InfoWindow', () => {
         }
       };
       infoWindow = TestUtils.renderIntoDocument(
-        <InfoWindow onCloseClick={jest.genMockFunction()} content={'<h1>InfoWindow</h1>'} />
+        <InfoWindow
+          onCloseClick={jest.genMockFunction()}
+          content={'<h1>InfoWindow</h1>'} />
       );
     });
 

@@ -17,8 +17,8 @@ const InfoWindow = React.createClass({
   },
 
   componentWillUnmount() {
-    this.removeListeners();
     this.close();
+    this.removeListeners();
   },
 
   componentWillReceiveProps(nextProps) {

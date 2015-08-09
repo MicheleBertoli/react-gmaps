@@ -1,4 +1,4 @@
-let MapEvents = {
+const MapEvents = {
   onBoundsChanged: 'bounds_changed',
   onCenterChanged: 'center_changed',
   onClick: 'click',
@@ -20,7 +20,7 @@ let MapEvents = {
   onZoomChanged: 'zoom_changed'
 };
 
-let MarkerEvents = {
+const MarkerEvents = {
   onAnimationChanged: 'animation_changed',
   onClick: 'click',
   onClickableChanged: 'clickable_changed',
@@ -44,7 +44,7 @@ let MarkerEvents = {
   onZindexChanged: 'zindex_changed'
 };
 
-let InfoWindowEvents = {
+const InfoWindowEvents = {
   onCloseClick: 'closeclick',
   onContentChanged: 'content_changed',
   onDOMReady: 'domready',

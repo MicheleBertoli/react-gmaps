@@ -3,9 +3,9 @@ jest.dontMock('../marker');
 
 describe('Marker', () => {
 
-  let React = require('react/addons');
-  let TestUtils = React.addons.TestUtils;
-  let Marker = require('../marker');
+  const React = require('react/addons');
+  const TestUtils = React.addons.TestUtils;
+  const Marker = require('../marker');
 
   let marker;
 

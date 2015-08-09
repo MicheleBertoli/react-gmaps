@@ -31,7 +31,9 @@ const Gmaps = React.createClass({
   loadMaps() {
     if (!window.google) {
       window.mapsCallback = this.mapsCallback;
-      const src = `https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=${this.props.libraries || ''}`;
+      let src = 'https://maps.googleapis.com/maps/api/js';
+      src += '?callback=mapsCallback';
+      src += `&libraries=${this.props.libraries || ''}`;
       const script = document.createElement('script');
       script.setAttribute('src', src);
       document.head.appendChild(script);
