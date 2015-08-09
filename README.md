@@ -32,7 +32,7 @@ import {Gmaps, Marker, InfoWindow} from 'react-gmaps';
 
 const coords = {
   lat: 51.5258541,
-  lng: -0.08040660000006028 
+  lng: -0.08040660000006028
 }
 
 const App = React.createClass({
@@ -58,17 +58,18 @@ const App = React.createClass({
 
   render() {
     return (
-      <Gmaps 
+      <Gmaps
         ref='Gmaps'
         width={'800px'}
         height={'600px'}
-        lat={coords.lat} 
-        lng={coords.lng} 
-        zoom={12} 
+        lat={coords.lat}
+        lng={coords.lng}
+        zoom={12}
+        loadingMessage={'Be happy'}
         onMapCreated={this.onMapCreated}
         onClick={this.onClick}>
-        <Marker 
-          lat={coords.lat} 
+        <Marker
+          lat={coords.lat}
           lng={coords.lng}
           draggable={true}
           onDragEnd={this.onDragEnd} />
@@ -76,7 +77,6 @@ const App = React.createClass({
           content={'Hello, React :)'}
           lat={coords.lat}
           lng={coords.lng}
-          open={true} 
           onCloseClick={this.onCloseClick} />
       </Gmaps>
     );
