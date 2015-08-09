@@ -1,11 +1,14 @@
 jest.dontMock('../listener');
-jest.dontMock('../infoWindow');
+jest.dontMock('../entity');
 
-describe('InfoWindow', () => {
+describe('Entity', () => {
 
   const React = require('react/addons');
   const TestUtils = React.addons.TestUtils;
-  const InfoWindow = require('../infoWindow');
+  const createEntity = require('../entity');
+  const Entity = createEntity('Entity', {
+    onClick: 'click'
+  });
 
   beforeEach(() => {
     window.google = {
@@ -21,24 +24,22 @@ describe('InfoWindow', () => {
 
   describe('mounting', () => {
 
-    let infoWindow;
+    let entity;
 
     beforeEach(() => {
-      window.google.maps.InfoWindow= jest.genMockFunction();
-      infoWindow = TestUtils.renderIntoDocument(
-        <InfoWindow
-          onCloseClick={jest.genMockFunction()}
-          content={'<h1>InfoWindow</h1>'} />
+      window.google.maps.Entity = jest.genMockFunction();
+      entity = TestUtils.renderIntoDocument(
+        <Entity onClick={jest.genMockFunction()} />
       );
     });
 
-    it('creates the infoWindow', () => {
-      expect(window.google.maps.InfoWindow).toBeCalled();
+    it('creates the entity', () => {
+      expect(window.google.maps.Entity).toBeCalled();
     });
 
-    it('creates the infoWindow once', () => {
-      infoWindow.render();
-      expect(window.google.maps.InfoWindow.mock.calls.length).toBe(1);
+    it('creates the entity once', () => {
+      entity.render();
+      expect(window.google.maps.Entity.mock.calls.length).toBe(1);
     });
 
     it('binds events', () => {
@@ -49,30 +50,28 @@ describe('InfoWindow', () => {
 
   describe('unmounting', () => {
 
-    let infoWindow;
+    let entity;
 
     beforeEach(() => {
-      window.google.maps.InfoWindow = () => {
+      window.google.maps.Entity = () => {
         return {
-          open: jest.genMockFunction(),
-          close: jest.genMockFunction()
+          setMap: jest.genMockFunction()
         }
       };
-      infoWindow = TestUtils.renderIntoDocument(
-        <InfoWindow
-          onCloseClick={jest.genMockFunction()}
-          content={'<h1>InfoWindow</h1>'} />
+      entity = TestUtils.renderIntoDocument(
+        <Entity onClick={jest.genMockFunction()} />
       );
     });
 
     it('unbinds events', () => {
-      infoWindow.componentWillUnmount();
+      entity.componentWillUnmount();
       expect(window.google.maps.event.removeListener).toBeCalled();
     });
 
-    it('closes the infoWindow', () => {
-      infoWindow.componentWillUnmount();
-      expect(infoWindow.infoWindow.close).toBeCalled();
+    it('removes the entity', () => {
+      const setMap = entity.entity.setMap;
+      entity.componentWillUnmount();
+      expect(setMap).toBeCalledWith(null);
     });
 
   });
@@ -80,7 +79,7 @@ describe('InfoWindow', () => {
   describe('render', () => {
 
     it('calls `setOptions` when receive new props', () => {
-      window.google.maps.InfoWindow = () => {
+      window.google.maps.Entity = () => {
         return {
           setOptions: jest.genMockFunction()
         }
@@ -92,14 +91,14 @@ describe('InfoWindow', () => {
           };
         },
         render() {
-          return <InfoWindow ref="child" content={this.state.content} />
+          return <Entity ref="child" />
         }
       });
       const parent = TestUtils.renderIntoDocument(<Parent />);
       parent.setState({
         content: '2'
       });
-      expect(parent.refs.child.infoWindow.setOptions).toBeCalled();
+      expect(parent.refs.child.entity.setOptions).toBeCalled();
     });
 
   });

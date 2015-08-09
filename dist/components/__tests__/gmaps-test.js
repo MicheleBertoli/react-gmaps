@@ -1,28 +1,28 @@
-"use strict";
+'use strict';
 
-jest.dontMock("../listener");
-jest.dontMock("../gmaps");
+jest.dontMock('../listener');
+jest.dontMock('../gmaps');
 
-describe("Gmaps", function () {
+describe('Gmaps', function () {
 
-  var React = require("react/addons");
+  var React = require('react/addons');
   var TestUtils = React.addons.TestUtils;
-  var Gmaps = require("../gmaps");
+  var Gmaps = require('../gmaps');
 
   var gmaps = undefined;
 
-  var width = "100%";
-  var height = "100%";
+  var width = '100%';
+  var height = '100%';
   var style = {
-    backgroundColor: "black"
+    backgroundColor: 'black'
   };
-  var className = "className";
+  var className = 'className';
   var onMapCreated = jest.genMockFunction();
 
   beforeEach(function () {
     delete window.google;
     var Child = React.createClass({
-      displayName: "Child",
+      displayName: 'Child',
 
       render: function render() {
         return null;
@@ -52,38 +52,39 @@ describe("Gmaps", function () {
     window.mapsCallback();
   });
 
-  it("applies the style", function () {
-    expect(gmaps.getDOMNode().style.width).toBe(width);
-    expect(gmaps.getDOMNode().style.height).toBe(height);
-    expect(gmaps.getDOMNode().style.backgroundColor).toBe(style.backgroundColor);
+  it('applies the style', function () {
+    var node = gmaps.getDOMNode();
+    expect(node.style.width).toBe(width);
+    expect(node.style.height).toBe(height);
+    expect(node.style.backgroundColor).toBe(style.backgroundColor);
   });
 
-  it("applies the class name", function () {
+  it('applies the class name', function () {
     expect(gmaps.getDOMNode().className).toBe(className);
   });
 
-  it("loads maps once", function () {
+  it('loads maps once', function () {
     gmaps.componentDidMount();
     expect(window.mapsCallback).not.toBeDefined();
   });
 
-  it("creates a map", function () {
+  it('creates a map', function () {
     expect(gmaps.getMap()).not.toBe(null);
   });
 
-  it("calls `onMapCreated`", function () {
+  it('calls `onMapCreated`', function () {
     expect(onMapCreated).toBeCalled();
   });
 
-  it("clones children with map", function () {
-    expect(gmaps.getChildren()[".0"].props.map).toBeDefined();
+  it('clones children with map', function () {
+    expect(gmaps.getChildren()['.0'].props.map).toBeDefined();
   });
 
-  it("binds events", function () {
+  it('binds events', function () {
     expect(window.google.maps.event.addListener).toBeCalled();
   });
 
-  it("unbinds events", function () {
+  it('unbinds events', function () {
     gmaps.componentWillUnmount();
     expect(window.google.maps.event.removeListener).toBeCalled();
   });

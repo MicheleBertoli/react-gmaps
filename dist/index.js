@@ -1,17 +1,23 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var Gmaps = _interopRequire(require("./components/gmaps"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var Marker = _interopRequire(require("./components/marker"));
+var _componentsGmaps = require('./components/gmaps');
 
-var InfoWindow = _interopRequire(require("./components/infoWindow"));
+var _componentsGmaps2 = _interopRequireDefault(_componentsGmaps);
 
-exports.Gmaps = Gmaps;
-exports.Marker = Marker;
-exports.InfoWindow = InfoWindow;
+var _componentsMarker = require('./components/marker');
+
+var _componentsMarker2 = _interopRequireDefault(_componentsMarker);
+
+var _componentsInfoWindow = require('./components/infoWindow');
+
+var _componentsInfoWindow2 = _interopRequireDefault(_componentsInfoWindow);
+
+exports.Gmaps = _componentsGmaps2['default'];
+exports.Marker = _componentsMarker2['default'];
+exports.InfoWindow = _componentsInfoWindow2['default'];

@@ -1,21 +1,33 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var React = _interopRequire(require("react"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var cloneWithProps = _interopRequire(require("react/lib/cloneWithProps"));
+var _react = require('react');
 
-var assign = _interopRequire(require("react/lib/Object.assign"));
+var _react2 = _interopRequireDefault(_react);
 
-var MapEvents = require("./events").MapEvents;
+var _reactLibCloneWithProps = require('react/lib/cloneWithProps');
 
-var Listener = _interopRequire(require("./listener"));
+var _reactLibCloneWithProps2 = _interopRequireDefault(_reactLibCloneWithProps);
 
-var Gmaps = React.createClass({
-  displayName: "Gmaps",
+var _reactLibObjectAssign = require('react/lib/Object.assign');
 
-  mixins: [Listener],
+var _reactLibObjectAssign2 = _interopRequireDefault(_reactLibObjectAssign);
+
+var _events = require('./events');
+
+var _listener = require('./listener');
+
+var _listener2 = _interopRequireDefault(_listener);
+
+var Gmaps = _react2['default'].createClass({
+  displayName: 'Gmaps',
+
+  mixins: [_listener2['default']],
 
   map: null,
 
@@ -40,9 +52,11 @@ var Gmaps = React.createClass({
   loadMaps: function loadMaps() {
     if (!window.google) {
       window.mapsCallback = this.mapsCallback;
-      var src = "https://maps.googleapis.com/maps/api/js?callback=mapsCallback&libraries=" + (this.props.libraries || "");
-      var script = document.createElement("script");
-      script.setAttribute("src", src);
+      var src = 'https://maps.googleapis.com/maps/api/js';
+      src += '?callback=mapsCallback';
+      src += '&libraries=' + (this.props.libraries || '');
+      var script = document.createElement('script');
+      script.setAttribute('src', src);
       document.head.appendChild(script);
     } else {
       setTimeout(this.mapsCallback);
@@ -52,7 +66,7 @@ var Gmaps = React.createClass({
   mapsCallback: function mapsCallback() {
     delete window.mapsCallback;
     this.createMap();
-    this.addListeners(this.map, MapEvents);
+    this.addListeners(this.map, _events.MapEvents);
   },
 
   createMap: function createMap() {
@@ -71,27 +85,30 @@ var Gmaps = React.createClass({
   getChildren: function getChildren() {
     var _this = this;
 
-    return React.Children.map(this.props.children, function (child) {
-      if (!React.isValidElement(child)) {
+    return _react2['default'].Children.map(this.props.children, function (child) {
+      if (!_react2['default'].isValidElement(child)) {
         return child;
       }
-      return cloneWithProps(child, {
+      return (0, _reactLibCloneWithProps2['default'])(child, {
         map: _this.map
       });
     });
   },
 
   render: function render() {
-    var style = assign({
+    var style = (0, _reactLibObjectAssign2['default'])({
       width: this.props.width,
       height: this.props.height
     }, this.props.style);
-    return React.createElement(
-      "div",
+    return _react2['default'].createElement(
+      'div',
       { style: style, className: this.props.className },
-      "Loading...",
+      'Loading...',
       this.state.isMapCreated ? this.getChildren() : null
     );
-  } });
+  }
 
-module.exports = Gmaps;
+});
+
+exports['default'] = Gmaps;
+module.exports = exports['default'];

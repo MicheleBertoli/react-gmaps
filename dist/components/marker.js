@@ -1,36 +1,16 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-var React = _interopRequire(require("react"));
-
-var MarkerEvents = require("./events").MarkerEvents;
-
-var Listener = _interopRequire(require("./listener"));
-
-var Marker = React.createClass({
-  displayName: "Marker",
-
-  mixins: [Listener],
-
-  componentDidMount: function componentDidMount() {
-    var marker = new google.maps.Marker({
-      map: this.props.map,
-      position: new google.maps.LatLng(this.props.lat, this.props.lng),
-      icon: this.props.icon,
-      draggable: this.props.draggable
-    });
-    this.addListeners(marker, MarkerEvents);
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    this.removeListeners();
-  },
-
-  render: function render() {
-    return null;
-  }
-
+Object.defineProperty(exports, '__esModule', {
+  value: true
 });
 
-module.exports = Marker;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _entity = require('./entity');
+
+var _entity2 = _interopRequireDefault(_entity);
+
+var _events = require('./events');
+
+exports['default'] = (0, _entity2['default'])('Marker', _events.MarkerEvents);
+module.exports = exports['default'];
