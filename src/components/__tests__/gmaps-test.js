@@ -15,6 +15,7 @@ describe('Gmaps', () => {
     backgroundColor: 'black'
   };
   const className = 'className';
+  const loadingMessage = 'loadingMessage';
   const onMapCreated = jest.genMockFunction();
 
   beforeEach(() => {
@@ -30,6 +31,7 @@ describe('Gmaps', () => {
         height={height}
         style={style}
         className={className}
+        loadingMessage={loadingMessage}
         onMapCreated={onMapCreated}
         onClick={jest.genMockFunction()}>
          <Child />
@@ -57,6 +59,10 @@ describe('Gmaps', () => {
 
   it('applies the class name', () => {
     expect(gmaps.getDOMNode().className).toBe(className);
+  });
+
+  it('show the loading message', () => {
+    expect(gmaps.getDOMNode().textContent).toBe(loadingMessage);
   });
 
   it('loads maps once', () => {

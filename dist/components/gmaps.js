@@ -103,7 +103,7 @@ var Gmaps = _react2['default'].createClass({
     return _react2['default'].createElement(
       'div',
       { style: style, className: this.props.className },
-      'Loading...',
+      this.props.loadingMessage || 'Loading...',
       this.state.isMapCreated ? this.getChildren() : null
     );
   }

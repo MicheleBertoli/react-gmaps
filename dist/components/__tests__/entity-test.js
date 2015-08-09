@@ -65,10 +65,10 @@ describe('Entity', function () {
       expect(window.google.maps.event.removeListener).toBeCalled();
     });
 
-    it('closes the entity', function () {
+    it('removes the entity', function () {
       var setMap = entity.entity.setMap;
       entity.componentWillUnmount();
-      expect(setMap).toBeCalled();
+      expect(setMap).toBeCalledWith(null);
     });
   });
 
