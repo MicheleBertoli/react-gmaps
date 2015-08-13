@@ -12,6 +12,8 @@ describe('Entity', function () {
     onClick: 'click'
   });
 
+  var entity = undefined;
+
   beforeEach(function () {
     window.google = {
       maps: {
@@ -25,8 +27,6 @@ describe('Entity', function () {
   });
 
   describe('mounting', function () {
-
-    var entity = undefined;
 
     beforeEach(function () {
       window.google.maps.Entity = jest.genMockFunction();
@@ -48,8 +48,6 @@ describe('Entity', function () {
   });
 
   describe('unmounting', function () {
-
-    var entity = undefined;
 
     beforeEach(function () {
       window.google.maps.Entity = function () {
@@ -97,6 +95,15 @@ describe('Entity', function () {
         content: '2'
       });
       expect(parent.refs.child.entity.setOptions).toBeCalled();
+    });
+  });
+
+  describe('getEntity', function () {
+
+    it('calls `setOptions` when receive new props', function () {
+      window.google.maps.Entity = jest.genMockFunction();
+      entity = TestUtils.renderIntoDocument(React.createElement(Entity, null));
+      expect(entity.getEntity()).toBeDefined();
     });
   });
 });

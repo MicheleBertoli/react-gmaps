@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 import assign from 'react/lib/Object.assign';
 import MapEvents from '../events/map';
 import Listener from '../mixins/listener';
@@ -13,7 +12,7 @@ const Gmaps = React.createClass({
   getInitialState() {
     return {
       isMapCreated: false
-    }
+    };
   },
 
   componentDidMount() {
@@ -66,7 +65,8 @@ const Gmaps = React.createClass({
       if (!React.isValidElement(child)) {
         return child;
       }
-      return cloneWithProps(child, {
+      return React.cloneElement(child, {
+        ref: child.ref,
         map: this.map
       });
     });

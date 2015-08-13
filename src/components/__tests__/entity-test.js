@@ -10,6 +10,8 @@ describe('Entity', () => {
     onClick: 'click'
   });
 
+  let entity;
+
   beforeEach(() => {
     window.google = {
       maps: {
@@ -23,8 +25,6 @@ describe('Entity', () => {
   });
 
   describe('mounting', () => {
-
-    let entity;
 
     beforeEach(() => {
       window.google.maps.Entity = jest.genMockFunction();
@@ -50,13 +50,11 @@ describe('Entity', () => {
 
   describe('unmounting', () => {
 
-    let entity;
-
     beforeEach(() => {
       window.google.maps.Entity = () => {
         return {
           setMap: jest.genMockFunction()
-        }
+        };
       };
       entity = TestUtils.renderIntoDocument(
         <Entity onClick={jest.genMockFunction()} />
@@ -82,7 +80,7 @@ describe('Entity', () => {
       window.google.maps.Entity = () => {
         return {
           setOptions: jest.genMockFunction()
-        }
+        };
       };
       const Parent = React.createClass({
         getInitialState() {
@@ -91,7 +89,7 @@ describe('Entity', () => {
           };
         },
         render() {
-          return <Entity ref="child" />
+          return <Entity ref="child" />;
         }
       });
       const parent = TestUtils.renderIntoDocument(<Parent />);
@@ -99,6 +97,18 @@ describe('Entity', () => {
         content: '2'
       });
       expect(parent.refs.child.entity.setOptions).toBeCalled();
+    });
+
+  });
+
+  describe('getEntity', () => {
+
+    it('calls `setOptions` when receive new props', () => {
+      window.google.maps.Entity = jest.genMockFunction();
+      entity = TestUtils.renderIntoDocument(
+        <Entity />
+      );
+      expect(entity.getEntity()).toBeDefined();
     });
 
   });

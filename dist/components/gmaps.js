@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactLibCloneWithProps = require('react/lib/cloneWithProps');
-
-var _reactLibCloneWithProps2 = _interopRequireDefault(_reactLibCloneWithProps);
-
 var _reactLibObjectAssign = require('react/lib/Object.assign');
 
 var _reactLibObjectAssign2 = _interopRequireDefault(_reactLibObjectAssign);
@@ -91,7 +87,8 @@ var Gmaps = _react2['default'].createClass({
       if (!_react2['default'].isValidElement(child)) {
         return child;
       }
-      return (0, _reactLibCloneWithProps2['default'])(child, {
+      return _react2['default'].cloneElement(child, {
+        ref: child.ref,
         map: _this.map
       });
     });

@@ -79,7 +79,9 @@ describe('Gmaps', () => {
   });
 
   it('clones children with map', () => {
-    expect(gmaps.getChildren()['.0'].props.map).toBeDefined();
+    React.Children.forEach(gmaps.getChildren(), (child) => {
+      expect(child.props.map).toBeDefined();
+    });
   });
 
   it('binds events', () => {

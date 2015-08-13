@@ -25,6 +25,10 @@ export default (name, latLngProp, events) => {
       this.entity = null;
     },
 
+    getEntity() {
+      return this.entity;
+    },
+
     getOptions(props) {
       return {
         ...props,
@@ -37,4 +41,4 @@ export default (name, latLngProp, events) => {
     }
 
   });
-}
+};

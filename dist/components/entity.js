@@ -42,6 +42,10 @@ exports['default'] = function (name, latLngProp, events) {
       this.entity = null;
     },
 
+    getEntity: function getEntity() {
+      return this.entity;
+    },
+
     getOptions: function getOptions(props) {
       return _extends({}, props, _defineProperty({}, latLngProp, new google.maps.LatLng(props.lat, props.lng)));
     },
