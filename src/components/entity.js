@@ -1,5 +1,5 @@
 import React from 'react';
-import Listener from './listener';
+import Listener from '../mixins/listener';
 
 export default (name, events) => {
   return React.createClass({

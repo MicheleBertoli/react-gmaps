@@ -1,4 +1,4 @@
-jest.dontMock('../listener');
+jest.dontMock('../../mixins/listener');
 jest.dontMock('../entity');
 
 describe('Entity', () => {
