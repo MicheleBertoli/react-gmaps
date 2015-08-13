@@ -1,6 +1,6 @@
 'use strict';
 
-jest.dontMock('../listener');
+jest.dontMock('../../mixins/listener');
 jest.dontMock('../entity');
 
 describe('Entity', function () {
@@ -8,7 +8,7 @@ describe('Entity', function () {
   var React = require('react/addons');
   var TestUtils = React.addons.TestUtils;
   var createEntity = require('../entity');
-  var Entity = createEntity('Entity', {
+  var Entity = createEntity('Entity', 'prop', {
     onClick: 'click'
   });
 

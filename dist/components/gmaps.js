@@ -18,16 +18,18 @@ var _reactLibObjectAssign = require('react/lib/Object.assign');
 
 var _reactLibObjectAssign2 = _interopRequireDefault(_reactLibObjectAssign);
 
-var _events = require('./events');
+var _eventsMap = require('../events/map');
 
-var _listener = require('./listener');
+var _eventsMap2 = _interopRequireDefault(_eventsMap);
 
-var _listener2 = _interopRequireDefault(_listener);
+var _mixinsListener = require('../mixins/listener');
+
+var _mixinsListener2 = _interopRequireDefault(_mixinsListener);
 
 var Gmaps = _react2['default'].createClass({
   displayName: 'Gmaps',
 
-  mixins: [_listener2['default']],
+  mixins: [_mixinsListener2['default']],
 
   map: null,
 
@@ -66,7 +68,7 @@ var Gmaps = _react2['default'].createClass({
   mapsCallback: function mapsCallback() {
     delete window.mapsCallback;
     this.createMap();
-    this.addListeners(this.map, _events.MapEvents);
+    this.addListeners(this.map, _eventsMap2['default']);
   },
 
   createMap: function createMap() {

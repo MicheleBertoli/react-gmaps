@@ -10,9 +10,9 @@ var _entity = require('./entity');
 
 var _entity2 = _interopRequireDefault(_entity);
 
-var _eventsMarker = require('../events/marker');
+var _eventsCircle = require('../events/circle');
 
-var _eventsMarker2 = _interopRequireDefault(_eventsMarker);
+var _eventsCircle2 = _interopRequireDefault(_eventsCircle);
 
-exports['default'] = (0, _entity2['default'])('Marker', 'position', _eventsMarker2['default']);
+exports['default'] = (0, _entity2['default'])('Circle', 'center', _eventsCircle2['default']);
 module.exports = exports['default'];

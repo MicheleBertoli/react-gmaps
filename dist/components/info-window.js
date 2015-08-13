@@ -10,9 +10,9 @@ var _entity = require('./entity');
 
 var _entity2 = _interopRequireDefault(_entity);
 
-var _eventsMarker = require('../events/marker');
+var _eventsInfoWindow = require('../events/info-window');
 
-var _eventsMarker2 = _interopRequireDefault(_eventsMarker);
+var _eventsInfoWindow2 = _interopRequireDefault(_eventsInfoWindow);
 
-exports['default'] = (0, _entity2['default'])('Marker', 'position', _eventsMarker2['default']);
+exports['default'] = (0, _entity2['default'])('InfoWindow', 'position', _eventsInfoWindow2['default']);
 module.exports = exports['default'];
