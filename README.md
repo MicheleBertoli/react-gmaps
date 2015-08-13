@@ -28,7 +28,7 @@ Usage
 
 ```javascript
 import React from 'react';
-import {Gmaps, Marker, InfoWindow} from 'react-gmaps';
+import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 
 const coords = {
   lat: 51.5258541,
@@ -38,14 +38,11 @@ const coords = {
 const App = React.createClass({
 
   onMapCreated() {
-    console.log('onMapCreated', this.refs.Gmaps.getMap());
-    this.refs.Gmaps.getMap().setOptions({
+    const {Gmaps} = this.refs;
+    console.log('onMapCreated', Gmaps.getMap());
+    Gmaps.getMap().setOptions({
       disableDefaultUI: true
     });
-  },
-
-  onClick(e) {
-    console.log('onClick', e);
   },
 
   onDragEnd(e) {
@@ -54,6 +51,10 @@ const App = React.createClass({
 
   onCloseClick() {
     console.log('onCloseClick');
+  },
+
+  onClick(e) {
+    console.log('onClick', e);
   },
 
   render() {
@@ -66,18 +67,22 @@ const App = React.createClass({
         lng={coords.lng}
         zoom={12}
         loadingMessage={'Be happy'}
-        onMapCreated={this.onMapCreated}
-        onClick={this.onClick}>
+        onMapCreated={this.onMapCreated}>
         <Marker
           lat={coords.lat}
           lng={coords.lng}
           draggable={true}
           onDragEnd={this.onDragEnd} />
         <InfoWindow
-          content={'Hello, React :)'}
           lat={coords.lat}
           lng={coords.lng}
+          content={'Hello, React :)'}
           onCloseClick={this.onCloseClick} />
+        <Circle
+          lat={coords.lat}
+          lng={coords.lng} 
+          radius={500} 
+          onClick={this.onClick} />
       </Gmaps>
     );
   }
