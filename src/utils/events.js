@@ -1,4 +1,4 @@
-const MapEvents = {
+export const MapEvents = {
   onBoundsChanged: 'bounds_changed',
   onCenterChanged: 'center_changed',
   onClick: 'click',
@@ -20,7 +20,7 @@ const MapEvents = {
   onZoomChanged: 'zoom_changed'
 };
 
-const MarkerEvents = {
+export const MarkerEvents = {
   onAnimationChanged: 'animation_changed',
   onClick: 'click',
   onClickableChanged: 'clickable_changed',
@@ -44,12 +44,10 @@ const MarkerEvents = {
   onZindexChanged: 'zindex_changed'
 };
 
-const InfoWindowEvents = {
+export const InfoWindowEvents = {
   onCloseClick: 'closeclick',
   onContentChanged: 'content_changed',
   onDOMReady: 'domready',
   onPositionChanged: 'position_changed',
   onZindexChanged: 'zindex_changed'
 };
-
-export {MapEvents, MarkerEvents, InfoWindowEvents};
