@@ -1,4 +1,4 @@
 import createEntity from './entity';
-import {MarkerEvents} from './events';
+import {MarkerEvents} from '../utils/events';
 
 export default createEntity('Marker', MarkerEvents);
