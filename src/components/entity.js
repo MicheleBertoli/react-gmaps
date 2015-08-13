@@ -1,7 +1,7 @@
 import React from 'react';
-import Listener from './listener';
+import Listener from '../mixins/listener';
 
-export default (name, events) => {
+export default (name, latLngProp, events) => {
   return React.createClass({
 
     mixins: [Listener],
@@ -28,7 +28,7 @@ export default (name, events) => {
     getOptions(props) {
       return {
         ...props,
-        position: new google.maps.LatLng(props.lat, props.lng)
+        [latLngProp]: new google.maps.LatLng(props.lat, props.lng)
       };
     },
 

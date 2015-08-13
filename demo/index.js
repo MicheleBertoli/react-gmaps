@@ -1,6 +1,6 @@
 import React from 'react';
 import {Gmaps} from '../dist';
-import {MapEvents} from '../dist/components/events';
+import MapEvents from '../dist/events/map';
 
 const styles = {
   item: {

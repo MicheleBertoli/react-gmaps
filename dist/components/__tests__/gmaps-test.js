@@ -1,6 +1,6 @@
 'use strict';
 
-jest.dontMock('../listener');
+jest.dontMock('../../mixins/listener');
 jest.dontMock('../gmaps');
 
 describe('Gmaps', function () {

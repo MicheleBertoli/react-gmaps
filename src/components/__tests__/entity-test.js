@@ -1,4 +1,4 @@
-jest.dontMock('../listener');
+jest.dontMock('../../mixins/listener');
 jest.dontMock('../entity');
 
 describe('Entity', () => {
@@ -6,7 +6,7 @@ describe('Entity', () => {
   const React = require('react/addons');
   const TestUtils = React.addons.TestUtils;
   const createEntity = require('../entity');
-  const Entity = createEntity('Entity', {
+  const Entity = createEntity('Entity', 'prop', {
     onClick: 'click'
   });
 

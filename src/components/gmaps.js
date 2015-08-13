@@ -1,8 +1,8 @@
 import React from 'react';
 import cloneWithProps from 'react/lib/cloneWithProps';
 import assign from 'react/lib/Object.assign';
-import {MapEvents} from './events';
-import Listener from './listener';
+import MapEvents from '../events/map';
+import Listener from '../mixins/listener';
 
 const Gmaps = React.createClass({
 

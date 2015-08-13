@@ -8,18 +8,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listener = require('./listener');
+var _mixinsListener = require('../mixins/listener');
 
-var _listener2 = _interopRequireDefault(_listener);
+var _mixinsListener2 = _interopRequireDefault(_mixinsListener);
 
-exports['default'] = function (name, events) {
+exports['default'] = function (name, latLngProp, events) {
   return _react2['default'].createClass({
 
-    mixins: [_listener2['default']],
+    mixins: [_mixinsListener2['default']],
 
     entity: null,
 
@@ -41,9 +43,7 @@ exports['default'] = function (name, events) {
     },
 
     getOptions: function getOptions(props) {
-      return _extends({}, props, {
-        position: new google.maps.LatLng(props.lat, props.lng)
-      });
+      return _extends({}, props, _defineProperty({}, latLngProp, new google.maps.LatLng(props.lat, props.lng)));
     },
 
     render: function render() {
