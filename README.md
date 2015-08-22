@@ -33,7 +33,7 @@ import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 const coords = {
   lat: 51.5258541,
   lng: -0.08040660000006028
-}
+};
 
 const App = React.createClass({
 
@@ -80,8 +80,8 @@ const App = React.createClass({
           onCloseClick={this.onCloseClick} />
         <Circle
           lat={coords.lat}
-          lng={coords.lng} 
-          radius={500} 
+          lng={coords.lng}
+          radius={500}
           onClick={this.onClick} />
       </Gmaps>
     );
