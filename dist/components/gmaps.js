@@ -77,7 +77,7 @@ var Gmaps = _react2['default'].createClass({
       isMapCreated: true
     });
     if (this.props.onMapCreated) {
-      this.props.onMapCreated();
+      this.props.onMapCreated(this.map, google.maps);
     }
   },
 

@@ -37,10 +37,8 @@ const coords = {
 
 const App = React.createClass({
 
-  onMapCreated() {
-    const {Gmaps} = this.refs;
-    console.log('onMapCreated', Gmaps.getMap());
-    Gmaps.getMap().setOptions({
+  onMapCreated(map) {
+    map.setOptions({
       disableDefaultUI: true
     });
   },
@@ -60,7 +58,6 @@ const App = React.createClass({
   render() {
     return (
       <Gmaps
-        ref='Gmaps'
         width={'800px'}
         height={'600px'}
         lat={coords.lat}
