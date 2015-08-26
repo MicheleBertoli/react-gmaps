@@ -71,8 +71,7 @@ var Gmaps = _react2['default'].createClass({
 
   createMap: function createMap() {
     this.map = new google.maps.Map(this.getDOMNode(), _extends({}, this.props, {
-      center: new google.maps.LatLng(this.props.lat, this.props.lng),
-      zoom: this.props.zoom
+      center: new google.maps.LatLng(this.props.lat, this.props.lng)
     }));
     this.setState({
       isMapCreated: true
