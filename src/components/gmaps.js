@@ -56,7 +56,7 @@ const Gmaps = React.createClass({
       isMapCreated: true
     });
     if (this.props.onMapCreated) {
-      this.props.onMapCreated();
+      this.props.onMapCreated(this.map, google.maps);
     }
   },
 
