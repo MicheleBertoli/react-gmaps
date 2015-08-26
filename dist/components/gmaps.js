@@ -4,6 +4,8 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _react = require('react');
@@ -68,10 +70,10 @@ var Gmaps = _react2['default'].createClass({
   },
 
   createMap: function createMap() {
-    this.map = new google.maps.Map(this.getDOMNode(), {
+    this.map = new google.maps.Map(this.getDOMNode(), _extends({}, this.props, {
       center: new google.maps.LatLng(this.props.lat, this.props.lng),
       zoom: this.props.zoom
-    });
+    }));
     this.setState({
       isMapCreated: true
     });

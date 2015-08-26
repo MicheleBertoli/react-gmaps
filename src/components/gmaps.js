@@ -49,6 +49,7 @@ const Gmaps = React.createClass({
 
   createMap() {
     this.map = new google.maps.Map(this.getDOMNode(), {
+      ...this.props,
       center: new google.maps.LatLng(this.props.lat, this.props.lng),
       zoom: this.props.zoom
     });
