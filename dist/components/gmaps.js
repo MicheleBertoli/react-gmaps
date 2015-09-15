@@ -24,6 +24,10 @@ var _mixinsListener = require('../mixins/listener');
 
 var _mixinsListener2 = _interopRequireDefault(_mixinsListener);
 
+var _utils = require('../utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
 var Gmaps = _react2['default'].createClass({
   displayName: 'Gmaps',
 
@@ -38,7 +42,7 @@ var Gmaps = _react2['default'].createClass({
   },
 
   componentDidMount: function componentDidMount() {
-    this.loadMaps();
+    _utils2['default'].loadMaps(this.props.libraries, this.mapsCallback);
   },
 
   componentWillUnmount: function componentWillUnmount() {
@@ -49,22 +53,7 @@ var Gmaps = _react2['default'].createClass({
     return this.map;
   },
 
-  loadMaps: function loadMaps() {
-    if (!window.google) {
-      window.mapsCallback = this.mapsCallback;
-      var src = 'https://maps.googleapis.com/maps/api/js';
-      src += '?callback=mapsCallback';
-      src += '&libraries=' + (this.props.libraries || '');
-      var script = document.createElement('script');
-      script.setAttribute('src', src);
-      document.head.appendChild(script);
-    } else {
-      setTimeout(this.mapsCallback);
-    }
-  },
-
   mapsCallback: function mapsCallback() {
-    delete window.mapsCallback;
     this.createMap();
     this.addListeners(this.map, _eventsMap2['default']);
   },

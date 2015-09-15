@@ -1,13 +1,12 @@
 'use strict';
 
 jest.dontMock('../../mixins/listener');
+jest.dontMock('../../utils');
 jest.dontMock('../gmaps');
 
 describe('Gmaps', function () {
 
-  var React = require('react/addons');
-  var TestUtils = React.addons.TestUtils;
-  var Gmaps = require('../gmaps');
+  var React = undefined;
 
   var gmaps = undefined;
 
@@ -21,6 +20,11 @@ describe('Gmaps', function () {
   var onMapCreated = jest.genMockFunction();
 
   beforeEach(function () {
+    React = require('react/addons');
+    var TestUtils = React.addons.TestUtils;
+    var Utils = require('../../utils');
+    Utils.addScript = function () {};
+    var Gmaps = require('../gmaps');
     delete window.google;
     var Child = React.createClass({
       displayName: 'Child',

@@ -2,6 +2,7 @@ import React from 'react';
 import assign from 'react/lib/Object.assign';
 import MapEvents from '../events/map';
 import Listener from '../mixins/listener';
+import Utils from '../utils';
 
 const Gmaps = React.createClass({
 
@@ -16,7 +17,7 @@ const Gmaps = React.createClass({
   },
 
   componentDidMount() {
-    this.loadMaps();
+    Utils.loadMaps(this.props.libraries, this.mapsCallback);
   },
 
   componentWillUnmount() {
@@ -27,22 +28,7 @@ const Gmaps = React.createClass({
     return this.map;
   },
 
-  loadMaps() {
-    if (!window.google) {
-      window.mapsCallback = this.mapsCallback;
-      let src = 'https://maps.googleapis.com/maps/api/js';
-      src += '?callback=mapsCallback';
-      src += `&libraries=${this.props.libraries || ''}`;
-      const script = document.createElement('script');
-      script.setAttribute('src', src);
-      document.head.appendChild(script);
-    } else {
-      setTimeout(this.mapsCallback);
-    }
-  },
-
   mapsCallback() {
-    delete window.mapsCallback;
     this.createMap();
     this.addListeners(this.map, MapEvents);
   },
