@@ -52,5 +52,8 @@
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react"
     ]
+  },
+  "engines": {
+    "node": "0.10.33"
   }
 }
