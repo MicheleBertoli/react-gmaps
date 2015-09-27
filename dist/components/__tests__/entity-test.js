@@ -100,7 +100,7 @@ describe('Entity', function () {
 
   describe('getEntity', function () {
 
-    it('calls `setOptions` when receive new props', function () {
+    it('returns the entity', function () {
       window.google.maps.Entity = jest.genMockFunction();
       entity = TestUtils.renderIntoDocument(React.createElement(Entity, null));
       expect(entity.getEntity()).toBeDefined();

@@ -17,7 +17,6 @@ exports['default'] = {
         this.addScript(libraries);
       }
     } else {
-      console.log('sss');
       setTimeout(callback);
     }
   },

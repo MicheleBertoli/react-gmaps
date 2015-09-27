@@ -24,6 +24,13 @@ const Gmaps = React.createClass({
     this.removeListeners();
   },
 
+  componentWillReceiveProps(nextProps) {
+    this.map.setOptions({
+      ...nextProps,
+      center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
+    });
+  },
+
   getMap() {
     return this.map;
   },
