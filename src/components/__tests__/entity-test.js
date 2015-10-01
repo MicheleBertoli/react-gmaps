@@ -74,7 +74,7 @@ describe('Entity', () => {
 
   });
 
-  describe('render', () => {
+  describe('updating', () => {
 
     it('calls `setOptions` when receive new props', () => {
       window.google.maps.Entity = () => {

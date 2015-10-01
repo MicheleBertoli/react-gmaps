@@ -25,10 +25,12 @@ const Gmaps = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    this.map.setOptions({
-      ...nextProps,
-      center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
-    });
+    if (this.map) {
+      this.map.setOptions({
+        ...nextProps,
+        center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
+      });
+    }
   },
 
   getMap() {

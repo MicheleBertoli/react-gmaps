@@ -50,9 +50,11 @@ var Gmaps = _react2['default'].createClass({
   },
 
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    this.map.setOptions(_extends({}, nextProps, {
-      center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
-    }));
+    if (this.map) {
+      this.map.setOptions(_extends({}, nextProps, {
+        center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
+      }));
+    }
   },
 
   getMap: function getMap() {

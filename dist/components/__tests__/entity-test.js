@@ -70,7 +70,7 @@ describe('Entity', function () {
     });
   });
 
-  describe('render', function () {
+  describe('updating', function () {
 
     it('calls `setOptions` when receive new props', function () {
       window.google.maps.Entity = function () {

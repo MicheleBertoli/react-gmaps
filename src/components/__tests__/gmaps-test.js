@@ -10,10 +10,13 @@ describe('Gmaps', () => {
   Utils.addScript = () => {};
   const Gmaps = require('../gmaps');
 
-  let gmaps;
+  beforeEach(() => {
+    delete window.google;
+  });
 
-  describe('mounting and unmounting', () => {
+  describe('rendering', () => {
 
+    let gmaps;
     const width = '100%';
     const height = '100%';
     const style = {
@@ -24,7 +27,6 @@ describe('Gmaps', () => {
     const onMapCreated = jest.genMockFunction();
 
     beforeEach(() => {
-      delete window.google;
       const Child = React.createClass({
         render() {
           return null;
@@ -100,10 +102,16 @@ describe('Gmaps', () => {
 
   });
 
-  describe('render', () => {
+  describe('updating', () => {
+
+    it('does not call `setOptions` if maps are not loaded', () => {
+      const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
+      expect(() => {
+        gmaps.componentWillReceiveProps({});
+      }).not.toThrow();
+    });
 
     it('calls `setOptions` when receive new props', () => {
-      delete window.google;
       const Parent = React.createClass({
         getInitialState() {
           return {
