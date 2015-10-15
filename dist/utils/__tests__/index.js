@@ -1,5 +1,6 @@
 'use strict';
 
+jest.dontMock('querystring');
 jest.dontMock('../../utils');
 
 describe('Utils', function () {
@@ -37,6 +38,17 @@ describe('Utils', function () {
     Utils.loadMaps(null, callback);
     window.mapsCallback();
     expect(callback).toBeCalled();
+  });
+
+  it('returns the src', function () {
+    var expected = Utils.getSrc({
+      param0: 'param0',
+      param1: 'param1'
+    });
+    var actual = 'https://maps.googleapis.com/maps/api/js';
+    actual += '?callback=mapsCallback&';
+    actual += 'param0=param0&param1=param1';
+    expect(expected).toBe(actual);
   });
 
   it('deletes the global mapsCallback', function () {

@@ -42,7 +42,7 @@ var Gmaps = _react2['default'].createClass({
   },
 
   componentDidMount: function componentDidMount() {
-    _utils2['default'].loadMaps(this.props.libraries, this.mapsCallback);
+    _utils2['default'].loadMaps(this.props.params, this.mapsCallback);
   },
 
   componentWillUnmount: function componentWillUnmount() {

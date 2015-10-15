@@ -17,7 +17,7 @@ const Gmaps = React.createClass({
   },
 
   componentDidMount() {
-    Utils.loadMaps(this.props.libraries, this.mapsCallback);
+    Utils.loadMaps(this.props.params, this.mapsCallback);
   },
 
   componentWillUnmount() {
