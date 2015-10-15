@@ -1,6 +1,6 @@
 {
   "name": "react-gmaps",
-  "version": "0.4.2",
+  "version": "1.0.0",
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
