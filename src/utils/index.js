@@ -34,7 +34,7 @@ export default {
   },
 
   mapsCallback() {
-    delete window.mapsCallback;
+    window.mapsCallback = undefined;;
     this.callbacks.forEach(callback => callback());
     this.callbacks = [];
   }

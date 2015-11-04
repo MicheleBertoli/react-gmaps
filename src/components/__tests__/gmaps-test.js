@@ -11,7 +11,7 @@ describe('Gmaps', () => {
   const Gmaps = require('../gmaps');
 
   beforeEach(() => {
-    delete window.google;
+    window.google = undefined;
   });
 
   describe('rendering', () => {

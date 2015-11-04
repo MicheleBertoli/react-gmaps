@@ -13,7 +13,7 @@ describe('Gmaps', function () {
   var Gmaps = require('../gmaps');
 
   beforeEach(function () {
-    delete window.google;
+    window.google = undefined;
   });
 
   describe('rendering', function () {

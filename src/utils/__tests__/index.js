@@ -6,8 +6,8 @@ describe('Utils', () => {
   let Utils;
 
   beforeEach(() => {
-    delete window.google;
-    delete window.mapsCallback;
+    window.google = undefined;
+    window.mapsCallback = undefined;
     Utils = require('../../utils');
   });
 

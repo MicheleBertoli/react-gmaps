@@ -44,7 +44,7 @@ exports['default'] = {
   },
 
   mapsCallback: function mapsCallback() {
-    delete window.mapsCallback;
+    window.mapsCallback = undefined;;
     this.callbacks.forEach(function (callback) {
       return callback();
     });

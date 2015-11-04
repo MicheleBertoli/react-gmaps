@@ -8,8 +8,8 @@ describe('Utils', function () {
   var Utils = undefined;
 
   beforeEach(function () {
-    delete window.google;
-    delete window.mapsCallback;
+    window.google = undefined;
+    window.mapsCallback = undefined;
     Utils = require('../../utils');
   });
 
