@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Gmaps} from '../dist';
 import MapEvents from '../dist/events/map';
 
@@ -15,7 +16,7 @@ const styles = {
 const App = React.createClass({
 
   handler(_event) {
-    const item = this.refs[_event].getDOMNode();
+    const item = ReactDOM.findDOMNode(this.refs[_event]);
     item.style.backgroundColor = '#99ccff';
     setTimeout(function() {
       item.style.backgroundColor = styles.item.backgroundColor;
@@ -57,4 +58,4 @@ const App = React.createClass({
 
 });
 
-React.render(<App />, document.getElementById('gmaps'));
+ReactDOM.render(<App />, document.getElementById('gmaps'));

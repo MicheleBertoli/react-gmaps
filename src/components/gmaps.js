@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import assign from 'react/lib/Object.assign';
 import MapEvents from '../events/map';
 import Listener from '../mixins/listener';
@@ -43,7 +44,8 @@ const Gmaps = React.createClass({
   },
 
   createMap() {
-    this.map = new google.maps.Map(this.getDOMNode(), {
+    const node = ReactDOM.findDOMNode(this);
+    this.map = new google.maps.Map(node, {
       ...this.props,
       center: new google.maps.LatLng(this.props.lat, this.props.lng)
     });

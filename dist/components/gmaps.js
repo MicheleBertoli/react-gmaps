@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _reactLibObjectAssign = require('react/lib/Object.assign');
 
 var _reactLibObjectAssign2 = _interopRequireDefault(_reactLibObjectAssign);
@@ -67,7 +71,8 @@ var Gmaps = _react2['default'].createClass({
   },
 
   createMap: function createMap() {
-    this.map = new google.maps.Map(this.getDOMNode(), _extends({}, this.props, {
+    var node = _reactDom2['default'].findDOMNode(this);
+    this.map = new google.maps.Map(node, _extends({}, this.props, {
       center: new google.maps.LatLng(this.props.lat, this.props.lng)
     }));
     this.setState({

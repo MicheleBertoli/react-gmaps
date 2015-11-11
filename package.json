@@ -35,7 +35,8 @@
     "eslint-plugin-react": "^3.2.1",
     "express": "^4.11.2",
     "jest-cli": "^0.7.0",
-    "react": "^0.13.1"
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
   },
   "browserify": {
     "transform": [

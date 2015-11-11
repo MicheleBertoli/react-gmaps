@@ -28,6 +28,7 @@ Usage
 
 ```javascript
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 
 const coords = {
@@ -87,7 +88,7 @@ const App = React.createClass({
 
 });
 
-React.render(<App />, document.getElementById('gmaps'));
+ReactDOM.render(<App />, document.getElementById('gmaps'));
 ```
 
 Test
