@@ -3,8 +3,8 @@ jest.dontMock('../entity');
 
 describe('Entity', () => {
 
-  const React = require('react/addons');
-  const TestUtils = React.addons.TestUtils;
+  const React = require('react');
+  const TestUtils = require('react-addons-test-utils');
   const createEntity = require('../entity');
   const Entity = createEntity('Entity', 'prop', {
     onClick: 'click'

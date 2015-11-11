@@ -6,8 +6,9 @@ jest.dontMock('../gmaps');
 
 describe('Gmaps', function () {
 
-  var React = require('react/addons');
-  var TestUtils = React.addons.TestUtils;
+  var React = require('react');
+  var ReactDOM = require('react-dom');
+  var TestUtils = require('react-addons-test-utils');
   var Utils = require('../../utils');
   Utils.addScript = function () {};
   var Gmaps = require('../gmaps');
@@ -62,18 +63,20 @@ describe('Gmaps', function () {
     });
 
     it('applies the style', function () {
-      var node = gmaps.getDOMNode();
+      var node = ReactDOM.findDOMNode(gmaps);
       expect(node.style.width).toBe(width);
       expect(node.style.height).toBe(height);
       expect(node.style.backgroundColor).toBe(style.backgroundColor);
     });
 
     it('applies the class name', function () {
-      expect(gmaps.getDOMNode().className).toBe(className);
+      var node = ReactDOM.findDOMNode(gmaps);
+      expect(node.className).toBe(className);
     });
 
     it('show the loading message', function () {
-      expect(gmaps.getDOMNode().textContent).toBe(loadingMessage);
+      var node = ReactDOM.findDOMNode(gmaps);
+      expect(node.textContent).toBe(loadingMessage);
     });
 
     it('loads maps once', function () {
