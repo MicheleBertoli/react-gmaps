@@ -1,45 +1,45 @@
 jest.dontMock('querystring');
-jest.dontMock('../../utils');
+jest.dontMock('../../utils/google-maps');
 
-describe('Utils', () => {
+describe('GoogleMaps', () => {
 
-  let Utils;
+  let GoogleMaps;
 
   beforeEach(() => {
     window.google = undefined;
     window.mapsCallback = undefined;
-    Utils = require('../../utils');
+    GoogleMaps = require('../../utils/google-maps');
   });
 
   it('registers the callbacks if google does not exist', () => {
-    expect(Utils.callbacks.length).toBe(0);
-    Utils.loadMaps(null, () => {});
-    expect(Utils.callbacks.length).toBe(1);
+    expect(GoogleMaps.callbacks.length).toBe(0);
+    GoogleMaps.load(null, () => {});
+    expect(GoogleMaps.callbacks.length).toBe(1);
   });
 
-  it('adds the script if not added', () => {
-    expect(Utils.added).toBe(false);
-    Utils.loadMaps(null, () => {});
-    expect(Utils.added).toBe(true);
+  it('appends the script if not appended', () => {
+    expect(GoogleMaps.appended).toBe(false);
+    GoogleMaps.load(null, () => {});
+    expect(GoogleMaps.appended).toBe(true);
   });
 
   it('fires the callback if google exists', () => {
     window.google = {};
     const callback = jest.genMockFunction();
-    Utils.loadMaps(null, callback);
+    GoogleMaps.load(null, callback);
     jest.runAllTimers();
     expect(callback).toBeCalled();
   });
 
   it('fires the callbacks on mapsCallback', () => {
     const callback = jest.genMockFunction();
-    Utils.loadMaps(null, callback);
+    GoogleMaps.load(null, callback);
     window.mapsCallback();
     expect(callback).toBeCalled();
   });
 
   it('returns the src', () => {
-    const expected = Utils.getSrc({
+    const expected = GoogleMaps.getSrc({
       param0: 'param0',
       param1: 'param1'
     });
@@ -51,7 +51,7 @@ describe('Utils', () => {
 
   it('deletes the global mapsCallback', () => {
     window.mapsCallback = {};
-    Utils.mapsCallback();
+    GoogleMaps.mapsCallback();
     expect(window.mapsCallback).toBeUndefined();
   });
 

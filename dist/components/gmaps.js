@@ -16,9 +16,9 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactLibObjectAssign = require('react/lib/Object.assign');
+var _objectAssign = require('object-assign');
 
-var _reactLibObjectAssign2 = _interopRequireDefault(_reactLibObjectAssign);
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
 var _eventsMap = require('../events/map');
 
@@ -28,9 +28,13 @@ var _mixinsListener = require('../mixins/listener');
 
 var _mixinsListener2 = _interopRequireDefault(_mixinsListener);
 
-var _utils = require('../utils');
+var _utilsGoogleMaps = require('../utils/google-maps');
 
-var _utils2 = _interopRequireDefault(_utils);
+var _utilsGoogleMaps2 = _interopRequireDefault(_utilsGoogleMaps);
+
+var _utilsCompareProps = require('../utils/compare-props');
+
+var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
 
 var Gmaps = _react2['default'].createClass({
   displayName: 'Gmaps',
@@ -46,7 +50,7 @@ var Gmaps = _react2['default'].createClass({
   },
 
   componentDidMount: function componentDidMount() {
-    _utils2['default'].loadMaps(this.props.params, this.mapsCallback);
+    _utilsGoogleMaps2['default'].load(this.props.params, this.mapsCallback);
   },
 
   componentWillUnmount: function componentWillUnmount() {
@@ -54,7 +58,7 @@ var Gmaps = _react2['default'].createClass({
   },
 
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    if (this.map) {
+    if (this.map && !(0, _utilsCompareProps2['default'])(this.props, nextProps)) {
       this.map.setOptions(_extends({}, nextProps, {
         center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
       }));
@@ -98,7 +102,7 @@ var Gmaps = _react2['default'].createClass({
   },
 
   render: function render() {
-    var style = (0, _reactLibObjectAssign2['default'])({
+    var style = (0, _objectAssign2['default'])({
       width: this.props.width,
       height: this.props.height
     }, this.props.style);

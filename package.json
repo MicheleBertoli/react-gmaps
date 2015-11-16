@@ -35,9 +35,7 @@
     "eslint-plugin-react": "^3.2.1",
     "express": "^4.11.2",
     "jest-cli": "^0.7.0",
-    "react": "^0.14.2",
-    "react-addons-test-utils": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "react-addons-test-utils": "^0.14.2"
   },
   "browserify": {
     "transform": [
@@ -57,5 +55,10 @@
       "<rootDir>/node_modules/react-addons-test-utils",
       "<rootDir>/node_modules/fbjs"
     ]
+  },
+  "dependencies": {
+    "object-assign": "^4.0.1",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
   }
 }

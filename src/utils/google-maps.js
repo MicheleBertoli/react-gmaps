@@ -4,14 +4,14 @@ export default {
 
   callbacks: [],
 
-  added: false,
+  appended: false,
 
-  loadMaps(params, callback) {
+  load(params, callback) {
     if (!window.google) {
       this.callbacks.push(callback);
-      if (!this.added) {
+      if (!this.appended) {
         window.mapsCallback = this.mapsCallback.bind(this);
-        this.addScript(params);
+        this.appendScript(params);
       }
     } else {
       setTimeout(callback);
@@ -25,12 +25,12 @@ export default {
     return src;
   },
 
-  addScript(params) {
+  appendScript(params) {
     const src = this.getSrc(params);
     const script = document.createElement('script');
     script.setAttribute('src', src);
     document.head.appendChild(script);
-    this.added = true;
+    this.appended = true;
   },
 
   mapsCallback() {

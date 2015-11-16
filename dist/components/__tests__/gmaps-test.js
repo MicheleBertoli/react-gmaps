@@ -1,7 +1,9 @@
 'use strict';
 
+jest.dontMock('object-assign');
 jest.dontMock('../../mixins/listener');
-jest.dontMock('../../utils');
+jest.dontMock('../../utils/google-maps');
+jest.dontMock('../../utils/compare-props');
 jest.dontMock('../gmaps');
 
 describe('Gmaps', function () {
@@ -9,8 +11,8 @@ describe('Gmaps', function () {
   var React = require('react');
   var ReactDOM = require('react-dom');
   var TestUtils = require('react-addons-test-utils');
-  var Utils = require('../../utils');
-  Utils.addScript = function () {};
+  var GoogleMaps = require('../../utils/google-maps');
+  GoogleMaps.appendScript = function () {};
   var Gmaps = require('../gmaps');
 
   beforeEach(function () {
@@ -123,11 +125,13 @@ describe('Gmaps', function () {
 
         getInitialState: function getInitialState() {
           return {
-            content: '1'
+            prop: '1'
           };
         },
         render: function render() {
-          return React.createElement(Gmaps, { ref: 'gmaps' });
+          var prop = this.state.prop;
+
+          return React.createElement(Gmaps, { ref: 'gmaps', prop: prop });
         }
       });
       var parent = TestUtils.renderIntoDocument(React.createElement(Parent, null));
@@ -143,7 +147,7 @@ describe('Gmaps', function () {
       };
       window.mapsCallback();
       parent.setState({
-        content: '2'
+        prop: '2'
       });
       expect(parent.refs.gmaps.getMap().setOptions).toBeCalled();
     });

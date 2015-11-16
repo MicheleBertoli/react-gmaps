@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import assign from 'react/lib/Object.assign';
+import objectAssign from 'object-assign';
 import MapEvents from '../events/map';
 import Listener from '../mixins/listener';
-import Utils from '../utils';
+import GoogleMaps from '../utils/google-maps';
+import compareProps from '../utils/compare-props';
 
 const Gmaps = React.createClass({
 
@@ -18,7 +19,7 @@ const Gmaps = React.createClass({
   },
 
   componentDidMount() {
-    Utils.loadMaps(this.props.params, this.mapsCallback);
+    GoogleMaps.load(this.props.params, this.mapsCallback);
   },
 
   componentWillUnmount() {
@@ -26,7 +27,7 @@ const Gmaps = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.map) {
+    if (this.map && !compareProps(this.props, nextProps)) {
       this.map.setOptions({
         ...nextProps,
         center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
@@ -70,7 +71,7 @@ const Gmaps = React.createClass({
   },
 
   render() {
-    const style = assign({
+    const style = objectAssign({
       width: this.props.width,
       height: this.props.height
     }, this.props.style);
