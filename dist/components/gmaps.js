@@ -75,7 +75,10 @@ var Gmaps = _react2['default'].createClass({
   },
 
   createMap: function createMap() {
-    var node = _reactDom2['default'].findDOMNode(this);
+    if (!this.isMounted()) return;// prevent fail if the component has been redrawn or unmounted
+    
+    var node = _reactDom2['default'].findDOMNode(this);// could fail
+    
     this.map = new google.maps.Map(node, _extends({}, this.props, {
       center: new google.maps.LatLng(this.props.lat, this.props.lng)
     }));
