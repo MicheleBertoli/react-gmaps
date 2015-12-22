@@ -148,4 +148,31 @@ describe('Gmaps', () => {
 
   });
 
+  describe('unmounted', () => {
+
+    beforeEach(() => {
+      GoogleMaps.fireCallbacks = jest.genMockFunction();
+    });
+
+    it('does not fire the callback (unloaded)', () => {
+      const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(GoogleMaps.fireCallbacks).not.toBeCalled();
+    });
+
+    it('does not fire the callback (loaded)', () => {
+      window.google = {
+        maps: {
+          event: {
+            removeListener: jest.genMockFunction()
+          }
+        }
+      };
+      const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(GoogleMaps.fireCallbacks).not.toBeCalled();
+    });
+
+  });
+
 });

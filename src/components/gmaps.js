@@ -19,10 +19,13 @@ const Gmaps = React.createClass({
   },
 
   componentDidMount() {
-    GoogleMaps.load(this.props.params, this.mapsCallback);
+    this.setState({
+      callbackIndex: GoogleMaps.load(this.props.params, this.mapsCallback)
+    });
   },
 
   componentWillUnmount() {
+    GoogleMaps.removeCallback(this.state.callbackIndex);
     this.removeListeners();
   },
 
@@ -54,7 +57,7 @@ const Gmaps = React.createClass({
       isMapCreated: true
     });
     if (this.props.onMapCreated) {
-      this.props.onMapCreated(this.map, google.maps);
+      this.props.onMapCreated(this.map);
     }
   },
 

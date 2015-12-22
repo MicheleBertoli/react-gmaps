@@ -17,15 +17,16 @@ exports['default'] = {
   appended: false,
 
   load: function load(params, callback) {
-    if (!window.google) {
-      this.callbacks.push(callback);
+    var index = this.callbacks.push(callback);
+    if (window.google) {
+      setTimeout(this.fireCallbacks.bind(this));
+    } else {
       if (!this.appended) {
         window.mapsCallback = this.mapsCallback.bind(this);
         this.appendScript(params);
       }
-    } else {
-      setTimeout(callback);
     }
+    return index;
   },
 
   getSrc: function getSrc(params) {
@@ -44,11 +45,19 @@ exports['default'] = {
   },
 
   mapsCallback: function mapsCallback() {
-    window.mapsCallback = undefined;;
+    window.mapsCallback = undefined;
+    this.fireCallbacks();
+  },
+
+  fireCallbacks: function fireCallbacks() {
     this.callbacks.forEach(function (callback) {
       return callback();
     });
     this.callbacks = [];
+  },
+
+  removeCallback: function removeCallback(index) {
+    this.callbacks.splice(index - 1, 1);
   }
 
 };
