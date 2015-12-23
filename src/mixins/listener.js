@@ -14,9 +14,11 @@ const Listener = {
   },
 
   removeListeners() {
-    this.listeners.forEach((listener) => {
-      google.maps.event.removeListener(listener);
-    });
+    if (window.google) {
+      this.listeners.forEach((listener) => {
+        google.maps.event.removeListener(listener);
+      });
+    }
   }
 
 };

@@ -50,10 +50,13 @@ var Gmaps = _react2['default'].createClass({
   },
 
   componentDidMount: function componentDidMount() {
-    _utilsGoogleMaps2['default'].load(this.props.params, this.mapsCallback);
+    this.setState({
+      callbackIndex: _utilsGoogleMaps2['default'].load(this.props.params, this.mapsCallback)
+    });
   },
 
   componentWillUnmount: function componentWillUnmount() {
+    _utilsGoogleMaps2['default'].removeCallback(this.state.callbackIndex);
     this.removeListeners();
   },
 
@@ -83,7 +86,7 @@ var Gmaps = _react2['default'].createClass({
       isMapCreated: true
     });
     if (this.props.onMapCreated) {
-      this.props.onMapCreated(this.map, google.maps);
+      this.props.onMapCreated(this.map);
     }
   },
 

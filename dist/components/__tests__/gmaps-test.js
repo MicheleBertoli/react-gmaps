@@ -152,4 +152,30 @@ describe('Gmaps', function () {
       expect(parent.refs.gmaps.getMap().setOptions).toBeCalled();
     });
   });
+
+  describe('unmounted', function () {
+
+    beforeEach(function () {
+      GoogleMaps.fireCallbacks = jest.genMockFunction();
+    });
+
+    it('does not fire the callback (unloaded)', function () {
+      var gmaps = TestUtils.renderIntoDocument(React.createElement(Gmaps, null));
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(GoogleMaps.fireCallbacks).not.toBeCalled();
+    });
+
+    it('does not fire the callback (loaded)', function () {
+      window.google = {
+        maps: {
+          event: {
+            removeListener: jest.genMockFunction()
+          }
+        }
+      };
+      var gmaps = TestUtils.renderIntoDocument(React.createElement(Gmaps, null));
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(GoogleMaps.fireCallbacks).not.toBeCalled();
+    });
+  });
 });

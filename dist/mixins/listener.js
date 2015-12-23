@@ -19,9 +19,11 @@ var Listener = {
   },
 
   removeListeners: function removeListeners() {
-    this.listeners.forEach(function (listener) {
-      google.maps.event.removeListener(listener);
-    });
+    if (window.google) {
+      this.listeners.forEach(function (listener) {
+        google.maps.event.removeListener(listener);
+      });
+    }
   }
 
 };
