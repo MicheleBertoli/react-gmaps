@@ -113,5 +113,38 @@ describe('Entity', () => {
 
   });
 
+  describe('binding', () => {
+
+    it('keeps the listeners separated', () => {
+      window.google.maps.Entity = () => {
+        return {
+          setMap: jest.genMockFunction(),
+          setOptions: jest.genMockFunction()
+        };
+      };
+      const Parent = React.createClass({
+        getInitialState() {
+          return {
+            show: true
+          };
+        },
+        render() {
+          return (
+            <div>
+              <Entity ref='child' onClick={jest.genMockFunction()} />
+              {this.state.show && <Entity onClick={jest.genMockFunction()} />}
+            </div>
+          );
+        }
+      });
+      const parent = TestUtils.renderIntoDocument(<Parent />);
+      parent.setState({
+        show: false
+      });
+      expect(parent.refs.child.listeners.length).toBe(1);
+    });
+
+  });
+
 });
 
