@@ -106,4 +106,38 @@ describe('Entity', function () {
       expect(entity.getEntity()).toBeDefined();
     });
   });
+
+  describe('binding', function () {
+
+    it('keeps the listeners separated', function () {
+      window.google.maps.Entity = function () {
+        return {
+          setMap: jest.genMockFunction(),
+          setOptions: jest.genMockFunction()
+        };
+      };
+      var Parent = React.createClass({
+        displayName: 'Parent',
+
+        getInitialState: function getInitialState() {
+          return {
+            show: true
+          };
+        },
+        render: function render() {
+          return React.createElement(
+            'div',
+            null,
+            React.createElement(Entity, { ref: 'child', onClick: jest.genMockFunction() }),
+            this.state.show && React.createElement(Entity, { onClick: jest.genMockFunction() })
+          );
+        }
+      });
+      var parent = TestUtils.renderIntoDocument(React.createElement(Parent, null));
+      parent.setState({
+        show: false
+      });
+      expect(parent.refs.child.listeners.length).toBe(1);
+    });
+  });
 });
