@@ -4,10 +4,11 @@
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
+    "prepublish": "npm run build",
     "build": "babel ./src --out-dir ./dist",
     "pretest": "eslint ./src",
     "test": "jest",
-    "demo": "browserify ./demo/index.js -o ./demo/build.js",
+    "demo": "browserify -t babelify ./demo/index.js -o ./demo/build.js",
     "start": "node server"
   },
   "repository": {
@@ -36,13 +37,6 @@
     "express": "^4.11.2",
     "jest-cli": "^0.7.0",
     "react-addons-test-utils": "^0.14.2"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify"
-      ]
-    ]
   },
   "jest": {
     "testPathDirs": [
