@@ -18,6 +18,10 @@ var _mixinsListener = require('../mixins/listener');
 
 var _mixinsListener2 = _interopRequireDefault(_mixinsListener);
 
+var _utilsCompareProps = require('../utils/compare-props');
+
+var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
+
 exports['default'] = function (name, latLngProp, events) {
   return _react2['default'].createClass({
 
@@ -32,8 +36,10 @@ exports['default'] = function (name, latLngProp, events) {
     },
 
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-      var options = this.getOptions(nextProps);
-      this.entity.setOptions(options);
+      if (!(0, _utilsCompareProps2['default'])(this.props, nextProps)) {
+        var options = this.getOptions(nextProps);
+        this.entity.setOptions(options);
+      }
     },
 
     componentWillUnmount: function componentWillUnmount() {
