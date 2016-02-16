@@ -1,4 +1,5 @@
 jest.dontMock('../../mixins/listener');
+jest.dontMock('../../utils/compare-props');
 jest.dontMock('../entity');
 
 describe('Entity', () => {
@@ -76,7 +77,9 @@ describe('Entity', () => {
 
   describe('updating', () => {
 
-    it('calls `setOptions` when receive new props', () => {
+    let parent;
+
+    beforeEach(() => {
       window.google.maps.Entity = () => {
         return {
           setOptions: jest.genMockFunction()
@@ -85,18 +88,29 @@ describe('Entity', () => {
       const Parent = React.createClass({
         getInitialState() {
           return {
-            content: '1'
+            prop: '1'
           };
         },
         render() {
-          return <Entity ref="child" />;
+          const {prop} = this.state;
+          return <Entity ref="child" prop={prop} />;
         }
       });
-      const parent = TestUtils.renderIntoDocument(<Parent />);
+      parent = TestUtils.renderIntoDocument(<Parent />);
+    });
+
+    it('calls `setOptions` when receive new props', () => {
       parent.setState({
-        content: '2'
+        prop: '2'
       });
       expect(parent.refs.child.entity.setOptions).toBeCalled();
+    });
+
+    it('does not call `setOptions` when props are the same', () => {
+      parent.setState({
+        prop: '1'
+      });
+      expect(parent.refs.child.entity.setOptions).not.toBeCalled();
     });
 
   });

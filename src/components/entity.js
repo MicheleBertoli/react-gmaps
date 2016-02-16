@@ -1,5 +1,6 @@
 import React from 'react';
 import Listener from '../mixins/listener';
+import compareProps from '../utils/compare-props';
 
 export default (name, latLngProp, events) => {
   return React.createClass({
@@ -15,8 +16,10 @@ export default (name, latLngProp, events) => {
     },
 
     componentWillReceiveProps(nextProps) {
-      const options = this.getOptions(nextProps);
-      this.entity.setOptions(options);
+      if (!compareProps(this.props, nextProps)) {
+        const options = this.getOptions(nextProps);
+        this.entity.setOptions(options);
+      }
     },
 
     componentWillUnmount() {
