@@ -25,7 +25,12 @@ describe('compareProps', () => {
   });
 
   it('ignores the `children` property', () => {
-    const result = compareProps({a: 1, children: 1}, {a: 1, children: 2});
+    const result = compareProps({children: 1}, {children: 2});
+    expect(result).toBe(true);
+  });
+
+  it('ignores the `on*` properties', () => {
+    const result = compareProps({onClick: () => {}}, {onClick: () => {}});
     expect(result).toBe(true);
   });
 

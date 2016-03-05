@@ -14,7 +14,7 @@ exports['default'] = function (props, nextProps) {
 
   for (var i = 0; i < propsKeys.length; i++) {
     var key = propsKeys[i];
-    if (key !== 'children' && (!nextProps.hasOwnProperty(key) || props[key] !== nextProps[key])) {
+    if (key !== 'children' && key.indexOf('on') !== 0 && (!nextProps.hasOwnProperty(key) || props[key] !== nextProps[key])) {
       return false;
     }
   }
