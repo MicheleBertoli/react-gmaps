@@ -1,4 +1,5 @@
-src/
 demo/
+src/
+.babelrc
 Procfile
 server.js
