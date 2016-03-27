@@ -7,8 +7,6 @@ export default (name, latLngProp, events) => {
 
     mixins: [Listener],
 
-    entity: null,
-
     componentDidMount() {
       const options = this.getOptions(this.props);
       this.entity = new google.maps[name](options);

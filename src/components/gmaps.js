@@ -5,12 +5,11 @@ import MapEvents from '../events/map';
 import Listener from '../mixins/listener';
 import GoogleMaps from '../utils/google-maps';
 import compareProps from '../utils/compare-props';
+import GoogleMapsPool from '../utils/google-maps-pool';
 
 const Gmaps = React.createClass({
 
   mixins: [Listener],
-
-  map: null,
 
   getInitialState() {
     return {
@@ -26,6 +25,7 @@ const Gmaps = React.createClass({
 
   componentWillUnmount() {
     GoogleMaps.removeCallback(this.state.callbackIndex);
+    GoogleMapsPool.free(this.state.mapIndex);
     this.removeListeners();
   },
 
@@ -49,12 +49,11 @@ const Gmaps = React.createClass({
 
   createMap() {
     const node = ReactDOM.findDOMNode(this);
-    this.map = new google.maps.Map(node, {
-      ...this.props,
-      center: new google.maps.LatLng(this.props.lat, this.props.lng)
-    });
+    const map = GoogleMapsPool.create(node, this.props);
+    this.map = map.map;
     this.setState({
-      isMapCreated: true
+      isMapCreated: true,
+      mapIndex: map.index
     });
     if (this.props.onMapCreated) {
       this.props.onMapCreated(this.map);
