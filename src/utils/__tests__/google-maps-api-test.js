@@ -1,45 +1,45 @@
 jest.dontMock('querystring');
-jest.dontMock('../../utils/google-maps');
+jest.dontMock('../../utils/google-maps-api');
 
-describe('GoogleMaps', () => {
+describe('GoogleMapsApi', () => {
 
-  let GoogleMaps;
+  let GoogleMapsApi;
 
   beforeEach(() => {
     window.google = undefined;
     window.mapsCallback = undefined;
-    GoogleMaps = require('../../utils/google-maps');
+    GoogleMapsApi = require('../../utils/google-maps');
   });
 
   it('registers the callbacks if google does not exist', () => {
-    expect(GoogleMaps.callbacks.length).toBe(0);
-    GoogleMaps.load(null, () => {});
-    expect(GoogleMaps.callbacks.length).toBe(1);
+    expect(GoogleMapsApi.callbacks.length).toBe(0);
+    GoogleMapsApi.load(null, () => {});
+    expect(GoogleMapsApi.callbacks.length).toBe(1);
   });
 
   it('appends the script if not appended', () => {
-    expect(GoogleMaps.appended).toBe(false);
-    GoogleMaps.load(null, () => {});
-    expect(GoogleMaps.appended).toBe(true);
+    expect(GoogleMapsApi.appended).toBe(false);
+    GoogleMapsApi.load(null, () => {});
+    expect(GoogleMapsApi.appended).toBe(true);
   });
 
   it('fires the callback if google exists', () => {
     window.google = {};
     const callback = jest.genMockFunction();
-    GoogleMaps.load(null, callback);
+    GoogleMapsApi.load(null, callback);
     jest.runAllTimers();
     expect(callback).toBeCalled();
   });
 
   it('fires the callbacks on mapsCallback', () => {
     const callback = jest.genMockFunction();
-    GoogleMaps.load(null, callback);
+    GoogleMapsApi.load(null, callback);
     window.mapsCallback();
     expect(callback).toBeCalled();
   });
 
   it('returns the src', () => {
-    const expected = GoogleMaps.getSrc({
+    const expected = GoogleMapsApi.getSrc({
       param0: 'param0',
       param1: 'param1'
     });
@@ -51,7 +51,7 @@ describe('GoogleMaps', () => {
 
   it('deletes the global mapsCallback', () => {
     window.mapsCallback = {};
-    GoogleMaps.mapsCallback();
+    GoogleMapsApi.mapsCallback();
     expect(window.mapsCallback).toBeUndefined();
   });
 

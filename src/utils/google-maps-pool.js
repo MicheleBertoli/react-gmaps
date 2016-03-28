@@ -20,7 +20,7 @@ const useAvailableMap = (firstAvailableMap, node, options) => {
     center: new google.maps.LatLng(options.lat, options.lng)
   });
   window.__gmapsPool[firstAvailableMap.index].available = false;
-  return firstAvailableMap;
+  return firstAvailableMap.index;
 };
 
 const createNewMap = (node, options) => {

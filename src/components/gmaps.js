@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import objectAssign from 'object-assign';
 import MapEvents from '../events/map';
 import Listener from '../mixins/listener';
-import GoogleMaps from '../utils/google-maps';
 import compareProps from '../utils/compare-props';
+import GoogleMapsApi from '../utils/google-maps-api';
 import GoogleMapsPool from '../utils/google-maps-pool';
 
 const Gmaps = React.createClass({
@@ -19,12 +19,12 @@ const Gmaps = React.createClass({
 
   componentDidMount() {
     this.setState({
-      callbackIndex: GoogleMaps.load(this.props.params, this.mapsCallback)
+      callbackIndex: GoogleMapsApi.load(this.props.params, this.mapsCallback)
     });
   },
 
   componentWillUnmount() {
-    GoogleMaps.removeCallback(this.state.callbackIndex);
+    GoogleMapsApi.removeCallback(this.state.callbackIndex);
     GoogleMapsPool.free(this.state.mapIndex);
     this.removeListeners();
   },
