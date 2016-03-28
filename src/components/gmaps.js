@@ -77,10 +77,11 @@ const Gmaps = React.createClass({
       width: this.props.width,
       height: this.props.height
     }, this.props.style);
+    const message = this.props.loadingMessage || 'Loading...';
     return (
       <div style={style} className={this.props.className}>
-        {this.props.loadingMessage || 'Loading...'}
-        {this.state.isMapCreated ? this.getChildren() : null}
+        {!this.state.isMapCreated && message}
+        {this.state.isMapCreated && this.getChildren()}
       </div>
     );
   },
