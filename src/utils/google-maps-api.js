@@ -7,7 +7,7 @@ export default {
   appended: false,
 
   load(params, callback) {
-    const index = this.callbacks.push(callback);
+    let index = this.callbacks.push(callback);
     if (window.google) {
       setTimeout(this.fireCallbacks.bind(this));
     } else {
@@ -16,7 +16,7 @@ export default {
         this.appendScript(params);
       }
     }
-    return index;
+    return --index;
   },
 
   getSrc(params) {
@@ -45,7 +45,7 @@ export default {
   },
 
   removeCallback(index) {
-    this.callbacks.splice(index - 1, 1);
+    this.callbacks.splice(index, 1);
   }
 
 };
