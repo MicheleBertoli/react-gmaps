@@ -35,28 +35,24 @@ const Gmaps = React.createClass({
     }
   },
 
-  getMap() {
-    return GoogleMapsPool.get(this.state.mapIndex);;
-  },
-
   mapsCallback() {
-    this.createMap();
-    this.addListeners(this.getMap(), MapEvents);
-  },
-
-  createMap() {
     const node = ReactDOM.findDOMNode(this);
     this.setState({
       isMapCreated: true,
       mapIndex: GoogleMapsPool.create(node, this.props)
     });
+    this.addListeners(this.getMap(), MapEvents);
     if (this.props.onMapCreated) {
       this.props.onMapCreated(this.getMap());
     }
   },
 
+  getMap() {
+    return GoogleMapsPool.get(this.state.mapIndex);;
+  },
+
   getChildren() {
-    return React.Children.map(this.props.children, (child) => {
+    return React.Children.map(this.props.children, child => {
       if (!React.isValidElement(child)) {
         return child;
       }
