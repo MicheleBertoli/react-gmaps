@@ -63,6 +63,13 @@ const GoogleMapsPool = {
 
   get(index) {
     return window.__gmapsPool[index];
+  },
+
+  update(index, options) {
+    this.get(index).setOptions({
+      ...options,
+      center: new google.maps.LatLng(options.lat, options.lng)
+    });
   }
 
 };

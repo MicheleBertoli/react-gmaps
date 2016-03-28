@@ -30,11 +30,8 @@ const Gmaps = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.getMap() && !compareProps(this.props, nextProps)) {
-      this.getMap().setOptions({
-        ...nextProps,
-        center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
-      });
+    if (this.state.isMapCreated && !compareProps(this.props, nextProps)) {
+      GoogleMapsPool.update(this.state.mapIndex, nextProps);
     }
   },
 
