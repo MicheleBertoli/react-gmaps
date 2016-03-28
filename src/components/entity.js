@@ -13,6 +13,12 @@ export default (name, latLngProp, events) => {
       this.addListeners(this.entity, events);
     },
 
+    componentWillUnmount() {
+      this.entity.setMap(null);
+      this.removeListeners();
+      this.entity = null;
+    },
+
     componentWillReceiveProps(nextProps) {
       if (!compareProps(this.props, nextProps)) {
         const options = this.getOptions(nextProps);
@@ -20,21 +26,15 @@ export default (name, latLngProp, events) => {
       }
     },
 
-    componentWillUnmount() {
-      this.entity.setMap(null);
-      this.removeListeners();
-      this.entity = null;
-    },
-
-    getEntity() {
-      return this.entity;
-    },
-
     getOptions(props) {
       return {
         ...props,
         [latLngProp]: new google.maps.LatLng(props.lat, props.lng)
       };
+    },
+
+    getEntity() {
+      return this.entity;
     },
 
     render() {

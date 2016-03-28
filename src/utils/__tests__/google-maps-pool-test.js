@@ -18,72 +18,75 @@ describe('GoogleMapsPool', () => {
     };
   });
 
-  describe('getFirstAvailableMap', () => {
+  describe('getFirstAvailableIndex', () => {
 
-    it('returns null if no maps have been created', () => {
-      const result = GoogleMapsPool.getFirstAvailableMap();
-      expect(result).toBe(null);
+    it('returns -1 if no maps have been created', () => {
+      const result = GoogleMapsPool.getFirstAvailableIndex();
+      expect(result).toBe(-1);
     });
 
-    it('returns null if no maps are available', () => {
+    it('returns -1 if no maps are available', () => {
       window.__gmapsPool.push({
-        map: {},
         available: false
       });
-      const result = GoogleMapsPool.getFirstAvailableMap();
-      expect(result).toBe(null);
+      const result = GoogleMapsPool.getFirstAvailableIndex();
+      expect(result).toBe(-1);
     });
 
-    it('returns null if no maps are available', () => {
-      const item = {
-        map: {},
+    it('returns the index of the first available map', () => {
+      window.__gmapsPool.push({
         available: true
-      };
-      window.__gmapsPool.push(item);
-      const result = GoogleMapsPool.getFirstAvailableMap();
-      expect(result).toEqual({
-        index: 0,
-        map: item.map
       });
+      const result = GoogleMapsPool.getFirstAvailableIndex();
+      expect(result).toEqual(0);
     });
 
   });
 
   describe('useAvailableMap', () => {
 
-    let firstAvailableMap;
+    let index;
+    let item;
 
     beforeEach(() => {
-      firstAvailableMap = {
+      index = 0;
+      item = {
         available: true,
-        index: 0,
         map: {
           getDiv: jest.genMockFunction(),
           setOptions: jest.genMockFunction()
-        },
+        }
       };
-      window.__gmapsPool.push(firstAvailableMap);
+      window.__gmapsPool.push(item);
     });
 
     it('appends the map div to the components\' node', () => {
-      GoogleMapsPool.useAvailableMap(firstAvailableMap, element, {});
+      GoogleMapsPool.useAvailableMap(index, element, {});
       expect(element.appendChild).toBeCalled();
     });
 
-    it('sets the new options to the map', () => {
-      GoogleMapsPool.useAvailableMap(firstAvailableMap, element, {});
-      expect(firstAvailableMap.map.setOptions).toBeCalled();
-    });
-
-    it('sets the availability back to false', () => {
-      GoogleMapsPool.useAvailableMap(firstAvailableMap, element, {});
-      expect(firstAvailableMap.available).toBe(false);
+    it('sets the item\'s availability to false', () => {
+      GoogleMapsPool.useAvailableMap(index, element, {});
+      expect(item.available).toBe(false);
     });
 
     it('returns the index of the map', () => {
       const result = GoogleMapsPool.useAvailableMap(
-        firstAvailableMap, element, {});
-      expect(result).toBe(firstAvailableMap.index);
+        index,
+        element,
+        {}
+      );
+      expect(result).toBe(index);
+    });
+
+  });
+
+  describe('createElement', () => {
+
+    it('creates and returns a new element', () => {
+      const result = GoogleMapsPool.createElement();
+      expect(result.style.width).toBe('100%');
+      expect(result.style.height).toBe('100%');
     });
 
   });
@@ -114,18 +117,24 @@ describe('GoogleMapsPool', () => {
 
   describe('create', () => {
 
-    it('uses the available map if available', () => {
-      GoogleMapsPool.useAvailableMap = jest.genMockFunction();
-      GoogleMapsPool.getFirstAvailableMap = jest.genMockFunction()
-        .mockReturnValueOnce({});
-      GoogleMapsPool.create(element, {});
-      expect(GoogleMapsPool.useAvailableMap).toBeCalled();
+    it('uses the available map if there is one', () => {
+      window.__gmapsPool = [{
+        available: true,
+        map: {
+          getDiv: jest.genMockFunction(),
+          setOptions: jest.genMockFunction()
+        }
+      }];
+      const result = GoogleMapsPool.create(element, {});
+      expect(result).toBe(0);
     });
 
     it('creates a new map if none is available', () => {
-      GoogleMapsPool.createNewMap = jest.genMockFunction();
-      GoogleMapsPool.create(element, {});
-      expect(GoogleMapsPool.createNewMap).toBeCalled();
+      window.__gmapsPool = [{
+        available: false
+      }];
+      const result = GoogleMapsPool.create(element, {});
+      expect(result).toBe(1);
     });
 
   });
@@ -143,14 +152,14 @@ describe('GoogleMapsPool', () => {
 
   });
 
-  describe('get', () => {
+  describe('getMap', () => {
 
-    it('returns the map at index', () => {
+    it('returns the map at the given index', () => {
       const item = {
         map: {}
       };
       window.__gmapsPool.push(item);
-      const result = GoogleMapsPool.get(0);
+      const result = GoogleMapsPool.getMap(0);
       expect(result).toBe(item.map);
     });
 

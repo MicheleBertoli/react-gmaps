@@ -16,7 +16,7 @@ const Listener = {
 
   removeListeners() {
     if (window.google && this.listeners) {
-      this.listeners.forEach((listener) => {
+      this.listeners.forEach(listener => {
         google.maps.event.removeListener(listener);
       });
     }

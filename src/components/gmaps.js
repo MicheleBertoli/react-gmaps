@@ -18,28 +18,33 @@ const Gmaps = React.createClass({
   },
 
   componentDidMount() {
-    this.setState({
-      callbackIndex: GoogleMapsApi.load(this.props.params, this.mapsCallback)
-    });
+    this.callbackIndex = GoogleMapsApi.load(
+      this.props.params,
+      this.mapsCallback
+    );
   },
 
   componentWillUnmount() {
-    GoogleMapsApi.removeCallback(this.state.callbackIndex);
-    GoogleMapsPool.free(this.state.mapIndex);
+    if (this.callbackIndex >= 0) {
+      GoogleMapsApi.removeCallback(this.callbackIndex);
+    }
+    if (this.mapIndex >= 0) {
+      GoogleMapsPool.free(this.mapIndex);
+    }
     this.removeListeners();
   },
 
   componentWillReceiveProps(nextProps) {
     if (this.state.isMapCreated && !compareProps(this.props, nextProps)) {
-      GoogleMapsPool.update(this.state.mapIndex, nextProps);
+      GoogleMapsPool.update(this.mapIndex, nextProps);
     }
   },
 
   mapsCallback() {
     const node = ReactDOM.findDOMNode(this);
+    this.mapIndex = GoogleMapsPool.create(node, this.props);
     this.setState({
-      isMapCreated: true,
-      mapIndex: GoogleMapsPool.create(node, this.props)
+      isMapCreated: true
     });
     this.addListeners(this.getMap(), MapEvents);
     if (this.props.onMapCreated) {
@@ -48,7 +53,7 @@ const Gmaps = React.createClass({
   },
 
   getMap() {
-    return GoogleMapsPool.get(this.state.mapIndex);
+    return GoogleMapsPool.getMap(this.mapIndex);
   },
 
   getChildren() {
@@ -68,10 +73,9 @@ const Gmaps = React.createClass({
       width: this.props.width,
       height: this.props.height
     }, this.props.style);
-    const message = this.props.loadingMessage || 'Loading...';
     return (
       <div className={this.props.className} style={style}>
-        {!this.state.isMapCreated && message}
+        {!this.state.isMapCreated && this.props.loadingMessage}
         {this.state.isMapCreated && this.getChildren()}
       </div>
     );
