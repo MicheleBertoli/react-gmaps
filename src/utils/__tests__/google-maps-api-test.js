@@ -8,7 +8,7 @@ describe('GoogleMapsApi', () => {
   beforeEach(() => {
     window.google = undefined;
     window.mapsCallback = undefined;
-    GoogleMapsApi = require('../../utils/google-maps');
+    GoogleMapsApi = require('../../utils/google-maps-api');
   });
 
   it('registers the callbacks if google does not exist', () => {

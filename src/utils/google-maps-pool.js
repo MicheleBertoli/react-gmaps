@@ -43,30 +43,26 @@ const GoogleMapsPool = {
 
   create(node, options) {
     const firstAvailableMap = getFirstAvailableMap();
-    console.log('firstAvailableMap', firstAvailableMap);
     if (firstAvailableMap) {
-      console.log('useAvailableMap', options);
       return useAvailableMap(firstAvailableMap, node, options);
     } else {
-      console.log('createNewMap', options);
       return createNewMap(node, options);
     }
   },
 
   free(index) {
-    console.log('free', index);
-    if (!window.__gmapsPool) {
+    if (!index) {
       return;
     }
-    this.get(index).available = true;
+    window.__gmapsPool[index].available = true;
   },
 
   get(index) {
-    return window.__gmapsPool[index];
+    return window.__gmapsPool[index].map;
   },
 
   update(index, options) {
-    this.get(index).setOptions({
+    window.__gmapsPool[index].map.setOptions({
       ...options,
       center: new google.maps.LatLng(options.lat, options.lng)
     });

@@ -1,7 +1,8 @@
 jest.dontMock('object-assign');
 jest.dontMock('../../mixins/listener');
-jest.dontMock('../../utils/google-maps');
 jest.dontMock('../../utils/compare-props');
+jest.dontMock('../../utils/google-maps-api');
+jest.dontMock('../../utils/google-maps-pool');
 jest.dontMock('../gmaps');
 
 describe('Gmaps', () => {
@@ -9,12 +10,26 @@ describe('Gmaps', () => {
   const React = require('react');
   const ReactDOM = require('react-dom');
   const TestUtils = require('react-addons-test-utils');
-  const GoogleMaps = require('../../utils/google-maps');
-  GoogleMaps.appendScript = () => {};
+  const GoogleMapsApi = require('../../utils/google-maps-api');
+  GoogleMapsApi.appendScript = () => {};
   const Gmaps = require('../gmaps');
 
   beforeEach(() => {
     window.google = undefined;
+    window.__gmapsPool = undefined;
+  });
+
+  describe('map not created', () => {
+
+    it('shows the loading message', () => {
+      const loadingMessage = 'loadingMessage';
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps loadingMessage={loadingMessage} />
+      );
+      const node = ReactDOM.findDOMNode(gmaps);
+      expect(node.textContent).toBe(loadingMessage);
+    });
+
   });
 
   describe('rendering', () => {
@@ -70,11 +85,6 @@ describe('Gmaps', () => {
     it('applies the class name', () => {
       const node = ReactDOM.findDOMNode(gmaps);
       expect(node.className).toBe(className);
-    });
-
-    it('show the loading message', () => {
-      const node = ReactDOM.findDOMNode(gmaps);
-      expect(node.textContent).toBe(loadingMessage);
     });
 
     it('loads maps once', () => {
@@ -151,13 +161,13 @@ describe('Gmaps', () => {
   describe('unmounted', () => {
 
     beforeEach(() => {
-      GoogleMaps.fireCallbacks = jest.genMockFunction();
+      GoogleMapsApi.fireCallbacks = jest.genMockFunction();
     });
 
     it('does not fire the callback (unloaded)', () => {
       const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
       ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
-      expect(GoogleMaps.fireCallbacks).not.toBeCalled();
+      expect(GoogleMapsApi.fireCallbacks).not.toBeCalled();
     });
 
     it('does not fire the callback (loaded)', () => {
@@ -170,7 +180,7 @@ describe('Gmaps', () => {
       };
       const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
       ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
-      expect(GoogleMaps.fireCallbacks).not.toBeCalled();
+      expect(GoogleMapsApi.fireCallbacks).not.toBeCalled();
     });
 
   });

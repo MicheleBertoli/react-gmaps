@@ -48,7 +48,7 @@ const Gmaps = React.createClass({
   },
 
   getMap() {
-    return GoogleMapsPool.get(this.state.mapIndex);;
+    return GoogleMapsPool.get(this.state.mapIndex);
   },
 
   getChildren() {
@@ -70,7 +70,7 @@ const Gmaps = React.createClass({
     }, this.props.style);
     const message = this.props.loadingMessage || 'Loading...';
     return (
-      <div style={style} className={this.props.className}>
+      <div className={this.props.className} style={style}>
         {!this.state.isMapCreated && message}
         {this.state.isMapCreated && this.getChildren()}
       </div>
