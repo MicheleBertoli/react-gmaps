@@ -36,10 +36,7 @@ const createNewMap = (node, options) => {
     map,
     available: false
   });
-  return {
-    map,
-    index: --index
-  };
+  return --index;
 };
 
 const GoogleMapsPool = {
@@ -61,7 +58,11 @@ const GoogleMapsPool = {
     if (!window.__gmapsPool) {
       return;
     }
-    window.__gmapsPool[index].available = true;
+    this.get(index).available = true;
+  },
+
+  get(index) {
+    return window.__gmapsPool[index];
   }
 
 };

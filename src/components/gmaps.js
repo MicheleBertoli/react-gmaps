@@ -30,8 +30,8 @@ const Gmaps = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.map && !compareProps(this.props, nextProps)) {
-      this.map.setOptions({
+    if (this.getMap() && !compareProps(this.props, nextProps)) {
+      this.getMap().setOptions({
         ...nextProps,
         center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
       });
@@ -39,24 +39,22 @@ const Gmaps = React.createClass({
   },
 
   getMap() {
-    return this.map;
+    return GoogleMapsPool.get(this.state.mapIndex);;
   },
 
   mapsCallback() {
     this.createMap();
-    this.addListeners(this.map, MapEvents);
+    this.addListeners(this.getMap(), MapEvents);
   },
 
   createMap() {
     const node = ReactDOM.findDOMNode(this);
-    const map = GoogleMapsPool.create(node, this.props);
-    this.map = map.map;
     this.setState({
       isMapCreated: true,
-      mapIndex: map.index
+      mapIndex: GoogleMapsPool.create(node, this.props)
     });
     if (this.props.onMapCreated) {
-      this.props.onMapCreated(this.map);
+      this.props.onMapCreated(this.getMap());
     }
   },
 
@@ -67,7 +65,7 @@ const Gmaps = React.createClass({
       }
       return React.cloneElement(child, {
         ref: child.ref,
-        map: this.map
+        map: this.getMap()
       });
     });
   },
