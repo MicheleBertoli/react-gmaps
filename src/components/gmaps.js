@@ -25,10 +25,10 @@ const Gmaps = React.createClass({
   },
 
   componentWillUnmount() {
-    if (this.callbackIndex >= 0) {
+    if (this.callbackIndex > -1) {
       GoogleMapsApi.removeCallback(this.callbackIndex);
     }
-    if (this.mapIndex >= 0) {
+    if (this.mapIndex > -1) {
       GoogleMapsPool.free(this.mapIndex);
     }
     this.removeListeners();

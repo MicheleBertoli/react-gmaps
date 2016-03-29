@@ -38,7 +38,7 @@ const GoogleMapsPool = {
       window.__gmapsPool = [];
     }
     const index = this.getFirstAvailableIndex();
-    if (index >= 0) {
+    if (index > -1) {
       return this.useAvailableMap(index, node, options);
     } else {
       return this.createNewMap(node, options);
