@@ -1,11 +1,12 @@
-jest.dontMock('../listener');
+jest.unmock('../listener');
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
+import listener from '../listener';
 
 describe('Gmaps', () => {
 
-  const React = require('react');
-  const ReactDOM = require('react-dom');
-  const TestUtils = require('react-addons-test-utils');
-  const listener = require('../listener');
   const Component = React.createClass({
     mixins: [listener],
     render() {

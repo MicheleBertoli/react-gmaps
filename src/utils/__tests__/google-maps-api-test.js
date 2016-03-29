@@ -1,5 +1,5 @@
-jest.dontMock('querystring');
-jest.dontMock('../../utils/google-maps-api');
+jest.unmock('querystring');
+jest.unmock('../../utils/google-maps-api');
 
 describe('GoogleMapsApi', () => {
 
@@ -9,7 +9,7 @@ describe('GoogleMapsApi', () => {
   beforeEach(() => {
     window.google = undefined;
     window.mapsCallback = undefined;
-    GoogleMapsApi = require('../../utils/google-maps-api');
+    GoogleMapsApi = require('../../utils/google-maps-api').default;
   });
 
   describe('load', () => {

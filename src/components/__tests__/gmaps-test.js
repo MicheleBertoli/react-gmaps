@@ -1,15 +1,15 @@
-jest.dontMock('object-assign');
-jest.dontMock('../../utils/compare-props');
-jest.dontMock('../gmaps');
+jest.unmock('object-assign');
+jest.unmock('../../utils/compare-props');
+jest.unmock('../gmaps');
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
+import Gmaps from '../gmaps';
+import GoogleMapsApi from '../../utils/google-maps-api';
+import GoogleMapsPool from '../../utils/google-maps-pool';
 
 describe('Gmaps', () => {
-
-  const React = require('react');
-  const ReactDOM = require('react-dom');
-  const TestUtils = require('react-addons-test-utils');
-  const Gmaps = require('../gmaps');
-  const GoogleMapsApi = require('../../utils/google-maps-api');
-  const GoogleMapsPool = require('../../utils/google-maps-pool');
 
   describe('componentDidMount', () => {
 

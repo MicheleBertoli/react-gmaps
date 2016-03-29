@@ -1,4 +1,4 @@
-jest.dontMock('../../utils/google-maps-pool');
+jest.unmock('../../utils/google-maps-pool');
 
 describe('GoogleMapsPool', () => {
 
@@ -8,7 +8,7 @@ describe('GoogleMapsPool', () => {
   beforeEach(() => {
     element = document.createElement('div');
     element.appendChild = jest.genMockFunction();
-    GoogleMapsPool = require('../../utils/google-maps-pool');
+    GoogleMapsPool = require('../../utils/google-maps-pool').default;
     window.__gmapsPool = [];
     window.google = {
       maps: {

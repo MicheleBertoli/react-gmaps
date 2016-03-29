@@ -1,8 +1,8 @@
-jest.dontMock('../../utils/compare-props');
+jest.unmock('../../utils/compare-props');
+
+import compareProps from '../../utils/compare-props';
 
 describe('compareProps', () => {
-
-  const compareProps = require('../../utils/compare-props');
 
   it('returns false if the objects have a different number of keys', () => {
     const result = compareProps({a: 1}, {a: 1, b: 2});

@@ -1,12 +1,13 @@
-jest.dontMock('../../utils/compare-props');
-jest.dontMock('../entity');
+jest.unmock('../../utils/compare-props');
+jest.unmock('../entity');
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
+import createEntity from '../entity';
 
 describe('Entity', () => {
 
-  const React = require('react');
-  const ReactDOM = require('react-dom');
-  const TestUtils = require('react-addons-test-utils');
-  const createEntity = require('../entity');
   const EntityComponent = createEntity('Entity', 'prop', {
     onClick: 'click'
   });
