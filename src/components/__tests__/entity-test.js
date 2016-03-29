@@ -1,90 +1,64 @@
-jest.dontMock('../../mixins/listener');
 jest.dontMock('../../utils/compare-props');
 jest.dontMock('../entity');
 
 describe('Entity', () => {
 
   const React = require('react');
+  const ReactDOM = require('react-dom');
   const TestUtils = require('react-addons-test-utils');
   const createEntity = require('../entity');
-  const Entity = createEntity('Entity', 'prop', {
+  const EntityComponent = createEntity('Entity', 'prop', {
     onClick: 'click'
   });
 
-  let entity;
-
-  beforeEach(() => {
-    window.google = {
-      maps: {
-        LatLng: jest.genMockFunction(),
-        event: {
-          addListener: jest.genMockFunction(),
-          removeListener: jest.genMockFunction()
-        }
-      }
-    };
-  });
-
-  describe('mounting', () => {
-
-    beforeEach(() => {
-      window.google.maps.Entity = jest.genMockFunction();
-      entity = TestUtils.renderIntoDocument(
-        <Entity onClick={jest.genMockFunction()} />
-      );
-    });
+  describe('componentDidMount', () => {
 
     it('creates the entity', () => {
+      window.google = {
+        maps: {
+          Entity: jest.genMockFunction(),
+          LatLng: jest.genMockFunction()
+        }
+      };
+      const entityComponent = TestUtils.renderIntoDocument(
+        <EntityComponent />
+      );
       expect(window.google.maps.Entity).toBeCalled();
     });
 
-    it('creates the entity once', () => {
-      entity.render();
-      expect(window.google.maps.Entity.mock.calls.length).toBe(1);
-    });
-
-    it('binds events', () => {
-      expect(window.google.maps.event.addListener).toBeCalled();
-    });
-
   });
 
-  describe('unmounting', () => {
+  describe('componentWillUnmount', () => {
+
+    let entityComponent;
 
     beforeEach(() => {
-      window.google.maps.Entity = () => {
-        return {
-          setMap: jest.genMockFunction()
-        };
-      };
-      entity = TestUtils.renderIntoDocument(
-        <Entity onClick={jest.genMockFunction()} />
+      entityComponent = TestUtils.renderIntoDocument(
+        <EntityComponent />
       );
+      entityComponent.entity = {
+        setMap: () => {}
+      };
     });
 
-    it('unbinds events', () => {
-      entity.componentWillUnmount();
-      expect(window.google.maps.event.removeListener).toBeCalled();
+    it('removes the listeners', () => {
+      entityComponent.removeListeners = jest.genMockFunction();
+      entityComponent.componentWillUnmount();
+      expect(entityComponent.removeListeners).toBeCalled();
     });
 
-    it('removes the entity', () => {
-      const setMap = entity.entity.setMap;
-      entity.componentWillUnmount();
-      expect(setMap).toBeCalledWith(null);
+    it('resets the entity', () => {
+      entityComponent.componentWillUnmount();
+      expect(entityComponent.entity).toBe(null);
     });
 
   });
 
-  describe('updating', () => {
+  describe('componentWillReceiveProps', () => {
 
     let parent;
 
     beforeEach(() => {
-      window.google.maps.Entity = () => {
-        return {
-          setOptions: jest.genMockFunction()
-        };
-      };
       const Parent = React.createClass({
         getInitialState() {
           return {
@@ -93,24 +67,46 @@ describe('Entity', () => {
         },
         render() {
           const {prop} = this.state;
-          return <Entity ref="child" prop={prop} />;
+          return <EntityComponent ref="entityComponent" prop={prop} />;
         }
       });
       parent = TestUtils.renderIntoDocument(<Parent />);
+      parent.refs.entityComponent.entity = {
+        setOptions: jest.genMockFunction()
+      };
     });
 
-    it('calls `setOptions` when receive new props', () => {
-      parent.setState({
-        prop: '2'
-      });
-      expect(parent.refs.child.entity.setOptions).toBeCalled();
-    });
-
-    it('does not call `setOptions` when props are the same', () => {
+    it('does not update the options if the props are not changed', () => {
       parent.setState({
         prop: '1'
       });
-      expect(parent.refs.child.entity.setOptions).not.toBeCalled();
+      expect(parent.refs.entityComponent.entity.setOptions).not.toBeCalled();
+    });
+
+    it('updates the options if the props are changed', () => {
+      parent.setState({
+        prop: '2'
+      });
+      expect(parent.refs.entityComponent.entity.setOptions).toBeCalled();
+    });
+
+  });
+
+  describe('getOptions', () => {
+
+    it('returns the options', () => {
+      const entityComponent = TestUtils.renderIntoDocument(
+        <EntityComponent />
+      );
+      const result = entityComponent.getOptions({
+        lat: 'lat',
+        lng: 'lng'
+      });
+      expect(result).toEqual({
+        lat: 'lat',
+        lng: 'lng',
+        prop: {}
+      });
     });
 
   });
@@ -118,44 +114,24 @@ describe('Entity', () => {
   describe('getEntity', () => {
 
     it('returns the entity', () => {
-      window.google.maps.Entity = jest.genMockFunction();
-      entity = TestUtils.renderIntoDocument(
-        <Entity />
+      const entityComponent = TestUtils.renderIntoDocument(
+        <EntityComponent />
       );
-      expect(entity.getEntity()).toBeDefined();
+      entityComponent.entity = 'entity';
+      const result = entityComponent.getEntity();
+      expect(result).toBe(entityComponent.entity);
     });
 
   });
 
-  describe('binding', () => {
+  describe('render', () => {
 
-    it('keeps the listeners separated', () => {
-      window.google.maps.Entity = () => {
-        return {
-          setMap: jest.genMockFunction(),
-          setOptions: jest.genMockFunction()
-        };
-      };
-      const Parent = React.createClass({
-        getInitialState() {
-          return {
-            show: true
-          };
-        },
-        render() {
-          return (
-            <div>
-              <Entity ref='child' onClick={jest.genMockFunction()} />
-              {this.state.show && <Entity onClick={jest.genMockFunction()} />}
-            </div>
-          );
-        }
-      });
-      const parent = TestUtils.renderIntoDocument(<Parent />);
-      parent.setState({
-        show: false
-      });
-      expect(parent.refs.child.listeners.length).toBe(1);
+    it('returns null', () => {
+      const entityComponent = TestUtils.renderIntoDocument(
+        <EntityComponent />
+      );
+      const result = entityComponent.render();
+      expect(result).toBe(null);
     });
 
   });
