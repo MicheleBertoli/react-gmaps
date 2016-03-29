@@ -4,12 +4,9 @@ const Listener = {
   addListeners(entity, events) {
     for (let prop in this.props) {
       if (this.props.hasOwnProperty(prop) && events[prop]) {
-        const addListener = google.maps.event.addListener;
+        const {addListener} = google.maps.event;
         const listener = addListener(entity, events[prop], this.props[prop]);
-        if (!this.listeners) {
-          this.listeners = [];
-        }
-        this.listeners.push(listener);
+        (this.listeners = this.listeners || []).push(listener);
       }
     }
   },
