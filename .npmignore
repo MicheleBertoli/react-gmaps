@@ -1,5 +1,7 @@
 demo/
 src/
 .babelrc
+.eslintrc
+.gitignore
+.travis.yml
 Procfile
-server.js
