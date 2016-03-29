@@ -8,8 +8,8 @@
     "build": "babel ./src --out-dir ./dist --ignore __tests__",
     "pretest": "eslint ./src",
     "test": "jest --verbose",
-    "demo": "browserify -t babelify ./demo/index.js -o ./demo/build.js",
-    "start": "node server"
+    "demo": "browserify -t babelify ./demo/public/index.js -o ./demo/public/build.js",
+    "start": "node ./demo/server.js"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Gmaps} from '../dist';
-import MapEvents from '../dist/events/map';
+import {Gmaps} from '../../dist';
+import MapEvents from '../../dist/events/map';
 
 const styles = {
   item: {
@@ -30,7 +30,10 @@ const App = React.createClass({
     for (let _event in MapEvents) {
       if (MapEvents.hasOwnProperty(_event)) {
         events.push(
-          <li key={MapEvents[_event]} ref={MapEvents[_event]} style={styles.item}>
+          <li
+            key={MapEvents[_event]}
+            ref={MapEvents[_event]}
+            style={styles.item}>
             {MapEvents[_event]}
           </li>
         );
