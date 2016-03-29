@@ -4,10 +4,12 @@
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
+    "pretest": "npm run lint",
+    "prebuild": "npm test",
     "prepublish": "npm run build",
-    "build": "babel ./src --out-dir ./dist --ignore __tests__",
-    "pretest": "eslint ./src",
+    "lint": "eslint ./src",
     "test": "jest --verbose",
+    "build": "babel ./src --out-dir ./dist --ignore __tests__",
     "demo": "browserify -t babelify ./demo/public/index.js -o ./demo/public/build.js",
     "start": "node ./demo/server.js"
   },
