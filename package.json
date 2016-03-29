@@ -7,7 +7,7 @@
     "prepublish": "npm run build",
     "build": "babel ./src --out-dir ./dist --ignore __tests__",
     "pretest": "eslint ./src",
-    "test": "jest",
+    "test": "jest --verbose",
     "demo": "browserify -t babelify ./demo/index.js -o ./demo/build.js",
     "start": "node server"
   },

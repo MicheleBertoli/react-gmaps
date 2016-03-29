@@ -1,8 +1,5 @@
 jest.dontMock('object-assign');
-jest.dontMock('../../mixins/listener');
 jest.dontMock('../../utils/compare-props');
-jest.dontMock('../../utils/google-maps-api');
-jest.dontMock('../../utils/google-maps-pool');
 jest.dontMock('../gmaps');
 
 describe('Gmaps', () => {
@@ -10,123 +7,77 @@ describe('Gmaps', () => {
   const React = require('react');
   const ReactDOM = require('react-dom');
   const TestUtils = require('react-addons-test-utils');
-  const GoogleMapsApi = require('../../utils/google-maps-api');
-  GoogleMapsApi.appendScript = () => {};
   const Gmaps = require('../gmaps');
+  const GoogleMapsApi = require('../../utils/google-maps-api');
+  const GoogleMapsPool = require('../../utils/google-maps-pool');
 
-  beforeEach(() => {
-    window.google = undefined;
-    window.__gmapsPool = undefined;
-  });
+  describe('componentDidMount', () => {
 
-  describe('map not created', () => {
-
-    it('shows the loading message', () => {
-      const loadingMessage = 'loadingMessage';
+    it('loads the google maps api', () => {
       const gmaps = TestUtils.renderIntoDocument(
-        <Gmaps loadingMessage={loadingMessage} />
+        <Gmaps />
       );
-      const node = ReactDOM.findDOMNode(gmaps);
-      expect(node.textContent).toBe(loadingMessage);
+      expect(GoogleMapsApi.load).toBeCalled();
+    });
+
+    it('stores the callback index', () => {
+      GoogleMapsApi.load.mockReturnValueOnce(1);
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      expect(gmaps.callbackIndex).toBe(1);
     });
 
   });
 
-  describe('rendering', () => {
+  describe('componentWillUnmount', () => {
 
     let gmaps;
-    const width = '100%';
-    const height = '100%';
-    const style = {
-      backgroundColor: 'black'
-    };
-    const className = 'className';
-    const loadingMessage = 'loadingMessage';
-    const onMapCreated = jest.genMockFunction();
 
     beforeEach(() => {
-      const Child = React.createClass({
-        render() {
-          return null;
-        }
-      });
+      GoogleMapsApi.removeCallback.mockClear();
+      GoogleMapsPool.free.mockClear();
       gmaps = TestUtils.renderIntoDocument(
-        <Gmaps
-          width={width}
-          height={height}
-          style={style}
-          className={className}
-          loadingMessage={loadingMessage}
-          onMapCreated={onMapCreated}
-          onClick={jest.genMockFunction()}>
-           <Child />
-        </Gmaps>
+        <Gmaps />
       );
-      window.google = {
-        maps: {
-          Map: jest.genMockFunction(),
-          LatLng: jest.genMockFunction(),
-          event: {
-            addListener: jest.genMockFunction(),
-            removeListener: jest.genMockFunction()
-          }
-        }
-      };
-      window.mapsCallback();
     });
 
-    it('applies the style', () => {
-      const node = ReactDOM.findDOMNode(gmaps);
-      expect(node.style.width).toBe(width);
-      expect(node.style.height).toBe(height);
-      expect(node.style.backgroundColor).toBe(style.backgroundColor);
+    it('does not remove the callback if the index is undefined', () => {
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(GoogleMapsApi.removeCallback).not.toBeCalled();
     });
 
-    it('applies the class name', () => {
-      const node = ReactDOM.findDOMNode(gmaps);
-      expect(node.className).toBe(className);
+    it('removes the callback if the index is defined', () => {
+      gmaps.callbackIndex = 1;
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(GoogleMapsApi.removeCallback).toBeCalled();
     });
 
-    it('loads maps once', () => {
-      gmaps.componentDidMount();
-      expect(window.mapsCallback).not.toBeDefined();
+    it('does not remove the callback if the index is undefined', () => {
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(GoogleMapsPool.free).not.toBeCalled();
     });
 
-    it('creates a map', () => {
-      expect(gmaps.getMap()).not.toBe(null);
+    it('removes the callback if the index is defined', () => {
+      gmaps.mapIndex = 1;
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(GoogleMapsPool.free).toBeCalled();
     });
 
-    it('calls `onMapCreated`', () => {
-      expect(onMapCreated).toBeCalled();
-    });
-
-    it('clones children with map', () => {
-      React.Children.forEach(gmaps.getChildren(), (child) => {
-        expect(child.props.map).toBeDefined();
-      });
-    });
-
-    it('binds events', () => {
-      expect(window.google.maps.event.addListener).toBeCalled();
-    });
-
-    it('unbinds events', () => {
-      gmaps.componentWillUnmount();
-      expect(window.google.maps.event.removeListener).toBeCalled();
+    it('removes the listeners', () => {
+      gmaps.removeListeners = jest.genMockFunction();
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
+      expect(gmaps.removeListeners).toBeCalled();
     });
 
   });
 
-  describe('updating', () => {
+  describe('componentWillReceiveProps', () => {
 
-    it('does not call `setOptions` if maps are not loaded', () => {
-      const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
-      expect(() => {
-        gmaps.componentWillReceiveProps({});
-      }).not.toThrow();
-    });
+    let parent;
 
-    it('calls `setOptions` when receive new props', () => {
+    beforeEach(() => {
+      GoogleMapsPool.update.mockClear();
       const Parent = React.createClass({
         getInitialState() {
           return {
@@ -138,49 +89,139 @@ describe('Gmaps', () => {
           return <Gmaps ref="gmaps" prop={prop} />;
         }
       });
-      const parent = TestUtils.renderIntoDocument(<Parent />);
-      window.google = {
-        maps: {
-          Map: () => {
-            return {
-              setOptions: jest.genMockFunction()
-            };
-          },
-          LatLng: jest.genMockFunction()
-        }
-      };
-      window.mapsCallback();
+      parent = TestUtils.renderIntoDocument(<Parent />);
+    });
+
+    it('does not update the map if it does not exist', () => {
       parent.setState({
         prop: '2'
       });
-      expect(parent.refs.gmaps.getMap().setOptions).toBeCalled();
+      expect(GoogleMapsPool.update).not.toBeCalled();
+    });
+
+    it('does not update the map if the props are not changed', () => {
+      parent.refs.gmaps.setState({
+        isMapCreated: true
+      });
+      parent.setState({
+        prop: '1'
+      });
+      expect(GoogleMapsPool.update).not.toBeCalled();
+    });
+
+    it('updates the map if it exists and the props are changed', () => {
+      parent.refs.gmaps.setState({
+        isMapCreated: true
+      });
+      parent.setState({
+        prop: '2'
+      });
+      expect(GoogleMapsPool.update).toBeCalled();
     });
 
   });
 
-  describe('unmounted', () => {
+  describe('mapsCallback', () => {
 
-    beforeEach(() => {
-      GoogleMapsApi.fireCallbacks = jest.genMockFunction();
+    it('creates a new map', () => {
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      gmaps.mapsCallback();
+      expect(GoogleMapsPool.create).toBeCalled();
     });
 
-    it('does not fire the callback (unloaded)', () => {
-      const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
-      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
-      expect(GoogleMapsApi.fireCallbacks).not.toBeCalled();
+    it('stores the map index', () => {
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      GoogleMapsPool.create.mockReturnValueOnce(1);
+      gmaps.mapsCallback();
+      expect(gmaps.mapIndex).toBe(1);
     });
 
-    it('does not fire the callback (loaded)', () => {
-      window.google = {
-        maps: {
-          event: {
-            removeListener: jest.genMockFunction()
-          }
-        }
-      };
-      const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
-      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
-      expect(GoogleMapsApi.fireCallbacks).not.toBeCalled();
+    it('updates the state', () => {
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      gmaps.mapsCallback();
+      expect(gmaps.state.isMapCreated).toBe(true);
+    });
+
+    it('adds the listeners', () => {
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      gmaps.addListeners = jest.genMockFunction();
+      gmaps.mapsCallback();
+      expect(gmaps.addListeners).toBeCalled();
+    });
+
+    it('fires the callback if present', () => {
+      const callback = jest.genMockFunction();
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps onMapCreated={callback} />
+      );
+      gmaps.mapsCallback();
+      expect(callback).toBeCalled();
+    });
+
+  });
+
+  describe('getMap', () => {
+
+    it('returns the map', () => {
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      gmaps.getMap();
+      expect(GoogleMapsPool.getMap).toBeCalled();
+    });
+
+  });
+
+  describe('getChildren', () => {
+
+    it('clones children with map', () => {
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      React.Children.forEach(gmaps.getChildren(), (child) => {
+        expect(child.props.map).toBeDefined();
+      });
+    });
+
+  });
+
+  describe('render', () => {
+
+    it('sets the width and the height', () => {
+      const width = '1px';
+      const height = '2px';
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps width={width} height={height} />
+      );
+      const node = ReactDOM.findDOMNode(gmaps);
+      expect(node.style.width).toBe(width);
+      expect(node.style.height).toBe(height);
+    });
+
+    it('sets the class name', () => {
+      const className = 'className';
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps className={className} />
+      );
+      const node = ReactDOM.findDOMNode(gmaps);
+      expect(node.className).toBe(className);
+    });
+
+    it('shows the loading message if present', () => {
+      const loadingMessage = 'loadingMessage';
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps loadingMessage={loadingMessage} />
+      );
+      const node = ReactDOM.findDOMNode(gmaps);
+      expect(node.textContent).toBe(loadingMessage);
     });
 
   });
