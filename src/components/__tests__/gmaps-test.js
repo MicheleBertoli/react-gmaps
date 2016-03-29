@@ -42,24 +42,12 @@ describe('Gmaps', () => {
       );
     });
 
-    it('does not remove the callback if the index is undefined', () => {
-      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
-      expect(GoogleMapsApi.removeCallback).not.toBeCalled();
-    });
-
-    it('removes the callback if the index is defined', () => {
-      gmaps.callbackIndex = 1;
+    it('removes the callback', () => {
       ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
       expect(GoogleMapsApi.removeCallback).toBeCalled();
     });
 
-    it('does not remove the callback if the index is undefined', () => {
-      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
-      expect(GoogleMapsPool.free).not.toBeCalled();
-    });
-
-    it('removes the callback if the index is defined', () => {
-      gmaps.mapIndex = 1;
+    it('frees the map', () => {
       ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
       expect(GoogleMapsPool.free).toBeCalled();
     });
@@ -157,7 +145,7 @@ describe('Gmaps', () => {
       expect(gmaps.addListeners).toBeCalled();
     });
 
-    it('fires the callback if present', () => {
+    it('fires the callback', () => {
       const callback = jest.genMockFunction();
       const gmaps = TestUtils.renderIntoDocument(
         <Gmaps onMapCreated={callback} />
@@ -215,7 +203,7 @@ describe('Gmaps', () => {
       expect(node.className).toBe(className);
     });
 
-    it('shows the loading message if present', () => {
+    it('shows the loading message', () => {
       const loadingMessage = 'loadingMessage';
       const gmaps = TestUtils.renderIntoDocument(
         <Gmaps loadingMessage={loadingMessage} />

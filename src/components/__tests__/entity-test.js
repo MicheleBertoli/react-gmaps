@@ -10,6 +10,7 @@ describe('Entity', () => {
   const EntityComponent = createEntity('Entity', 'prop', {
     onClick: 'click'
   });
+  const noop = () => {};
 
   describe('componentDidMount', () => {
 
@@ -17,7 +18,7 @@ describe('Entity', () => {
       window.google = {
         maps: {
           Entity: jest.genMockFunction(),
-          LatLng: jest.genMockFunction()
+          LatLng: noop
         }
       };
       const entityComponent = TestUtils.renderIntoDocument(
@@ -37,7 +38,7 @@ describe('Entity', () => {
         <EntityComponent />
       );
       entityComponent.entity = {
-        setMap: () => {}
+        setMap: noop
       };
     });
 

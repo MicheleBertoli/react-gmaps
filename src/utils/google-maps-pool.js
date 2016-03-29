@@ -46,7 +46,9 @@ const GoogleMapsPool = {
   },
 
   free(index) {
-    window.__gmapsPool[index].available = true;
+    if (index > -1) {
+      window.__gmapsPool[index].available = true;
+    }
   },
 
   getMap(index) {
