@@ -1,17 +1,15 @@
 jest.unmock('../listener');
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import listener from '../listener';
 
 describe('Gmaps', () => {
-
   const Component = React.createClass({
     mixins: [listener],
     render() {
       return null;
-    }
+    },
   });
   let component;
 
@@ -20,20 +18,19 @@ describe('Gmaps', () => {
       maps: {
         event: {
           addListener: jest.genMockFunction(),
-          removeListener: jest.genMockFunction()
-        }
-      }
+          removeListener: jest.genMockFunction(),
+        },
+      },
     };
     component = TestUtils.renderIntoDocument(
       <Component onClick={() => {}} />
     );
     component.addListeners(null, {
-      onClick: 'click'
+      onClick: 'click',
     });
   });
 
   describe('addListeners', () => {
-
     it('adds the google map listeners', () => {
       expect(window.google.maps.event.addListener).toBeCalled();
     });
@@ -41,16 +38,12 @@ describe('Gmaps', () => {
     it('stores the listeners', () => {
       expect(component.listeners.length).toBe(1);
     });
-
   });
 
   describe('removeListeners', () => {
-
     it('removes the google map listeners', () => {
       component.removeListeners();
       expect(window.google.maps.event.removeListener).toBeCalled();
     });
-
   });
-
 });

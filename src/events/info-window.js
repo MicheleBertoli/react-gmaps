@@ -3,5 +3,5 @@ export default {
   onContentChanged: 'content_changed',
   onDOMReady: 'domready',
   onPositionChanged: 'position_changed',
-  onZindexChanged: 'zindex_changed'
+  onZindexChanged: 'zindex_changed',
 };

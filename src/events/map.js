@@ -17,5 +17,5 @@ export default {
   onRightClick: 'rightclick',
   onTilesLoaded: 'tilesloaded',
   onTiltChanged: 'tilt_changed',
-  onZoomChanged: 'zoom_changed'
+  onZoomChanged: 'zoom_changed',
 };

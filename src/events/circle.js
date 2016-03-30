@@ -11,5 +11,5 @@ export default {
   onMouseOver: 'mouseover',
   onMouseUp: 'mouseup',
   onRadiusChanged: 'radius_changed',
-  onRightClick: 'rightclick'
+  onRightClick: 'rightclick',
 };

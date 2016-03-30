@@ -2,7 +2,6 @@ jest.unmock('querystring');
 jest.unmock('../../utils/google-maps-api');
 
 describe('GoogleMapsApi', () => {
-
   const noop = () => {};
   let GoogleMapsApi;
 
@@ -13,7 +12,6 @@ describe('GoogleMapsApi', () => {
   });
 
   describe('load', () => {
-
     it('registers the callback', () => {
       GoogleMapsApi.load(null, noop);
       expect(GoogleMapsApi.callbacks.length).toBe(1);
@@ -41,26 +39,22 @@ describe('GoogleMapsApi', () => {
       const result = GoogleMapsApi.load(null, noop);
       expect(result).toBe(0);
     });
-
   });
 
   describe('getSrc', () => {
-
     it('returns the src with params', () => {
       const actual = GoogleMapsApi.getSrc({
         param0: 'param0',
-        param1: 'param1'
+        param1: 'param1',
       });
       let expected = 'https://maps.googleapis.com/maps/api/js';
       expected += '?callback=mapsCallback&';
       expected += 'param0=param0&param1=param1';
       expect(actual).toBe(expected);
     });
-
   });
 
   describe('appendScript', () => {
-
     it('appends the script', () => {
       document.head.appendChild = jest.genMockFunction();
       GoogleMapsApi.appendScript(null);
@@ -71,11 +65,9 @@ describe('GoogleMapsApi', () => {
       GoogleMapsApi.appendScript(null);
       expect(GoogleMapsApi.appended).toBe(true);
     });
-
   });
 
   describe('mapsCallback', () => {
-
     it('resets the global callback', () => {
       window.mapsCallback = noop;
       GoogleMapsApi.mapsCallback();
@@ -88,11 +80,9 @@ describe('GoogleMapsApi', () => {
       GoogleMapsApi.mapsCallback();
       expect(callback).toBeCalled();
     });
-
   });
 
   describe('fireCallbacks', () => {
-
     it('fires all the callbacks', () => {
       const callback = jest.genMockFunction();
       GoogleMapsApi.callbacks.push(callback);
@@ -105,18 +95,13 @@ describe('GoogleMapsApi', () => {
       GoogleMapsApi.fireCallbacks();
       expect(GoogleMapsApi.callbacks.length).toBe(0);
     });
-
   });
 
   describe('removeCallback', () => {
-
     it('removes a callback at the given index', () => {
       GoogleMapsApi.callbacks.push(noop);
       GoogleMapsApi.removeCallback(0);
       expect(GoogleMapsApi.callbacks.length).toBe(0);
     });
-
   });
-
 });
-

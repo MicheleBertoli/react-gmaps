@@ -10,11 +10,9 @@ import GoogleMapsApi from '../../utils/google-maps-api';
 import GoogleMapsPool from '../../utils/google-maps-pool';
 
 describe('Gmaps', () => {
-
   describe('componentDidMount', () => {
-
     it('loads the google maps api', () => {
-      const gmaps = TestUtils.renderIntoDocument(
+      TestUtils.renderIntoDocument(
         <Gmaps />
       );
       expect(GoogleMapsApi.load).toBeCalled();
@@ -27,11 +25,56 @@ describe('Gmaps', () => {
       );
       expect(gmaps.callbackIndex).toBe(1);
     });
+  });
 
+  describe('componentWillReceiveProps', () => {
+    let parent;
+
+    beforeEach(() => {
+      GoogleMapsPool.update.mockClear();
+      const Parent = React.createClass({
+        getInitialState() {
+          return {
+            prop: '1',
+          };
+        },
+        render() {
+          const { prop } = this.state;
+          return <Gmaps ref="gmaps" prop={prop} />;
+        },
+      });
+      parent = TestUtils.renderIntoDocument(<Parent />);
+    });
+
+    it('does not update the map if it does not exist', () => {
+      parent.setState({
+        prop: '2',
+      });
+      expect(GoogleMapsPool.update).not.toBeCalled();
+    });
+
+    it('does not update the map if the props are not changed', () => {
+      parent.refs.gmaps.setState({
+        isMapCreated: true,
+      });
+      parent.setState({
+        prop: '1',
+      });
+      expect(GoogleMapsPool.update).not.toBeCalled();
+    });
+
+    it('updates the map if it exists and the props are changed', () => {
+      parent.refs.gmaps.setState({
+        isMapCreated: true,
+      });
+      parent.setState({
+        prop: '2',
+      });
+      expect(GoogleMapsPool.update).toBeCalled();
+    });
   });
 
   describe('componentWillUnmount', () => {
-
     let gmaps;
 
     beforeEach(() => {
@@ -57,60 +100,30 @@ describe('Gmaps', () => {
       ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
       expect(gmaps.removeListeners).toBeCalled();
     });
-
   });
 
-  describe('componentWillReceiveProps', () => {
-
-    let parent;
-
-    beforeEach(() => {
-      GoogleMapsPool.update.mockClear();
-      const Parent = React.createClass({
-        getInitialState() {
-          return {
-            prop: '1'
-          };
-        },
-        render() {
-          const {prop} = this.state;
-          return <Gmaps ref="gmaps" prop={prop} />;
-        }
-      });
-      parent = TestUtils.renderIntoDocument(<Parent />);
+  describe('getMap', () => {
+    it('returns the map', () => {
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      gmaps.getMap();
+      expect(GoogleMapsPool.getMap).toBeCalled();
     });
+  });
 
-    it('does not update the map if it does not exist', () => {
-      parent.setState({
-        prop: '2'
+  describe('getChildren', () => {
+    it('clones children with map', () => {
+      const gmaps = TestUtils.renderIntoDocument(
+        <Gmaps />
+      );
+      React.Children.forEach(gmaps.getChildren(), (child) => {
+        expect(child.props.map).toBeDefined();
       });
-      expect(GoogleMapsPool.update).not.toBeCalled();
     });
-
-    it('does not update the map if the props are not changed', () => {
-      parent.refs.gmaps.setState({
-        isMapCreated: true
-      });
-      parent.setState({
-        prop: '1'
-      });
-      expect(GoogleMapsPool.update).not.toBeCalled();
-    });
-
-    it('updates the map if it exists and the props are changed', () => {
-      parent.refs.gmaps.setState({
-        isMapCreated: true
-      });
-      parent.setState({
-        prop: '2'
-      });
-      expect(GoogleMapsPool.update).toBeCalled();
-    });
-
   });
 
   describe('mapsCallback', () => {
-
     it('creates a new map', () => {
       const gmaps = TestUtils.renderIntoDocument(
         <Gmaps />
@@ -153,45 +166,18 @@ describe('Gmaps', () => {
       gmaps.mapsCallback();
       expect(callback).toBeCalled();
     });
-
-  });
-
-  describe('getMap', () => {
-
-    it('returns the map', () => {
-      const gmaps = TestUtils.renderIntoDocument(
-        <Gmaps />
-      );
-      gmaps.getMap();
-      expect(GoogleMapsPool.getMap).toBeCalled();
-    });
-
-  });
-
-  describe('getChildren', () => {
-
-    it('clones children with map', () => {
-      const gmaps = TestUtils.renderIntoDocument(
-        <Gmaps />
-      );
-      React.Children.forEach(gmaps.getChildren(), (child) => {
-        expect(child.props.map).toBeDefined();
-      });
-    });
-
   });
 
   describe('render', () => {
-
     it('sets the width and the height', () => {
-      const width = '1px';
-      const height = '2px';
+      const width = 1;
+      const height = 2;
       const gmaps = TestUtils.renderIntoDocument(
         <Gmaps width={width} height={height} />
       );
       const node = ReactDOM.findDOMNode(gmaps);
-      expect(node.style.width).toBe(width);
-      expect(node.style.height).toBe(height);
+      expect(node.style.width).toBe(`${width}px`);
+      expect(node.style.height).toBe(`${height}px`);
     });
 
     it('sets the class name', () => {
@@ -211,7 +197,5 @@ describe('Gmaps', () => {
       const node = ReactDOM.findDOMNode(gmaps);
       expect(node.textContent).toBe(loadingMessage);
     });
-
   });
-
 });

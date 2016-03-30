@@ -22,13 +22,13 @@ const GoogleMapsPool = {
   createNewMap(node, options) {
     const element = this.createElement();
     node.appendChild(element);
-    const map = new google.maps.Map(element, {
+    const map = new window.google.maps.Map(element, {
       ...options,
-      center: new google.maps.LatLng(options.lat, options.lng)
+      center: new window.google.maps.LatLng(options.lat, options.lng),
     });
     let index = window.__gmapsPool.push({
       map,
-      available: false
+      available: false,
     });
     return --index;
   },
@@ -40,9 +40,8 @@ const GoogleMapsPool = {
     const index = this.getFirstAvailableIndex();
     if (index > -1) {
       return this.useAvailableMap(index, node, options);
-    } else {
-      return this.createNewMap(node, options);
     }
+    return this.createNewMap(node, options);
   },
 
   free(index) {
@@ -59,9 +58,9 @@ const GoogleMapsPool = {
     const map = this.getMap(index);
     map.setOptions({
       ...options,
-      center: new google.maps.LatLng(options.lat, options.lng)
+      center: new window.google.maps.LatLng(options.lat, options.lng),
     });
-  }
+  },
 
 };
 

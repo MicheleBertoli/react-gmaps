@@ -46,6 +46,6 @@ export default {
 
   removeCallback(index) {
     this.callbacks.splice(index, 1);
-  }
+  },
 
 };

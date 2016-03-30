@@ -19,5 +19,5 @@ export default {
   onShapeChanged: 'shape_changed',
   onTitleChanged: 'title_changed',
   onVisibleChanged: 'visible_changed',
-  onZindexChanged: 'zindex_changed'
+  onZindexChanged: 'zindex_changed',
 };
