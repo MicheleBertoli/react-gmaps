@@ -9,7 +9,10 @@ export default {
   useAvailableMap(index, node, options) {
     const map = this.getMap(index);
     node.appendChild(map.getDiv());
-    this.update(index, options);
+    this.update(index, {
+      ...require('./default-map-options'),
+      ...options,
+    });
     this.instances[index].available = false;
     return index;
   },

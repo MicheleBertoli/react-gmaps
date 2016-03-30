@@ -12,6 +12,10 @@ describe('GoogleMapsPool', () => {
       maps: {
         Map: jest.genMockFunction(),
         LatLng: jest.genMockFunction(),
+        ControlPosition: {},
+        MapTypeId: {},
+        MapTypeControlStyle: {},
+        ScaleControlStyle: {},
       },
     };
   });
