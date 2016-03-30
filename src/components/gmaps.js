@@ -6,15 +6,12 @@ import Listener from '../mixins/listener';
 import compareProps from '../utils/compare-props';
 import GoogleMapsApi from '../utils/google-maps-api';
 import GoogleMapsPool from '../utils/google-maps-pool';
-import Marker from './marker';
-import InfoWindow from './marker';
-import Circle from './marker';
 
 const Gmaps = React.createClass({
 
   propTypes: {
     params: React.PropTypes.object,
-    children: React.PropTypes.oneOf([Marker, InfoWindow, Circle]),
+    children: React.PropTypes.node,
     onMapCreated: React.PropTypes.func,
     width: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     height: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
