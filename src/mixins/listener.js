@@ -1,4 +1,3 @@
-
 const Listener = {
 
   addListeners(entity, events) {
