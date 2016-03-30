@@ -1,14 +1,16 @@
-const GoogleMapsPool = {
+export default {
+
+  instances: [],
 
   getFirstAvailableIndex() {
-    return window.__gmapsPool.map(item => item.available).indexOf(true);
+    return this.instances.map(item => item.available).indexOf(true);
   },
 
   useAvailableMap(index, node, options) {
     const map = this.getMap(index);
     node.appendChild(map.getDiv());
     this.update(index, options);
-    window.__gmapsPool[index].available = false;
+    this.instances[index].available = false;
     return index;
   },
 
@@ -26,7 +28,7 @@ const GoogleMapsPool = {
       ...options,
       center: new window.google.maps.LatLng(options.lat, options.lng),
     });
-    let index = window.__gmapsPool.push({
+    let index = this.instances.push({
       map,
       available: false,
     });
@@ -34,9 +36,6 @@ const GoogleMapsPool = {
   },
 
   create(node, options) {
-    if (!window.__gmapsPool) {
-      window.__gmapsPool = [];
-    }
     const index = this.getFirstAvailableIndex();
     if (index > -1) {
       return this.useAvailableMap(index, node, options);
@@ -45,13 +44,13 @@ const GoogleMapsPool = {
   },
 
   free(index) {
-    if (index > -1) {
-      window.__gmapsPool[index].available = true;
+    if (this.instances[index]) {
+      this.instances[index].available = true;
     }
   },
 
   getMap(index) {
-    return window.__gmapsPool[index].map;
+    return this.instances[index].map;
   },
 
   update(index, options) {
@@ -63,5 +62,3 @@ const GoogleMapsPool = {
   },
 
 };
-
-export default GoogleMapsPool;

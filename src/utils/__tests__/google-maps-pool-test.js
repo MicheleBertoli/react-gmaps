@@ -8,7 +8,6 @@ describe('GoogleMapsPool', () => {
     element = document.createElement('div');
     element.appendChild = jest.genMockFunction();
     GoogleMapsPool = require('../../utils/google-maps-pool').default;
-    window.__gmapsPool = [];
     window.google = {
       maps: {
         Map: jest.genMockFunction(),
@@ -24,7 +23,7 @@ describe('GoogleMapsPool', () => {
     });
 
     it('returns -1 if no maps are available', () => {
-      window.__gmapsPool.push({
+      GoogleMapsPool.instances.push({
         available: false,
       });
       const result = GoogleMapsPool.getFirstAvailableIndex();
@@ -32,7 +31,7 @@ describe('GoogleMapsPool', () => {
     });
 
     it('returns the index of the first available map', () => {
-      window.__gmapsPool.push({
+      GoogleMapsPool.instances.push({
         available: true,
       });
       const result = GoogleMapsPool.getFirstAvailableIndex();
@@ -53,7 +52,7 @@ describe('GoogleMapsPool', () => {
           setOptions: jest.genMockFunction(),
         },
       };
-      window.__gmapsPool.push(item);
+      GoogleMapsPool.instances.push(item);
     });
 
     it('appends the map div to the components\' node', () => {
@@ -93,7 +92,7 @@ describe('GoogleMapsPool', () => {
 
     it('pushes a new element into the pool', () => {
       GoogleMapsPool.createNewMap(element, {});
-      expect(window.__gmapsPool.length).toBe(1);
+      expect(GoogleMapsPool.instances.length).toBe(1);
     });
 
     it('returns the index of the element', () => {
@@ -104,7 +103,7 @@ describe('GoogleMapsPool', () => {
 
   describe('create', () => {
     it('uses the available map if there is one', () => {
-      window.__gmapsPool = [{
+      GoogleMapsPool.instances = [{
         available: true,
         map: {
           getDiv: jest.genMockFunction(),
@@ -116,7 +115,7 @@ describe('GoogleMapsPool', () => {
     });
 
     it('creates a new map if none is available', () => {
-      window.__gmapsPool = [{
+      GoogleMapsPool.instances = [{
         available: false,
       }];
       const result = GoogleMapsPool.create(element, {});
@@ -129,7 +128,7 @@ describe('GoogleMapsPool', () => {
       const item = {
         available: false,
       };
-      window.__gmapsPool.push(item);
+      GoogleMapsPool.instances.push(item);
       GoogleMapsPool.free(0);
       expect(item.available).toBe(true);
     });
@@ -140,7 +139,7 @@ describe('GoogleMapsPool', () => {
       const item = {
         map: {},
       };
-      window.__gmapsPool.push(item);
+      GoogleMapsPool.instances.push(item);
       const result = GoogleMapsPool.getMap(0);
       expect(result).toBe(item.map);
     });
@@ -153,7 +152,7 @@ describe('GoogleMapsPool', () => {
           setOptions: jest.genMockFunction(),
         },
       };
-      window.__gmapsPool.push(item);
+      GoogleMapsPool.instances.push(item);
       GoogleMapsPool.update(0, {});
       expect(item.map.setOptions).toBeCalled();
     });

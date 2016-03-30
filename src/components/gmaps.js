@@ -7,7 +7,7 @@ import compareProps from '../utils/compare-props';
 import GoogleMapsApi from '../utils/google-maps-api';
 import GoogleMapsPool from '../utils/google-maps-pool';
 
-const Gmaps = React.createClass({
+export default React.createClass({
 
   propTypes: {
     params: React.PropTypes.object,
@@ -89,5 +89,3 @@ const Gmaps = React.createClass({
   },
 
 });
-
-export default Gmaps;
