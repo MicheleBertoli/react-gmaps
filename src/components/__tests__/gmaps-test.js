@@ -35,7 +35,7 @@ describe('Gmaps', () => {
       const Parent = React.createClass({
         getInitialState() {
           return {
-            prop: '1',
+            prop: 1,
           };
         },
         render() {
@@ -48,7 +48,7 @@ describe('Gmaps', () => {
 
     it('does not update the map if it does not exist', () => {
       parent.setState({
-        prop: '2',
+        prop: 2,
       });
       expect(GoogleMapsPool.update).not.toBeCalled();
     });
@@ -58,7 +58,7 @@ describe('Gmaps', () => {
         isMapCreated: true,
       });
       parent.setState({
-        prop: '1',
+        prop: 1,
       });
       expect(GoogleMapsPool.update).not.toBeCalled();
     });
@@ -68,7 +68,7 @@ describe('Gmaps', () => {
         isMapCreated: true,
       });
       parent.setState({
-        prop: '2',
+        prop: 2,
       });
       expect(GoogleMapsPool.update).toBeCalled();
     });
@@ -117,7 +117,7 @@ describe('Gmaps', () => {
       const gmaps = TestUtils.renderIntoDocument(
         <Gmaps />
       );
-      React.Children.forEach(gmaps.getChildren(), (child) => {
+      React.Children.forEach(gmaps.getChildren(), child => {
         expect(child.props.map).toBeDefined();
       });
     });

@@ -33,7 +33,7 @@ describe('Entity', () => {
       const Parent = React.createClass({
         getInitialState() {
           return {
-            prop: '1',
+            prop: 1,
           };
         },
         render() {
@@ -49,14 +49,14 @@ describe('Entity', () => {
 
     it('does not update the options if the props are not changed', () => {
       parent.setState({
-        prop: '1',
+        prop: 1,
       });
       expect(parent.refs.entityComponent.entity.setOptions).not.toBeCalled();
     });
 
     it('updates the options if the props are changed', () => {
       parent.setState({
-        prop: '2',
+        prop: 2,
       });
       expect(parent.refs.entityComponent.entity.setOptions).toBeCalled();
     });

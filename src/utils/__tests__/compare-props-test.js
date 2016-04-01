@@ -1,6 +1,6 @@
-jest.unmock('../../utils/compare-props');
+jest.unmock('../compare-props');
 
-import compareProps from '../../utils/compare-props';
+import compareProps from '../compare-props';
 
 describe('compareProps', () => {
   it('returns false if the objects have a different number of keys', () => {

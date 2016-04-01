@@ -1,3 +1,5 @@
+import defaultMapOptions from './default-map-options';
+
 export default {
 
   instances: [],
@@ -7,14 +9,23 @@ export default {
   },
 
   useAvailableMap(index, node, options) {
-    const map = this.getMap(index);
-    node.appendChild(map.getDiv());
+    this.instances[index].available = false;
     this.update(index, {
-      ...require('./default-map-options'),
+      ...defaultMapOptions(options),
       ...options,
     });
-    this.instances[index].available = false;
+    const map = this.getMap(index);
+    node.appendChild(map.getDiv());
+    this.reset(map);
     return index;
+  },
+
+  reset(map) {
+    const zoom = map.getZoom();
+    const center = map.getCenter();
+    window.google.maps.event.trigger(map, 'resize');
+    map.setZoom(zoom);
+    map.setCenter(center);
   },
 
   createElement() {

@@ -1,23 +1,30 @@
-jest.unmock('../../utils/google-maps-pool');
+jest.unmock('../google-maps-pool');
+jest.unmock('../default-map-options');
+
+import defaultMapOptions from '../default-map-options';
 
 describe('GoogleMapsPool', () => {
+  const noop = () => {};
   let element;
   let GoogleMapsPool;
 
   beforeEach(() => {
     element = document.createElement('div');
     element.appendChild = jest.genMockFunction();
-    GoogleMapsPool = require('../../utils/google-maps-pool').default;
     window.google = {
       maps: {
-        Map: jest.genMockFunction(),
-        LatLng: jest.genMockFunction(),
         ControlPosition: {},
         MapTypeId: {},
         MapTypeControlStyle: {},
         ScaleControlStyle: {},
+        event: {
+          trigger: jest.genMockFunction(),
+        },
+        Map: jest.genMockFunction(),
+        LatLng: noop,
       },
     };
+    GoogleMapsPool = require('../google-maps-pool').default;
   });
 
   describe('getFirstAvailableIndex', () => {
@@ -52,16 +59,15 @@ describe('GoogleMapsPool', () => {
       item = {
         available: true,
         map: {
-          getDiv: jest.genMockFunction(),
           setOptions: jest.genMockFunction(),
+          getDiv: noop,
+          getZoom: noop,
+          getCenter: noop,
+          setZoom: noop,
+          setCenter: noop,
         },
       };
       GoogleMapsPool.instances.push(item);
-    });
-
-    it('appends the map div to the components\' node', () => {
-      GoogleMapsPool.useAvailableMap(index, element, {});
-      expect(element.appendChild).toBeCalled();
     });
 
     it('sets the item\'s availability to false', () => {
@@ -69,9 +75,60 @@ describe('GoogleMapsPool', () => {
       expect(item.available).toBe(false);
     });
 
+    it('appends the map div to the components\' node', () => {
+      GoogleMapsPool.useAvailableMap(index, element, {});
+      expect(element.appendChild).toBeCalled();
+    });
+
+    it('merges the options with the default ones', () => {
+      const options = {};
+      GoogleMapsPool.useAvailableMap(index, element, options);
+      expect(item.map.setOptions).toBeCalledWith({
+        ...defaultMapOptions(options),
+        center: {},
+      });
+    });
+
+    it('resets the map', () => {
+      GoogleMapsPool.useAvailableMap(index, element, {});
+      expect(window.google.maps.event.trigger).toBeCalled();
+    });
+
     it('returns the index of the map', () => {
       const result = GoogleMapsPool.useAvailableMap(index, element, {});
       expect(result).toBe(index);
+    });
+  });
+
+  describe('reset', () => {
+    let map;
+
+    beforeEach(() => {
+      map = {
+        setOptions: jest.genMockFunction(),
+        getDiv: jest.genMockFunction(),
+        getZoom: jest.genMockFunction(),
+        getCenter: jest.genMockFunction(),
+        setZoom: jest.genMockFunction(),
+        setCenter: jest.genMockFunction(),
+      };
+    });
+
+    it('gets the zoom and the center of the map', () => {
+      GoogleMapsPool.reset(map);
+      expect(map.getZoom).toBeCalled();
+      expect(map.getCenter).toBeCalled();
+    });
+
+    it('triggers the resize event', () => {
+      GoogleMapsPool.reset(map);
+      expect(window.google.maps.event.trigger).toBeCalled();
+    });
+
+    it('sets the zoom and the center of the map', () => {
+      GoogleMapsPool.reset(map);
+      expect(map.setZoom).toBeCalled();
+      expect(map.setCenter).toBeCalled();
     });
   });
 
@@ -110,8 +167,12 @@ describe('GoogleMapsPool', () => {
       GoogleMapsPool.instances = [{
         available: true,
         map: {
-          getDiv: jest.genMockFunction(),
-          setOptions: jest.genMockFunction(),
+          setOptions: noop,
+          getDiv: noop,
+          getZoom: noop,
+          getCenter: noop,
+          setZoom: noop,
+          setCenter: noop,
         },
       }];
       const result = GoogleMapsPool.create(element, {});

@@ -1,4 +1,4 @@
-export default {
+export default options => ({
   // backgroundColor: null,
   // center: null,
   disableDefaultUI: false,
@@ -13,7 +13,7 @@ export default {
   heading: 0,
   keyboardShortcuts: true,
   mapMaker: false,
-  mapTypeControl: true,
+  mapTypeControl: options.disableDefaultUI !== true,
   mapTypeControlOptions: {
     mapTypeIds: [
       window.google.maps.MapTypeId.ROADMAP,
@@ -39,13 +39,13 @@ export default {
   scrollwheel: true,
   // signInControl: null,
   streetView: null,
-  streetViewControl: true,
+  streetViewControl: options.disableDefaultUI !== true,
   streetViewControlOptions: null,
   styles: [],
   tilt: 0,
   // zoom: null,
-  zoomControl: true,
+  zoomControl: options.disableDefaultUI !== true,
   zoomControlOptions: {
     position: window.google.maps.ControlPosition.RIGHT_BOTTOM,
   },
-};
+});
