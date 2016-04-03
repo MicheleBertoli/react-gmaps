@@ -1,9 +1,9 @@
-jest.unmock('../../utils/compare-props');
 jest.unmock('../entity');
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import createEntity from '../entity';
+import compareProps from '../../utils/compare-props';
 
 describe('Entity', () => {
   const EntityComponent = createEntity('Entity', 'prop', {
@@ -48,6 +48,7 @@ describe('Entity', () => {
     });
 
     it('does not update the options if the props are not changed', () => {
+      compareProps.mockReturnValueOnce(true);
       parent.setState({
         prop: 1,
       });
@@ -55,6 +56,7 @@ describe('Entity', () => {
     });
 
     it('updates the options if the props are changed', () => {
+      compareProps.mockReturnValueOnce(false);
       parent.setState({
         prop: 2,
       });

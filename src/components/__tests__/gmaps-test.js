@@ -1,11 +1,11 @@
 jest.unmock('object-assign');
-jest.unmock('../../utils/compare-props');
 jest.unmock('../gmaps');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Gmaps from '../gmaps';
+import compareProps from '../../utils/compare-props';
 import GoogleMapsApi from '../../utils/google-maps-api';
 import GoogleMapsPool from '../../utils/google-maps-pool';
 
@@ -57,6 +57,7 @@ describe('Gmaps', () => {
       parent.refs.gmaps.setState({
         isMapCreated: true,
       });
+      compareProps.mockReturnValueOnce(true);
       parent.setState({
         prop: 1,
       });
@@ -67,6 +68,7 @@ describe('Gmaps', () => {
       parent.refs.gmaps.setState({
         isMapCreated: true,
       });
+      compareProps.mockReturnValueOnce(false);
       parent.setState({
         prop: 2,
       });
