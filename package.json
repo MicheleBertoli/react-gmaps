@@ -1,6 +1,6 @@
 {
   "name": "react-gmaps",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
@@ -35,10 +35,10 @@
     "eslint": "^1.1.0",
     "eslint-plugin-react": "^3.2.1",
     "express": "^4.11.2",
-    "jest-cli": "^0.7.0",
-    "react": "^0.14.2",
-    "react-addons-test-utils": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "jest-cli": "^12.0.0",
+    "react": "^15.0.1",
+    "react-addons-test-utils": "^15.0.1",
+    "react-dom": "^15.0.1"
   },
   "jest": {
     "testPathDirs": [
@@ -56,7 +56,7 @@
     "object-assign": "^4.0.1"
   },
   "peerDependencies": {
-    "react": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
   }
 }
