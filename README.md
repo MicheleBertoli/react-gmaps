@@ -65,7 +65,7 @@ const App = React.createClass({
         lng={coords.lng}
         zoom={12}
         loadingMessage={'Be happy'}
-        params={{v: '3.exp'}}
+        params={{v: '3.exp', key: 'YOUR_GOOGLE_MAPS_JAVASCRIPT_API_KEY'}}
         onMapCreated={this.onMapCreated}>
         <Marker
           lat={coords.lat}
