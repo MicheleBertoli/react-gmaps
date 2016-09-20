@@ -33,13 +33,11 @@ export default (name, latLngProp, events) => {
     },
 
     getOptions(props) {
-      var path = props.path.map(function (coords){
-        return new google.maps.LatLng(coords.lat, coords.lng);
-      });
-
       return {
         ...props,
-        [latLngProp]: path
+        [latLngProp]: props.path.map(function (coords){
+          return new google.maps.LatLng(coords.lat, coords.lng);
+        })
       };
     },
 
