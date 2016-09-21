@@ -33,11 +33,15 @@ export default (name, latLngProp, events) => {
     },
 
     getOptions(props) {
+      let i;
+      const result = [];
+      for (i in props.path){
+        result.push({lat: props.path[i].lat, lng: props.path[i].lng});
+      }
+
       return {
         ...props,
-        [latLngProp]: props.path.map(function (coords){
-          return new google.maps.LatLng(coords.lat, coords.lng);
-        })
+        [latLngProp]: result
       };
     },
 

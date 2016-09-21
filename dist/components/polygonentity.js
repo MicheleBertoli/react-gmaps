@@ -53,12 +53,13 @@ exports['default'] = function (name, latLngProp, events) {
     },
 
     getOptions: function getOptions(props) {
-      var path = [];
-      console.log(props.path);
-      for (var i in props.path) {
-        path.push(new google.maps.LatLng(props.path[i].lat, props.path[i].lng));
+      var i = undefined;
+      var result = [];
+      for (i in props.path) {
+        result.push({ lat: props.path[i].lat, lng: props.path[i].lng });
       }
-      return _extends({}, props, _defineProperty({}, latLngProp, path));
+
+      return _extends({}, props, _defineProperty({}, latLngProp, result));
     },
 
     render: function render() {
