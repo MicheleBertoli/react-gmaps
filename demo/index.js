@@ -47,6 +47,7 @@ const App = React.createClass({
           lat={51.5258541}
           lng={-0.08040660000006028}
           zoom={12}
+          params={{libraries: 'places'}}
           {...handlers} />
         <ul style={styles.cols}>
           {events}
