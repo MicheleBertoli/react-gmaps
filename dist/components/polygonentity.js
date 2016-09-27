@@ -37,7 +37,7 @@ exports['default'] = function (name, latLngProp, events) {
 
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
       if (!(0, _utilsCompareProps2['default'])(this.props, nextProps)) {
-        var options = this.getOptions(nextProps);libraries;
+        var options = this.getOptions(nextProps);
         this.entity.setOptions(options);
       }
     },
