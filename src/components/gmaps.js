@@ -55,7 +55,7 @@ const Gmaps = React.createClass({
         });
         // Create the search box and link it to the UI element.
         const input = document.getElementById('pac-input');
-        if (!!input) {
+        if (!!input && google.maps.places) {
             const searchBox = new google.maps.places.SearchBox(input);
             this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -90,7 +90,6 @@ const Gmaps = React.createClass({
                         return;
                     }
                     var icon = {
-                        url: place.icon,
                         size: new google.maps.Size(71, 71),
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(17, 34),

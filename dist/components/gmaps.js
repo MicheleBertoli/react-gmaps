@@ -86,7 +86,7 @@ var Gmaps = _react2['default'].createClass({
         }));
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
-        if (!!input) {
+        if (!!input && google.maps.places) {
             var self;
             var markers;
 
@@ -126,7 +126,6 @@ var Gmaps = _react2['default'].createClass({
                             return;
                         }
                         var icon = {
-                            url: place.icon,
                             size: new google.maps.Size(71, 71),
                             origin: new google.maps.Point(0, 0),
                             anchor: new google.maps.Point(17, 34),
