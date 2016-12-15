@@ -8,7 +8,7 @@ export default {
 
   load(params, callback) {
     const index = this.callbacks.push(callback);
-    if (window.google) {
+    if (typeof window.google === 'object' && typeof window.google.maps !== 'undefined') {
       setTimeout(this.fireCallbacks.bind(this));
     } else {
       if (!this.appended) {
