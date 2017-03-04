@@ -36,6 +36,8 @@ const coords = {
   lng: -0.08040660000006028
 };
 
+const params = {v: '3.exp', key: 'YOUR_API_KEY'};
+
 const App = React.createClass({
 
   onMapCreated(map) {
@@ -65,7 +67,7 @@ const App = React.createClass({
         lng={coords.lng}
         zoom={12}
         loadingMessage={'Be happy'}
-        params={{v: '3.exp', key: 'YOUR_API_KEY'}}
+        params={params}
         onMapCreated={this.onMapCreated}>
         <Marker
           lat={coords.lat}
