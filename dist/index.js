@@ -22,7 +22,17 @@ var _componentsCircle = require('./components/circle');
 
 var _componentsCircle2 = _interopRequireDefault(_componentsCircle);
 
+var _componentsPolygon = require('./components/polygon');
+
+var _componentsPolygon2 = _interopRequireDefault(_componentsPolygon);
+
+var _componentsPolyline = require('./components/polyline');
+
+var _componentsPolyline2 = _interopRequireDefault(_componentsPolyline);
+
 exports.Gmaps = _componentsGmaps2['default'];
 exports.Marker = _componentsMarker2['default'];
 exports.InfoWindow = _componentsInfoWindow2['default'];
 exports.Circle = _componentsCircle2['default'];
+exports.Polygon = _componentsPolygon2['default'];
+exports.Polyline = _componentsPolyline2['default'];
