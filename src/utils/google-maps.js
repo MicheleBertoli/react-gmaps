@@ -8,7 +8,7 @@ export default {
 
   load(params, callback) {
     const index = this.callbacks.push(callback);
-    if (window.google) {
+    if (window.google.maps) { // If only checking for window.google, and using another lib from google, loaded first, them maps won't load.
       setTimeout(this.fireCallbacks.bind(this));
     } else {
       if (!this.appended) {
