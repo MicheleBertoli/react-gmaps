@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Listener from '../mixins/listener';
 import compareProps from '../utils/compare-props';
 
 export default (name, latLngProp, events) => {
-  return React.createClass({
+  return createReactClass({
 
     mixins: [Listener],
 

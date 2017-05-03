@@ -8,6 +8,7 @@ describe('Gmaps', () => {
 
   const React = require('react');
   const ReactDOM = require('react-dom');
+  const createReactClass = require('create-react-class');
   const TestUtils = require('react-addons-test-utils');
   const GoogleMaps = require('../../utils/google-maps');
   GoogleMaps.appendScript = () => {};
@@ -30,7 +31,7 @@ describe('Gmaps', () => {
     const onMapCreated = jest.genMockFunction();
 
     beforeEach(() => {
-      const Child = React.createClass({
+      const Child = createReactClass({
         render() {
           return null;
         }
@@ -117,7 +118,7 @@ describe('Gmaps', () => {
     });
 
     it('calls `setOptions` when receive new props', () => {
-      const Parent = React.createClass({
+      const Parent = createReactClass({
         getInitialState() {
           return {
             prop: '1'

@@ -38,7 +38,7 @@ const coords = {
 
 const params = {v: '3.exp', key: 'YOUR_API_KEY'};
 
-const App = React.createClass({
+class App extends React.Component {
 
   onMapCreated(map) {
     map.setOptions({
@@ -88,7 +88,7 @@ const App = React.createClass({
     );
   }
 
-});
+};
 
 ReactDOM.render(<App />, document.getElementById('gmaps'));
 ```
