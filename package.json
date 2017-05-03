@@ -37,7 +37,6 @@
     "express": "^4.11.2",
     "jest-cli": "^12.0.0",
     "react": "^15.0.1",
-    "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.1"
   },
   "jest": {
@@ -48,7 +47,6 @@
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/react-addons-test-utils",
       "<rootDir>/node_modules/create-react-class",
       "<rootDir>/node_modules/fbjs"
     ]

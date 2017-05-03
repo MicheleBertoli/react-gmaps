@@ -6,7 +6,7 @@ describe('Entity', () => {
 
   const React = require('react');
   const createReactClass = require('create-react-class');
-  const TestUtils = require('react-addons-test-utils');
+  const TestUtils = require('react-dom/test-utils');
   const createEntity = require('../entity');
   const Entity = createEntity('Entity', 'prop', {
     onClick: 'click'

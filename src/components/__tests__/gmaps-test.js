@@ -9,7 +9,7 @@ describe('Gmaps', () => {
   const React = require('react');
   const ReactDOM = require('react-dom');
   const createReactClass = require('create-react-class');
-  const TestUtils = require('react-addons-test-utils');
+  const TestUtils = require('react-dom/test-utils');
   const GoogleMaps = require('../../utils/google-maps');
   GoogleMaps.appendScript = () => {};
   const Gmaps = require('../gmaps');
