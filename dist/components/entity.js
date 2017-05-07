@@ -14,6 +14,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _createReactClass = require('create-react-class');
+
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
+
 var _mixinsListener = require('../mixins/listener');
 
 var _mixinsListener2 = _interopRequireDefault(_mixinsListener);
@@ -23,7 +27,7 @@ var _utilsCompareProps = require('../utils/compare-props');
 var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
 
 exports['default'] = function (name, latLngProp, events) {
-  return _react2['default'].createClass({
+  return (0, _createReactClass2['default'])({
 
     mixins: [_mixinsListener2['default']],
 

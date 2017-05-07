@@ -16,6 +16,10 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _createReactClass = require('create-react-class');
+
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
+
 var _objectAssign = require('object-assign');
 
 var _objectAssign2 = _interopRequireDefault(_objectAssign);
@@ -36,8 +40,7 @@ var _utilsCompareProps = require('../utils/compare-props');
 
 var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
 
-var Gmaps = _react2['default'].createClass({
-  displayName: 'Gmaps',
+var Gmaps = (0, _createReactClass2['default'])({
 
   mixins: [_mixinsListener2['default']],
 

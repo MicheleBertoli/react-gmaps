@@ -18,7 +18,7 @@ exports['default'] = {
 
   load: function load(params, callback) {
     var index = this.callbacks.push(callback);
-    if (googleExists()) {
+    if (googleMapsExists()) {
       setTimeout(this.fireCallbacks.bind(this));
     } else {
       if (!this.appended) {
@@ -62,7 +62,7 @@ exports['default'] = {
 
 };
 
-var googleExists = function googleExists() {
+var googleMapsExists = function googleMapsExists() {
   return typeof window.google === 'object' && typeof window.google.maps === 'object';
 };
 module.exports = exports['default'];

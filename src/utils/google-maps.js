@@ -8,7 +8,7 @@ export default {
 
   load(params, callback) {
     const index = this.callbacks.push(callback);
-    if (googleExists()) {
+    if (googleMapsExists()) {
       setTimeout(this.fireCallbacks.bind(this));
     } else {
       if (!this.appended) {
@@ -50,6 +50,6 @@ export default {
 
 };
 
-const googleExists = () => (
-    typeof window.google === 'object' && typeof window.google.maps === 'object'
+const googleMapsExists = () => (
+  typeof window.google === 'object' && typeof window.google.maps === 'object'
 );
