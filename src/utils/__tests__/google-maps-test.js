@@ -24,7 +24,7 @@ describe('GoogleMaps', () => {
   });
 
   it('fires the callback if google exists', () => {
-    window.google = {};
+    window.google = { maps:{} };
     const callback = jest.genMockFunction();
     GoogleMaps.load(null, callback);
     jest.runAllTimers();
