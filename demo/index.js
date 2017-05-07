@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import createReactClass from 'create-react-class';
 import {Gmaps} from '../dist';
 import MapEvents from '../dist/events/map';
 
@@ -13,7 +14,7 @@ const styles = {
   }
 };
 
-const App = React.createClass({
+const App = createReactClass({
 
   handler(_event) {
     const item = ReactDOM.findDOMNode(this.refs[_event]);

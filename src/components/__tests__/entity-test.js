@@ -5,7 +5,8 @@ jest.dontMock('../entity');
 describe('Entity', () => {
 
   const React = require('react');
-  const TestUtils = require('react-addons-test-utils');
+  const createReactClass = require('create-react-class');
+  const TestUtils = require('react-dom/test-utils');
   const createEntity = require('../entity');
   const Entity = createEntity('Entity', 'prop', {
     onClick: 'click'
@@ -85,7 +86,7 @@ describe('Entity', () => {
           setOptions: jest.genMockFunction()
         };
       };
-      const Parent = React.createClass({
+      const Parent = createReactClass({
         getInitialState() {
           return {
             prop: '1'
@@ -136,7 +137,7 @@ describe('Entity', () => {
           setOptions: jest.genMockFunction()
         };
       };
-      const Parent = React.createClass({
+      const Parent = createReactClass({
         getInitialState() {
           return {
             show: true
@@ -161,4 +162,3 @@ describe('Entity', () => {
   });
 
 });
-
