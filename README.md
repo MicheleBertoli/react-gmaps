@@ -27,38 +27,37 @@ Usage
 -----
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
+import React from 'react'
+import { Circle, Gmaps, InfoWindow, Marker } from 'react-gmaps'
 
 const coords = {
   lat: 51.5258541,
-  lng: -0.08040660000006028
-};
+  lng: -0.08040660000006028,
+}
 
-const params = {v: '3.exp', key: 'YOUR_API_KEY'};
+const params = {v: '3.exp', key: 'YOUR_API_KEY'}
 
 class App extends React.Component {
 
-  onMapCreated(map) {
+  onMapCreated (map) {
     map.setOptions({
-      disableDefaultUI: true
-    });
-  },
+      disableDefaultUI: true,
+    })
+  }
 
-  onDragEnd(e) {
-    console.log('onDragEnd', e);
-  },
+  onDragEnd (e) {
+    console.log('onDragEnd', e)
+  }
 
-  onCloseClick() {
-    console.log('onCloseClick');
-  },
+  onCloseClick () {
+    console.log('onCloseClick')
+  }
 
-  onClick(e) {
-    console.log('onClick', e);
-  },
+  onClick (e) {
+    console.log('onClick', e)
+  }
 
-  render() {
+  render () {
     return (
       <Gmaps
         width={'800px'}
@@ -73,24 +72,24 @@ class App extends React.Component {
           lat={coords.lat}
           lng={coords.lng}
           draggable={true}
-          onDragEnd={this.onDragEnd} />
+          onDragEnd={this.onDragEnd}/>
         <InfoWindow
           lat={coords.lat}
           lng={coords.lng}
           content={'Hello, React :)'}
-          onCloseClick={this.onCloseClick} />
+          onCloseClick={this.onCloseClick}/>
         <Circle
           lat={coords.lat}
           lng={coords.lng}
           radius={500}
-          onClick={this.onClick} />
+          onClick={this.onClick}/>
       </Gmaps>
-    );
+    )
   }
 
-};
+}
 
-ReactDOM.render(<App />, document.getElementById('gmaps'));
+ReactDOM.render(<App />, document.getElementById('gmaps'))
 ```
 
 Test
