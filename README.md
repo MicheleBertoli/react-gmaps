@@ -44,19 +44,19 @@ class App extends React.Component {
     map.setOptions({
       disableDefaultUI: true
     });
-  },
+  }
 
   onDragEnd(e) {
     console.log('onDragEnd', e);
-  },
+  }
 
   onCloseClick() {
     console.log('onCloseClick');
-  },
+  }
 
   onClick(e) {
     console.log('onClick', e);
-  },
+  }
 
   render() {
     return (
