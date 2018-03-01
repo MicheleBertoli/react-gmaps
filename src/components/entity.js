@@ -34,11 +34,11 @@ export default (name, latLngProp, events) => {
     },
 
     getOptions(props) {
-      console.log('props at entity-getOptions-ComponentWillReceiveProps:', props)
-      console.log('latLngProp at entity-getOptions-ComponentWillReceiveProps:', latLngProp)
       return {
         ...props,
-        [latLngProp]: new google.maps.LatLng(props.lat, props.lng)
+        [latLngProp]: (name === 'Polyline') 
+          ? props.path // an array of litelral latlng's
+          : new google.maps.LatLng(props.lat, props.lng)
       };
     },
 

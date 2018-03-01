@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import { Gmaps } from '../dist';
 import { Marker } from '../dist';
 import { Circle } from '../dist';
+import { Polyline } from '../dist';
 import MapEvents from '../dist/events/map';
 
 const styles = {
@@ -59,6 +60,8 @@ const App = createReactClass({
           <Marker lat={51.5} lng={-0.08} icon={'https://cdn.filestackcontent.com/eAYlntJTS5yscafiMdf2'} />
 
           <Circle lat={51.5} lng={-0.08} radius={500} />
+
+          <Polyline path={[{ lat: 51.75, lng: -0.03 }, { lat: 51.25, lng: -0.17 }]} strokeColor={'#FF0502'}/>
 
         </Gmaps>
 

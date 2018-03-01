@@ -57,9 +57,8 @@ exports['default'] = function (name, latLngProp, events) {
     },
 
     getOptions: function getOptions(props) {
-      console.log('props at entity-getOptions-ComponentWillReceiveProps:', props);
-      console.log('latLngProp at entity-getOptions-ComponentWillReceiveProps:', latLngProp);
-      return _extends({}, props, _defineProperty({}, latLngProp, new google.maps.LatLng(props.lat, props.lng)));
+      return _extends({}, props, _defineProperty({}, latLngProp, name === 'Polyline' ? props.path // an array of litelral latlng's
+      : new google.maps.LatLng(props.lat, props.lng)));
     },
 
     render: function render() {
