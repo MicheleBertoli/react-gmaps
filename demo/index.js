@@ -37,7 +37,8 @@ const App = createReactClass({
     for (let _event in MapEvents) {
       if (MapEvents.hasOwnProperty(_event)) {
         events.push(
-          <li key={MapEvents[_event]} ref={MapEvents[_event]} style={styles.item}>
+          <li key={MapEvents[_event]} ref={MapEvents[_event]} 
+          style={styles.item}>
             {MapEvents[_event]}
           </li>
         );
@@ -57,11 +58,21 @@ const App = createReactClass({
           params={params}
           {...handlers}
         >
-          <Marker lat={51.5} lng={-0.08} icon={'https://cdn.filestackcontent.com/eAYlntJTS5yscafiMdf2'} />
+          <Marker 
+            lat={51.5} 
+            lng={-0.08} 
+            icon={'https://cdn.filestackcontent.com/eAYlntJTS5yscafiMdf2'} />
 
-          <Circle lat={51.5} lng={-0.08} radius={500} />
+          <Circle 
+            lat={51.5} 
+            lng={-0.08} 
+            radius={500} />
 
-          <Polyline path={[{ lat: 51.75, lng: -0.03 }, { lat: 51.25, lng: -0.17 }]} strokeColor={'#FF0502'}/>
+          <Polyline 
+            path={[
+              { lat: 51.75, lng: -0.03 }, 
+              { lat: 51.25, lng: -0.17 } ]} 
+            strokeColor={'#FF0502'}/>
 
         </Gmaps>
 
