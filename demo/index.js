@@ -31,10 +31,19 @@ const App = createReactClass({
     for (let _event in MapEvents) {
       if (MapEvents.hasOwnProperty(_event)) {
         events.push(
+<<<<<<< HEAD
           <li key={MapEvents[_event]} 
               ref={MapEvents[_event]} 
               style={styles.item}>
                 {MapEvents[_event]}
+=======
+          <li
+            key={MapEvents[_event]}
+            ref={MapEvents[_event]}
+            style={styles.item}
+          >
+            {MapEvents[_event]}
+>>>>>>> upstream/master
           </li>
         );
         handlers[_event] = this.handler.bind(this, MapEvents[_event]);
