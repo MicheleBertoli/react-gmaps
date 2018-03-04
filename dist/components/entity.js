@@ -57,7 +57,7 @@ exports['default'] = function (name, latLngProp, events) {
     },
 
     getOptions: function getOptions(props) {
-      return _extends({}, props, _defineProperty({}, latLngProp, name === 'Polyline' ? props.path // an array of litelral latlng's
+      return _extends({}, props, _defineProperty({}, latLngProp, name === 'Polyline' ? props.path // a simple array of LatLngs
       : new google.maps.LatLng(props.lat, props.lng)));
     },
 
