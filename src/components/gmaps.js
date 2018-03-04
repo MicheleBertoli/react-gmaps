@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import createReactClass from 'create-react-class';
 import objectAssign from 'object-assign';
 import MapEvents from '../events/map';
