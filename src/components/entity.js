@@ -36,15 +36,22 @@ export default (name, latLngProp, events) => {
     getOptions(props) {
       return {
         ...props,
-        [latLngProp]: (name === 'Polyline')
-          ? props.path // a simple array of LatLngs
-          : new google.maps.LatLng(props.lat, props.lng)
+        [latLngProp]: this.switchPaths(name, props)
       };
     },
 
+    switchPaths(name, props) {
+      if (name === 'Polyline') {
+        return props.path; // a simple array of LatLngs
+      } else if (name === 'Polygon') {
+        return props.paths;  // an array of LatLngs, or, array of arrays
+      } else {
+        return new google.maps.LatLng(props.lat, props.lng);
+      }
+    },
+  
     render() {
       return null;
     }
-
   });
 };
