@@ -16,5 +16,4 @@ exports['default'] = {
   onMouseUp: 'mouseup',
   onRightClick: 'rightclick'
 };
-// note polygon events are identical to polyline events
 module.exports = exports['default'];

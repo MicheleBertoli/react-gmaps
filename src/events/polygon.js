@@ -10,4 +10,4 @@ export default {
   onMouseOver: 'mouseover',
   onMouseUp: 'mouseup',
   onRightClick: 'rightclick',
-}; // note polygon events are identical to polyline events
+};

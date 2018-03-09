@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
 import {Gmaps} from '../dist';
-import {Polygon} from '../dist';
 import MapEvents from '../dist/events/map';
 
 const styles = {
@@ -53,25 +52,7 @@ const App = createReactClass({
           lat={51.5258541}
           lng={-0.08040660000006028}
           zoom={12}
-          {...handlers} > 
-
-          {/* Polygon (with Hole) Example */ }
-          <Polygon paths={
-            [
-              [
-                {lat: 51.482269, lng: -0.155107},
-                {lat: 51.568783, lng: -0.104492},
-                {lat: 51.496020, lng: 0.008819}
-              ],
-              [
-                {lat: 51.501114, lng: -0.026579},
-                {lat: 51.565341, lng: -0.102731},
-                {lat: 51.489188, lng: -0.137303}
-              ]
-            ]
-        } />
-        
-        </Gmaps>
+          {...handlers} />
         <ul style={styles.cols}>
           {events}
         </ul>

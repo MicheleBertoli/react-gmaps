@@ -61,13 +61,17 @@ exports['default'] = function (name, latLngProp, events) {
     },
 
     switchPaths: function switchPaths(name, props) {
-      if (name === 'Polyline') {
-        return props.path; // a simple array of LatLngs
-      } else if (name === 'Polygon') {
-          return props.paths; // an array of LatLngs, or, array of arrays
-        } else {
-            return new google.maps.LatLng(props.lat, props.lng);
-          }
+      switch (name) {
+        case 'Polyline':
+          return props.path;
+          break;
+        case 'Polygon':
+          return props.paths;
+          break;
+        default:
+          return new google.maps.LatLng(props.lat, props.lng);
+          break;
+      }
     },
 
     render: function render() {
