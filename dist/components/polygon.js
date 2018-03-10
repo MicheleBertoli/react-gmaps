@@ -14,5 +14,5 @@ var _eventsPolygon = require('../events/polygon');
 
 var _eventsPolygon2 = _interopRequireDefault(_eventsPolygon);
 
-exports['default'] = (0, _entity2['default'])('Polygon', 'path', _eventsPolygon2['default']);
+exports['default'] = (0, _entity2['default'])('Polygon', 'paths', _eventsPolygon2['default']);
 module.exports = exports['default'];
