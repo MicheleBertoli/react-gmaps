@@ -1,6 +1,6 @@
 {
   "name": "react-gmaps",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
@@ -30,8 +30,8 @@
     "babel": "^5.8.21",
     "babel-eslint": "^4.0.5",
     "babel-jest": "^5.3.0",
-    "babelify": "^5.0.4",
-    "browserify": "^16.1.0",
+    "babelify": "^8.0.0",
+    "browserify": "^16.1.1",
     "eslint": "^1.1.0",
     "eslint-plugin-react": "^3.2.1",
     "express": "^4.11.2",
