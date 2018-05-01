@@ -3,6 +3,8 @@ import createReactClass from 'create-react-class';
 import Listener from '../mixins/listener';
 import compareProps from '../utils/compare-props';
 
+// export default createEntity('InfoWindow', 'position', InfoWindowEvents);
+
 export default (name, latLngProp, events) => {
   return createReactClass({
 
@@ -12,7 +14,9 @@ export default (name, latLngProp, events) => {
 
     componentDidMount() {
       const options = this.getOptions(this.props);
+      console.log('options', options);
       this.entity = new google.maps[name](options);
+      console.log('this.entity', this.entity);
       this.addListeners(this.entity, events);
     },
 

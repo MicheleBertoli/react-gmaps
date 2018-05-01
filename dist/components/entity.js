@@ -26,6 +26,8 @@ var _utilsCompareProps = require('../utils/compare-props');
 
 var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
 
+// export default createEntity('InfoWindow', 'position', InfoWindowEvents);
+
 exports['default'] = function (name, latLngProp, events) {
   return (0, _createReactClass2['default'])({
 
@@ -35,7 +37,9 @@ exports['default'] = function (name, latLngProp, events) {
 
     componentDidMount: function componentDidMount() {
       var options = this.getOptions(this.props);
+      console.log('options', options);
       this.entity = new google.maps[name](options);
+      console.log('this.entity', this.entity);
       this.addListeners(this.entity, events);
     },
 
