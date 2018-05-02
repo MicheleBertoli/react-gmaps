@@ -18,20 +18,20 @@ export default {
     }
     return index;
   },
-
-  getSrc(params) {
-    let src = 'https://maps.googleapis.com/maps/api/js';
-    src += '?callback=mapsCallback&';
-    src += querystring.stringify(params);
-    return src;
-  },
-
+  
   appendScript(params) {
     const src = this.getSrc(params);
     const script = document.createElement('script');
     script.setAttribute('src', src);
     document.head.appendChild(script);
     this.appended = true;
+  },
+
+  getSrc(params) {
+    let src = 'https://maps.googleapis.com/maps/api/js';
+    src += '?callback=mapsCallback&';
+    src += querystring.stringify(params);
+    return src;
   },
 
   mapsCallback() {

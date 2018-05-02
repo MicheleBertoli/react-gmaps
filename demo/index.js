@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
 import MapEvents from '../src/events/map';
 import Gmaps from '../src/components/gmaps.js';
+import Marker from '../src/components/marker.js';
 import Circle from '../src/components/circle.js';
 import InfoWindow from '../src/components/info-window.js';
-import Marker from '../src/components/marker.js';
 import Polyline from '../src/components/polyline.js';
 import Polygon from '../src/components/polygon.js';
 
@@ -73,11 +73,11 @@ const App = createReactClass({
 							{lat: 51.53, lng: -0.04}, 
 							]} />
 					<Polygon paths={[
-						{lat: 51.52, lng: -0.125}, 
-						{lat: 51.5, lng: -0.11}, 
-						{lat: 51.51, lng: -0.06}, 
-						{lat: 51.53, lng: -0.04}, 
-						{lat: 51.53, lng: -0.09}]} />
+							{lat: 51.52, lng: -0.125}, 
+							{lat: 51.5, lng: -0.11}, 
+							{lat: 51.51, lng: -0.06}, 
+							{lat: 51.53, lng: -0.04}, 
+							{lat: 51.53, lng: -0.09}]} />
 				</Gmaps>
 				<ul style={styles.cols}>{events}</ul>
 			</div>
