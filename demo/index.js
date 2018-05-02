@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
 import MapEvents from '../src/events/map';
 import Gmaps from '../src/components/gmaps.js';
-import Circle from '../src/components/circle2.js';
-import InfoWindow from '../src/components/info-window2.js';
-import Marker from '../src/components/marker2.js';
-import Polyline from '../src/components/polyline2.js';
-import Polygon from '../src/components/polygon2.js';
+import Circle from '../src/components/circle.js';
+import InfoWindow from '../src/components/info-window.js';
+import Marker from '../src/components/marker.js';
+import Polyline from '../src/components/polyline.js';
+import Polygon from '../src/components/polygon.js';
 
 const styles = {
 	item: {

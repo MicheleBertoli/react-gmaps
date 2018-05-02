@@ -7,7 +7,7 @@ import Listener from '../mixins/listener';
 import GoogleMaps from '../utils/google-maps';
 import compareProps from '../utils/compare-props';
 
-// refactor for a class, then to +v16.3
+// refactored to React class, then to React +16.3
 
 const Gmaps = createReactClass({
 
