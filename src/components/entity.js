@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 // import createReactClass from 'create-react-class';
 // import Listener from '../mixins/listener';
-import compareProps from "../utils/compare-props";
+import compareProps from '../utils/compare-props';
 
 // refactored to React class, then to React +16.3
 
@@ -41,10 +41,10 @@ export default (name, latLngProp, events) => {
 
     switchPaths(name, props) {
       switch (name) {
-        case "Polyline":
+        case 'Polyline':
           return props.path;
           break;
-        case "Polygon":
+        case 'Polygon':
           return props.paths;
           break;
         default:

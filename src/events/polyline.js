@@ -9,5 +9,5 @@ export default {
   onMouseOut: 'mouseout',
   onMouseOver: 'mouseover',
   onMouseUp: 'mouseup',
-  onRightClick: 'rightclick',
+  onRightClick: 'rightclick'
 };

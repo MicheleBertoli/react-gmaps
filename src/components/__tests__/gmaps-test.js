@@ -5,7 +5,6 @@ jest.dontMock('../../utils/compare-props');
 jest.dontMock('../gmaps');
 
 describe('Gmaps', () => {
-
   const React = require('react');
   const ReactDOM = require('react-dom');
   const createReactClass = require('create-react-class');
@@ -19,7 +18,6 @@ describe('Gmaps', () => {
   });
 
   describe('rendering', () => {
-
     let gmaps;
     const width = '100%';
     const height = '100%';
@@ -44,8 +42,9 @@ describe('Gmaps', () => {
           className={className}
           loadingMessage={loadingMessage}
           onMapCreated={onMapCreated}
-          onClick={jest.genMockFunction()}>
-           <Child />
+          onClick={jest.genMockFunction()}
+        >
+          <Child />
         </Gmaps>
       );
       window.google = {
@@ -92,7 +91,7 @@ describe('Gmaps', () => {
     });
 
     it('clones children with map', () => {
-      React.Children.forEach(gmaps.getChildren(), (child) => {
+      React.Children.forEach(gmaps.getChildren(), child => {
         expect(child.props.map).toBeDefined();
       });
     });
@@ -105,11 +104,9 @@ describe('Gmaps', () => {
       gmaps.componentWillUnmount();
       expect(window.google.maps.event.removeListener).toBeCalled();
     });
-
   });
 
   describe('updating', () => {
-
     it('does not call `setOptions` if maps are not loaded', () => {
       const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
       expect(() => {
@@ -125,7 +122,7 @@ describe('Gmaps', () => {
           };
         },
         render() {
-          const {prop} = this.state;
+          const { prop } = this.state;
           return <Gmaps ref="gmaps" prop={prop} />;
         }
       });
@@ -146,11 +143,9 @@ describe('Gmaps', () => {
       });
       expect(parent.refs.gmaps.getMap().setOptions).toBeCalled();
     });
-
   });
 
   describe('unmounted', () => {
-
     beforeEach(() => {
       GoogleMaps.fireCallbacks = jest.genMockFunction();
     });
@@ -173,7 +168,5 @@ describe('Gmaps', () => {
       ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(gmaps).parentNode);
       expect(GoogleMaps.fireCallbacks).not.toBeCalled();
     });
-
   });
-
 });

@@ -12,13 +12,9 @@
     "react/react-in-jsx-scope": 2,
     "no-var": 2,
     "max-len": [2, 90],
-    "semi": 2,
-    "prettier/prettier": "error"
+    "semi": 2
   },
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react"],
   "ecmaFeatures": {
     "jsx": true
   }

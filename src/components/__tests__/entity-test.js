@@ -3,7 +3,6 @@ jest.dontMock('../../utils/compare-props');
 jest.dontMock('../entity');
 
 describe('Entity', () => {
-
   const React = require('react');
   const createReactClass = require('create-react-class');
   const TestUtils = require('react-dom/test-utils');
@@ -27,7 +26,6 @@ describe('Entity', () => {
   });
 
   describe('mounting', () => {
-
     beforeEach(() => {
       window.google.maps.Entity = jest.genMockFunction();
       entity = TestUtils.renderIntoDocument(
@@ -47,11 +45,9 @@ describe('Entity', () => {
     it('binds events', () => {
       expect(window.google.maps.event.addListener).toBeCalled();
     });
-
   });
 
   describe('unmounting', () => {
-
     beforeEach(() => {
       window.google.maps.Entity = () => {
         return {
@@ -73,11 +69,9 @@ describe('Entity', () => {
       entity.componentWillUnmount();
       expect(setMap).toBeCalledWith(null);
     });
-
   });
 
   describe('updating', () => {
-
     let parent;
 
     beforeEach(() => {
@@ -93,7 +87,7 @@ describe('Entity', () => {
           };
         },
         render() {
-          const {prop} = this.state;
+          const { prop } = this.state;
           return <Entity ref="child" prop={prop} />;
         }
       });
@@ -113,23 +107,17 @@ describe('Entity', () => {
       });
       expect(parent.refs.child.entity.setOptions).not.toBeCalled();
     });
-
   });
 
   describe('getEntity', () => {
-
     it('returns the entity', () => {
       window.google.maps.Entity = jest.genMockFunction();
-      entity = TestUtils.renderIntoDocument(
-        <Entity />
-      );
+      entity = TestUtils.renderIntoDocument(<Entity />);
       expect(entity.getEntity()).toBeDefined();
     });
-
   });
 
   describe('binding', () => {
-
     it('keeps the listeners separated', () => {
       window.google.maps.Entity = () => {
         return {
@@ -146,7 +134,7 @@ describe('Entity', () => {
         render() {
           return (
             <div>
-              <Entity ref='child' onClick={jest.genMockFunction()} />
+              <Entity ref="child" onClick={jest.genMockFunction()} />
               {this.state.show && <Entity onClick={jest.genMockFunction()} />}
             </div>
           );
@@ -158,7 +146,5 @@ describe('Entity', () => {
       });
       expect(parent.refs.child.listeners.length).toBe(1);
     });
-
   });
-
 });

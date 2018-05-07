@@ -1,6 +1,4 @@
-
 const Listener = {
-
   addListeners(entity, events) {
     for (let prop in this.props) {
       if (this.props.hasOwnProperty(prop) && events[prop]) {
@@ -16,12 +14,11 @@ const Listener = {
 
   removeListeners() {
     if (window.google && this.listeners) {
-      this.listeners.forEach((listener) => {
+      this.listeners.forEach(listener => {
         google.maps.event.removeListener(listener);
       });
     }
   }
-
 };
 
 export default Listener;
