@@ -15,11 +15,7 @@
     "type": "git",
     "url": "https://github.com/MicheleBertoli/react-gmaps"
   },
-  "keywords": [
-    "React.js",
-    "Google Maps",
-    "react-component"
-  ],
+  "keywords": ["React.js", "Google Maps", "react-component"],
   "author": "Michele Bertoli",
   "license": "MIT",
   "bugs": {
@@ -33,17 +29,18 @@
     "babelify": "^8.0.0",
     "browserify": "^16.1.1",
     "eslint": "^1.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^3.2.1",
     "express": "^4.11.2",
     "jest-cli": "^12.0.0",
+    "prettier": "^1.12.1",
     "raf": "^3.4.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
   "jest": {
-    "testPathDirs": [
-      "./src"
-    ],
+    "testPathDirs": ["./src"],
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
@@ -52,9 +49,7 @@
       "<rootDir>/node_modules/create-react-class",
       "<rootDir>/node_modules/fbjs"
     ],
-    "setupFiles": [
-      "<rootDir>/node_modules/raf/polyfill.js"
-    ]
+    "setupFiles": ["<rootDir>/node_modules/raf/polyfill.js"]
   },
   "dependencies": {
     "create-react-class": "^15.5.2",
