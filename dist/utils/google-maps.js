@@ -29,19 +29,19 @@ exports['default'] = {
     return index;
   },
 
-  getSrc: function getSrc(params) {
-    var src = 'https://maps.googleapis.com/maps/api/js';
-    src += '?callback=mapsCallback&';
-    src += _querystring2['default'].stringify(params);
-    return src;
-  },
-
   appendScript: function appendScript(params) {
     var src = this.getSrc(params);
     var script = document.createElement('script');
     script.setAttribute('src', src);
     document.head.appendChild(script);
     this.appended = true;
+  },
+
+  getSrc: function getSrc(params) {
+    var src = 'https://maps.googleapis.com/maps/api/js';
+    src += '?callback=mapsCallback&';
+    src += _querystring2['default'].stringify(params);
+    return src;
   },
 
   mapsCallback: function mapsCallback() {

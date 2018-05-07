@@ -29,10 +29,10 @@ var _utilsCompareProps = require('../utils/compare-props');
 
 var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
 
-// refactored to React class, then to React +16.3
+// export default CreateEntity('Circle', 'center', CircleEvents);
 
 exports['default'] = function (name, latLngProp, events) {
-  return (function (_React$Component) {
+  var CreateEntity = (function (_React$Component) {
     _inherits(CreateEntity, _React$Component);
 
     function CreateEntity() {
@@ -40,40 +40,58 @@ exports['default'] = function (name, latLngProp, events) {
 
       _get(Object.getPrototypeOf(CreateEntity.prototype), 'constructor', this).apply(this, arguments);
 
-      this.entity = null;
+      this.state = {
+        entity: null
+      };
     }
 
     _createClass(CreateEntity, [{
       key: 'componentDidMount',
       value: function componentDidMount() {
         var options = this.getOptions(this.props);
-        this.entity = new google.maps[name](options);
-        this.addListeners(this.entity, events);
+        console.log('options', options);
+        this.setState({ entity: new google.maps[name](options) });
+        console.log('this.state.entity', this.state.entity);
+        this.addListeners(this.state.entity, events);
       }
     }, {
       key: 'componentWillReceiveProps',
       value: function componentWillReceiveProps(nextProps) {
         if (!(0, _utilsCompareProps2['default'])(this.props, nextProps)) {
           var options = this.getOptions(nextProps);
-          this.entity.setOptions(options);
+          this.state.entity.setOptions(options);
         }
       }
     }, {
       key: 'componentWillUnmount',
       value: function componentWillUnmount() {
-        this.entity.setMap(null);
+        this.state.entity.setMap(null);
         this.removeListeners();
-        this.entity = null;
-      }
-    }, {
-      key: 'getEntity',
-      value: function getEntity() {
-        return this.entity;
+        this.setState({ entity: null });
       }
     }, {
       key: 'getOptions',
       value: function getOptions(props) {
         return _extends({}, props, _defineProperty({}, latLngProp, this.switchPaths(name, props)));
+      }
+    }, {
+      key: 'addListeners',
+      value: function addListeners(entity, events) {
+        for (var prop in this.props) {
+          if (this.props.hasOwnProperty(prop) && events[prop]) {
+            var addListener = google.maps.event.addListener;
+            var listener = addListener(entity, events[prop], this.props[prop]);
+            if (!this.listeners) {
+              this.listeners = [];
+            }
+            this.listeners.push(listener);
+          }
+        }
+      }
+    }, {
+      key: 'getEntity',
+      value: function getEntity() {
+        return this.state.entity;
       }
     }, {
       key: 'switchPaths',
@@ -88,20 +106,6 @@ exports['default'] = function (name, latLngProp, events) {
           default:
             return new google.maps.LatLng(props.lat, props.lng);
             break;
-        }
-      }
-    }, {
-      key: 'addListeners',
-      value: function addListeners(entity, events) {
-        for (var prop in this.props) {
-          if (this.props.hasOwnProperty(prop) && events[prop]) {
-            var addListener = google.maps.event.addListener;
-            var listener = addListener(entity, events[prop], this.props[prop]);
-            if (!this.listeners) {
-              this.listeners = [];
-            }
-            this.listeners.push(listener);
-          }
         }
       }
     }, {

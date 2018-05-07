@@ -2,7 +2,6 @@ jest.dontMock('querystring');
 jest.dontMock('../../utils/google-maps');
 
 describe('GoogleMaps', () => {
-
   let GoogleMaps;
 
   beforeEach(() => {
@@ -24,7 +23,7 @@ describe('GoogleMaps', () => {
   });
 
   it('fires the callback if google exists', () => {
-    window.google = { maps:{} };
+    window.google = { maps: {} };
     const callback = jest.genMockFunction();
     GoogleMaps.load(null, callback);
     jest.runAllTimers();
@@ -54,6 +53,4 @@ describe('GoogleMaps', () => {
     GoogleMaps.mapsCallback();
     expect(window.mapsCallback).toBeUndefined();
   });
-
 });
-
