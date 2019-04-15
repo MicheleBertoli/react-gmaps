@@ -93,6 +93,23 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.getElementById('gmaps'));
 ```
 
+MarkerClusterer
+----
+
+You can cluster markers together (see [Google's docs](https://developers.google.com/maps/documentation/javascript/marker-clustering)) by setting the `clusterMarkers` prop on the `Gmaps` component. By default this will expect icons for the clusters named `m1.png, m2.png, m3.png, m4.png, m5.png` to reside at `your_web_root/images/`.
+
+You can pass an options object to this prop, allowing you to specify a new location for these cluster icons. The root format will append `1.png`, `2.png`, etc to the supplied path.
+
+For example if your images reside at `http://localhost:3000/cluster-icons/` and are still called `m1.png`, you would supply a path of `http://localhost:3000/cluster-icons/m` similar to:
+
+```
+<Gmaps
+  clusterMarkers={{ imagePath: 'http://localhost:3000/cluster-icons/m' }}
+  ...>
+  ...
+</Gmaps>
+```
+
 Test
 ----
 
