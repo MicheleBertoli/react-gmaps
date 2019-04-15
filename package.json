@@ -1,6 +1,6 @@
 {
   "name": "react-gmaps",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "A Google Maps component for React.js",
   "main": "dist/index.js",
   "scripts": {
@@ -57,6 +57,7 @@
     ]
   },
   "dependencies": {
+    "@google/markerclusterer": "^1.0.3",
     "create-react-class": "^15.5.2",
     "object-assign": "^4.0.1"
   },
