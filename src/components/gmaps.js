@@ -69,9 +69,14 @@ const Gmaps = createReactClass({
       }
       return React.cloneElement(child, {
         ref: child.ref,
-        map: this.map
+        map: this.map,
+        onCreate: this.handleChildCreation
       });
     });
+  },
+
+  handleChildCreation(entityType, entity) {
+    console.log('handleChildCreation', entityType, entity);
   },
 
   render() {

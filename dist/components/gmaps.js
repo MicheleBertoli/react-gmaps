@@ -102,9 +102,14 @@ var Gmaps = (0, _createReactClass2['default'])({
       }
       return _react2['default'].cloneElement(child, {
         ref: child.ref,
-        map: _this.map
+        map: _this.map,
+        onCreate: _this.handleChildCreation
       });
     });
+  },
+
+  handleChildCreation: function handleChildCreation(entityType, entity) {
+    console.log('handleChildCreation', entityType, entity);
   },
 
   render: function render() {

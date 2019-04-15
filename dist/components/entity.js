@@ -37,6 +37,7 @@ exports['default'] = function (name, latLngProp, events) {
       var options = this.getOptions(this.props);
       this.entity = new google.maps[name](options);
       this.addListeners(this.entity, events);
+      this.onCreate(name, this.entity);
     },
 
     componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
