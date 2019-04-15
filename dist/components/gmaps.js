@@ -45,7 +45,6 @@ var _utilsCompareProps = require('../utils/compare-props');
 var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
 
 var Gmaps = (0, _createReactClass2['default'])({
-
   mixins: [_mixinsListener2['default']],
 
   map: null,
@@ -98,7 +97,7 @@ var Gmaps = (0, _createReactClass2['default'])({
       this.props.onMapCreated(this.map);
     }
     if (this.props.clusterMarkers) {
-      new _googleMarkerclusterer2['default'](this.map, this.markers);
+      new _googleMarkerclusterer2['default'](this.map, this.markers, typeof this.props.clusterMarkers === 'object' ? this.props.clusterMarkers : null);
     }
   },
 
@@ -133,7 +132,6 @@ var Gmaps = (0, _createReactClass2['default'])({
       this.state.isMapCreated ? this.getChildren() : null
     );
   }
-
 });
 
 exports['default'] = Gmaps;

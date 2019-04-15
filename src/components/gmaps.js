@@ -9,7 +9,6 @@ import GoogleMaps from '../utils/google-maps';
 import compareProps from '../utils/compare-props';
 
 const Gmaps = createReactClass({
-
   mixins: [Listener],
 
   map: null,
@@ -64,12 +63,18 @@ const Gmaps = createReactClass({
       this.props.onMapCreated(this.map);
     }
     if (this.props.clusterMarkers) {
-      new MarkerClusterer(this.map, this.markers);
+      new MarkerClusterer(
+        this.map,
+        this.markers,
+        typeof this.props.clusterMarkers === 'object'
+          ? this.props.clusterMarkers
+          : null
+      );
     }
   },
 
   getChildren() {
-    return React.Children.map(this.props.children, (child) => {
+    return React.Children.map(this.props.children, child => {
       if (!React.isValidElement(child)) {
         return child;
       }
@@ -86,18 +91,20 @@ const Gmaps = createReactClass({
   },
 
   render() {
-    const style = objectAssign({
-      width: this.props.width,
-      height: this.props.height
-    }, this.props.style);
+    const style = objectAssign(
+      {
+        width: this.props.width,
+        height: this.props.height
+      },
+      this.props.style
+    );
     return (
       <div style={style} className={this.props.className}>
         {this.props.loadingMessage || 'Loading...'}
         {this.state.isMapCreated ? this.getChildren() : null}
       </div>
     );
-  },
-
+  }
 });
 
 export default Gmaps;
