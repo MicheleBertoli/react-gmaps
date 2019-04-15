@@ -57,6 +57,7 @@
     ]
   },
   "dependencies": {
+    "@google/markerclusterer": "^1.0.3",
     "create-react-class": "^15.5.2",
     "object-assign": "^4.0.1"
   },

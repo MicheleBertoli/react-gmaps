@@ -24,6 +24,10 @@ var _objectAssign = require('object-assign');
 
 var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
+var _googleMarkerclusterer = require('@google/markerclusterer');
+
+var _googleMarkerclusterer2 = _interopRequireDefault(_googleMarkerclusterer);
+
 var _eventsMap = require('../events/map');
 
 var _eventsMap2 = _interopRequireDefault(_eventsMap);
@@ -45,6 +49,8 @@ var Gmaps = (0, _createReactClass2['default'])({
   mixins: [_mixinsListener2['default']],
 
   map: null,
+
+  markers: [],
 
   getInitialState: function getInitialState() {
     return {
@@ -91,6 +97,9 @@ var Gmaps = (0, _createReactClass2['default'])({
     if (this.props.onMapCreated) {
       this.props.onMapCreated(this.map);
     }
+    if (this.props.clusterMarkers) {
+      new _googleMarkerclusterer2['default'](this.map, this.markers);
+    }
   },
 
   getChildren: function getChildren() {
@@ -109,7 +118,7 @@ var Gmaps = (0, _createReactClass2['default'])({
   },
 
   handleChildCreation: function handleChildCreation(entityType, entity) {
-    console.log('handleChildCreation', entityType, entity);
+    if (entityType === 'Marker') this.markers.push(entity);
   },
 
   render: function render() {

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
 import objectAssign from 'object-assign';
+import MarkerClusterer from '@google/markerclusterer';
 import MapEvents from '../events/map';
 import Listener from '../mixins/listener';
 import GoogleMaps from '../utils/google-maps';
@@ -12,6 +13,8 @@ const Gmaps = createReactClass({
   mixins: [Listener],
 
   map: null,
+
+  markers: [],
 
   getInitialState() {
     return {
@@ -60,6 +63,9 @@ const Gmaps = createReactClass({
     if (this.props.onMapCreated) {
       this.props.onMapCreated(this.map);
     }
+    if (this.props.clusterMarkers) {
+      new MarkerClusterer(this.map, this.markers);
+    }
   },
 
   getChildren() {
@@ -76,7 +82,7 @@ const Gmaps = createReactClass({
   },
 
   handleChildCreation(entityType, entity) {
-    console.log('handleChildCreation', entityType, entity);
+    if (entityType === 'Marker') this.markers.push(entity);
   },
 
   render() {
