@@ -110,6 +110,8 @@ For example if your images reside at `http://localhost:3000/cluster-icons/` and 
 </Gmaps>
 ```
 
+At current this is basic implementation and could be improved by adding Events to the clusters, another improvement would be to allow 'de-clustering' based on zoom level so when you have multiple markers with the exact same location you can still separate them and click on them ([stackoverlow example](https://stackoverflow.com/questions/15276908/google-markerclusterer-decluster-markers-below-a-certain-zoom-level?rq=1) or [OverlappingMarkerSpiderfier](https://github.com/jawj/OverlappingMarkerSpiderfier)).
+
 Test
 ----
 
