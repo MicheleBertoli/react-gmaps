@@ -16,7 +16,7 @@ export default (name, latLngProp, events) => {
       this.addListeners(this.entity, events);
     },
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
       if (!compareProps(this.props, nextProps)) {
         const options = this.getOptions(nextProps);
         this.entity.setOptions(options);

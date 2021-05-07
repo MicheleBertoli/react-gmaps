@@ -63,7 +63,7 @@ var Gmaps = (0, _createReactClass2['default'])({
     this.removeListeners();
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps: function UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.map && !(0, _utilsCompareProps2['default'])(this.props, nextProps)) {
       this.map.setOptions(_extends({}, nextProps, {
         center: new google.maps.LatLng(nextProps.lat, nextProps.lng)
