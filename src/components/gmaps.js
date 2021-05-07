@@ -30,7 +30,7 @@ const Gmaps = createReactClass({
     this.removeListeners();
   },
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.map && !compareProps(this.props, nextProps)) {
       this.map.setOptions({
         ...nextProps,

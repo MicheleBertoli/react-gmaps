@@ -113,7 +113,7 @@ describe('Gmaps', () => {
     it('does not call `setOptions` if maps are not loaded', () => {
       const gmaps = TestUtils.renderIntoDocument(<Gmaps />);
       expect(() => {
-        gmaps.componentWillReceiveProps({});
+        gmaps.UNSAFE_componentWillReceiveProps({});
       }).not.toThrow();
     });
 
