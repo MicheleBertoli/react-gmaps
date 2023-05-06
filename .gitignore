@@ -1,0 +1,15 @@
+# MacOS
+.DS_Store
+
+# NodeJS
+node_modules
+.pnpm-store
+
+# IDEs
+.idea
+.vscode
+.fleet
+
+# Build output
+dist
+

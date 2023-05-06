@@ -1,0 +1,45 @@
+{
+  "name": "react-gmap",
+  "version": "1.0.0-next.0",
+  "author": "anatole-lucet",
+  "description": "A modern Google Maps implementation for React",
+  "keywords": [
+    "google",
+    "google-map",
+    "gmap",
+    "typescript",
+    "javascript",
+    "react",
+    "reactjs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnatoleLucet/react-gmap.git"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest --run",
+    "test:dev": "vitest --watch",
+    "test:coverage": "vitest run --coverage",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.1"
+  }
+}
