@@ -3,11 +3,12 @@
 	"compilerOptions": {
 		"moduleResolution": "node",
 		"module": "es2020",
+		"target": "es2020",
+		"jsx": "react",
 		"lib": [
 			"es2020",
 			"DOM"
 		],
-		"target": "es2020",
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
 		"noUncheckedIndexedAccess": true,

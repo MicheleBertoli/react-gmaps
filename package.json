@@ -37,9 +37,22 @@
     "check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.53.0",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "prettier": "^2.8.7",
+    "react": "^18",
+    "react-dom": "^18",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4",
     "vitest": "^0.30.1"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.8 || ^17.0 || ^18.0",
+    "react": "^16.8 || ^17.0 || ^18.0",
+    "react-dom": "^16.8 || ^17.0 || ^18.0"
+  },
+  "dependencies": {
+    "@googlemaps/js-api-loader": "^1.15.1"
   }
 }
