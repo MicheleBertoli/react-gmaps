@@ -4,11 +4,12 @@ import { useGMapInstance } from "../../hooks/use-gmap-instance";
 import { useGMapSDK } from "../../hooks/use-gmap-sdk";
 
 type EventHandler = (event: google.maps.MapMouseEvent) => void;
+type Primitive = string | number | boolean | null | undefined;
 
 export namespace GMapMarker {
   type Events = "click" | "drag" | "dragend" | "dragstart";
 
-  type Options = {
+  export type Options = {
     location: google.maps.LatLngLiteral;
     draggable?: boolean;
     zIndex?: number;
@@ -31,12 +32,21 @@ export namespace GMapMarker {
   ) => google.maps.MapsEventListener | null;
 
   export type Ref = {
+    location: {
+      lat: () => number;
+      lng: () => number;
+    };
     update: GMapMarker.Update;
     on: GMapMarker.On;
   };
 }
 
 const noop = () => {};
+const unwrapGetter = <T extends Primitive>(
+  g: T | ((...args: any[]) => T)
+): T => {
+  return typeof g === "function" ? g() : g;
+};
 
 export const GMapMarker = React.forwardRef<GMapMarker.Ref, GMapMarker.Props>(
   (
@@ -84,11 +94,7 @@ export const GMapMarker = React.forwardRef<GMapMarker.Ref, GMapMarker.Props>(
     React.useEffect(() => {
       if (!map || !google || !marker.current) return;
 
-      update({
-        location,
-        draggable,
-        zIndex,
-      });
+      update({ location, draggable, zIndex });
 
       const click = on("click", onClickHandler);
       const drag = on("drag", onDragHandler);
@@ -114,6 +120,10 @@ export const GMapMarker = React.forwardRef<GMapMarker.Ref, GMapMarker.Props>(
     ]);
 
     React.useImperativeHandle(ref, () => ({
+      location: {
+        lat: () => unwrapGetter(marker.current?.position?.lat) ?? 0,
+        lng: () => unwrapGetter(marker.current?.position?.lng) ?? 0,
+      },
       update,
       on,
     }));

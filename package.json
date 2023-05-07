@@ -34,7 +34,8 @@
     "test": "vitest --run",
     "test:dev": "vitest --watch",
     "test:coverage": "vitest run --coverage",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "format": "prettier --write --ignore-path=.gitignore ."
   },
   "devDependencies": {
     "@types/google.maps": "^3.53.0",

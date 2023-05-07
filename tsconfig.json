@@ -1,20 +1,17 @@
 {
-	"$schema": "https://json.schemastore.org/tsconfig",
-	"compilerOptions": {
-		"moduleResolution": "node",
-		"module": "es2020",
-		"target": "es2020",
-		"jsx": "react",
-		"lib": [
-			"es2020",
-			"DOM"
-		],
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noUncheckedIndexedAccess": true,
-		"isolatedModules": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"declaration": true
-	}
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "es2020",
+    "target": "es2020",
+    "jsx": "react",
+    "lib": ["es2020", "DOM"],
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "declaration": true
+  }
 }
