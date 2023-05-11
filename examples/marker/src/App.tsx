@@ -1,4 +1,4 @@
-import { GMapMarker, GMap } from "react-gmap";
+import { GMapsMarker, GMaps } from "@gmaps/reactjs";
 
 const apiKey = "YOUR API KEY";
 const mapID = "YOUR MAP ID";
@@ -11,23 +11,23 @@ const defaultLocation = {
 
 function MyMarker() {
   return (
-    <GMapMarker location={defaultLocation}>
+    <GMapsMarker location={defaultLocation}>
       <p style={{ backgroundColor: "red" }}>Hello World</p>
-    </GMapMarker>
+    </GMapsMarker>
   );
 }
 
 function App() {
   return (
     <div style={{ height: "100vh" }}>
-      <GMap
+      <GMaps
         loaderOptions={{ apiKey }}
         mapId={mapID}
         center={defaultLocation}
         zoom={12}
       >
         <MyMarker />
-      </GMap>
+      </GMaps>
     </div>
   );
 }

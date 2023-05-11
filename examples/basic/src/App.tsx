@@ -1,9 +1,9 @@
-import { GMap } from "react-gmap";
+import { GMaps } from "@gmaps/reactjs";
 
 function App() {
   return (
     <div style={{ height: "100vh" }}>
-      <GMap />
+      <GMaps />
     </div>
   );
 }

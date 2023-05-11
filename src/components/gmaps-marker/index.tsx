@@ -1,12 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { useGMapInstance } from "../../hooks/use-gmap-instance";
-import { useGMapSDK } from "../../hooks/use-gmap-sdk";
+import { useGMapsInstance } from "../../hooks/use-gmaps-instance";
+import { useGMapsSDK } from "../../hooks/use-gmaps-sdk";
+import { shenanigan } from "../../lib/shenanigan";
 
 type EventHandler = (event: google.maps.MapMouseEvent) => void;
-type Primitive = string | number | boolean | null | undefined;
 
-export namespace GMapMarker {
+export namespace GMapsMarker {
   type Events = "click" | "drag" | "dragend" | "dragstart";
 
   export type Options = {
@@ -36,19 +36,14 @@ export namespace GMapMarker {
       lat: () => number;
       lng: () => number;
     };
-    update: GMapMarker.Update;
-    on: GMapMarker.On;
+    update: GMapsMarker.Update;
+    on: GMapsMarker.On;
   };
 }
 
-const noop = () => {};
-const unwrapGetter = <T extends Primitive>(
-  g: T | ((...args: any[]) => T)
-): T => {
-  return typeof g === "function" ? g() : g;
-};
+const noop = () => { };
 
-export const GMapMarker = React.forwardRef<GMapMarker.Ref, GMapMarker.Props>(
+export const GMapsMarker = React.forwardRef<GMapsMarker.Ref, GMapsMarker.Props>(
   (
     {
       children,
@@ -62,15 +57,15 @@ export const GMapMarker = React.forwardRef<GMapMarker.Ref, GMapMarker.Props>(
     },
     ref
   ) => {
-    const map = useGMapInstance();
-    const google = useGMapSDK();
+    const map = useGMapsInstance();
+    const google = useGMapsSDK();
 
     const marker =
       React.useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
     const [markerContainer, setMarkerContainer] =
       React.useState<HTMLDivElement | null>(null);
 
-    const update = React.useCallback<GMapMarker.Update>(
+    const update = React.useCallback<GMapsMarker.Update>(
       (opts) => {
         if (!marker.current) return;
 
@@ -81,14 +76,23 @@ export const GMapMarker = React.forwardRef<GMapMarker.Ref, GMapMarker.Props>(
       [marker.current]
     );
 
-    const on = React.useCallback<GMapMarker.On>(
-      (name: string, handler) => {
+    const on = React.useCallback<GMapsMarker.On>(
+      (name, handler) => {
         if (!google || !marker.current || !handler) return null;
 
         return marker.current.addListener(name, handler);
       },
       [google, marker.current]
     );
+
+    React.useImperativeHandle(ref, () => ({
+      location: {
+        lat: () => shenanigan.unwrapGetter(marker.current?.position?.lat) ?? 0,
+        lng: () => shenanigan.unwrapGetter(marker.current?.position?.lng) ?? 0,
+      },
+      update,
+      on,
+    }));
 
     // updates
     React.useEffect(() => {
@@ -118,15 +122,6 @@ export const GMapMarker = React.forwardRef<GMapMarker.Ref, GMapMarker.Props>(
       onDragStartHandler,
       onDragEndHandler,
     ]);
-
-    React.useImperativeHandle(ref, () => ({
-      location: {
-        lat: () => unwrapGetter(marker.current?.position?.lat) ?? 0,
-        lng: () => unwrapGetter(marker.current?.position?.lng) ?? 0,
-      },
-      update,
-      on,
-    }));
 
     // mount
     React.useEffect(() => {

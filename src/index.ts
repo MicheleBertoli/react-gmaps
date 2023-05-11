@@ -1,9 +1,9 @@
-export * from "./components/gmap";
-export * from "./components/gmap-animated-marker";
-export * from "./components/gmap-marker";
+export * from "./components/gmaps";
+export * from "./components/gmaps-animated-marker";
+export * from "./components/gmaps-marker";
 
-export * from "./hooks/use-gmap-animated-marker";
-export * from "./hooks/use-gmap-instance";
-export * from "./hooks//use-gmap-loader";
-export * from "./hooks//use-gmap-marker";
-export * from "./hooks//use-gmap-sdk";
+export * from "./hooks/use-gmaps-animated-marker";
+export * from "./hooks/use-gmaps-instance";
+export * from "./hooks/use-gmaps-loader";
+export * from "./hooks/use-gmaps-marker";
+export * from "./hooks/use-gmaps-sdk";

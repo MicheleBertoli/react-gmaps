@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { GMapMarker, GMap, useGMapMarker } from "react-gmap";
+import { GMapsMarker, GMaps, useGMapsMarker } from "@gmaps/reactjs";
 
 const apiKey = "YOUR API KEY";
 const mapID = "YOUR MAP ID";
@@ -11,7 +11,7 @@ const defaultLocation = {
 };
 
 function MyMarker() {
-  const marker = useGMapMarker();
+  const marker = useGMapsMarker();
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -27,27 +27,27 @@ function MyMarker() {
   }, [marker]);
 
   return (
-    <GMapMarker ref={marker} location={defaultLocation}>
+    <GMapsMarker ref={marker} location={defaultLocation}>
       <p style={{ backgroundColor: "red" }}>
         Hello I'm a React Component,
         <br />
         randomly moving every 3s :D
       </p>
-    </GMapMarker>
+    </GMapsMarker>
   );
 }
 
 function App() {
   return (
     <div style={{ height: "100vh" }}>
-      <GMap
+      <GMaps
         loaderOptions={{ apiKey }}
         mapId={mapID}
         center={defaultLocation}
         zoom={12}
       >
         <MyMarker />
-      </GMap>
+      </GMaps>
     </div>
   );
 }

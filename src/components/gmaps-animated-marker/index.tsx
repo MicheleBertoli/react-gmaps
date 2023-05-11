@@ -1,37 +1,37 @@
 import * as React from "react";
-import { useGMapInstance } from "../../hooks/use-gmap-instance";
-import { useGMapSDK } from "../../hooks/use-gmap-sdk";
-import { GMapMarker } from "../gmap-marker";
-import { useGMapMarker } from "../../hooks/use-gmap-marker";
+import { useGMapsInstance } from "../../hooks/use-gmaps-instance";
+import { useGMapsSDK } from "../../hooks/use-gmaps-sdk";
+import { GMapsMarker } from "../gmaps-marker";
+import { useGMapsMarker } from "../../hooks/use-gmaps-marker";
 import { animation } from "../../lib/animation";
 import { Animate } from "../../lib/animation/animate";
 
-export namespace GMapAnimatedMarker {
-  type Options = Pick<GMapMarker.Options, "location" | "zIndex"> & {
+export namespace GMapsAnimatedMarker {
+  type Options = Pick<GMapsMarker.Options, "location" | "zIndex"> & {
     duration?: number;
   };
 
-  export type Props = React.PropsWithChildren<GMapMarker.Props & Options>;
+  export type Props = React.PropsWithChildren<GMapsMarker.Props & Options>;
 
   export type Animate = (options: Options) => void;
 
-  export type Ref = GMapMarker.Ref & {
+  export type Ref = GMapsMarker.Ref & {
     animate: Animate;
   };
 }
 
-export const GMapAnimatedMarker = React.forwardRef<
-  GMapAnimatedMarker.Ref,
-  GMapAnimatedMarker.Props
+export const GMapsAnimatedMarker = React.forwardRef<
+  GMapsAnimatedMarker.Ref,
+  GMapsAnimatedMarker.Props
 >(({ location, zIndex, duration = 1000, ...props }, ref) => {
-  const map = useGMapInstance();
-  const google = useGMapSDK();
-  const marker = useGMapMarker();
+  const map = useGMapsInstance();
+  const google = useGMapsSDK();
+  const marker = useGMapsMarker();
 
   const initialLocation = React.useRef(location);
   const runningAnimation = React.useRef<Animate | null>(null);
 
-  const animate = React.useCallback<GMapAnimatedMarker.Animate>(
+  const animate = React.useCallback<GMapsAnimatedMarker.Animate>(
     (opts) => {
       if (!marker.current) return;
 
@@ -50,7 +50,7 @@ export const GMapAnimatedMarker = React.forwardRef<
           const lngDiff = opts.location.lng - lng;
 
           marker.current?.update({
-            zIndex: opts.zIndex,
+            ...opts,
             location: {
               lat: lat + latDiff * t,
               lng: lng + lngDiff * t,
@@ -74,11 +74,11 @@ export const GMapAnimatedMarker = React.forwardRef<
   }, [map, google, location, zIndex]);
 
   React.useImperativeHandle(ref, () => ({
-    ...(marker.current as GMapMarker.Ref),
+    ...(marker.current as GMapsMarker.Ref),
     animate,
   }));
 
   return (
-    <GMapMarker ref={marker} location={initialLocation.current} {...props} />
+    <GMapsMarker ref={marker} location={initialLocation.current} {...props} />
   );
 });

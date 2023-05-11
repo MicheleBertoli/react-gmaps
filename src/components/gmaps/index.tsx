@@ -1,8 +1,8 @@
 import * as React from "react";
 import { LoaderOptions } from "@googlemaps/js-api-loader";
-import { useGMapLoader } from "../../hooks/use-gmap-loader";
-import { GoogleMapContext, useGMapSDK } from "../../hooks/use-gmap-sdk";
-import { GoogleMapInstance } from "../../hooks/use-gmap-instance";
+import { useGMapsLoader } from "../../hooks/use-gmaps-loader";
+import { GoogleMapContext, useGMapsSDK } from "../../hooks/use-gmaps-sdk";
+import { GoogleMapInstance } from "../../hooks/use-gmaps-instance";
 
 type GoogleMapProps = React.PropsWithChildren<
   google.maps.MapOptions & {
@@ -20,7 +20,7 @@ const defaultMapOptions: google.maps.MapOptions = {
 };
 
 const Map: React.FC<MapProps> = ({ children, options }) => {
-  const google = useGMapSDK();
+  const google = useGMapsSDK();
 
   const [mapInstance, setMapInstance] = React.useState<google.maps.Map | null>(
     null
@@ -55,12 +55,12 @@ const Map: React.FC<MapProps> = ({ children, options }) => {
   );
 };
 
-export const GMap: React.FC<GoogleMapProps> = ({
+export const GMaps: React.FC<GoogleMapProps> = ({
   children,
   loaderOptions = {},
   ...mapOptions
 }) => {
-  const google = useGMapLoader(loaderOptions);
+  const google = useGMapsLoader(loaderOptions);
 
   if (!google) {
     return null;

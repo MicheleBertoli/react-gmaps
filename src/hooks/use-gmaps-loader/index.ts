@@ -39,7 +39,7 @@ const useLoader = () => {
   };
 };
 
-export const useGMapLoader = (opts: Options) => {
+export const useGMapsLoader = (opts: Options) => {
   const loader = useLoader();
 
   const [sdk, setSDK] = React.useState<typeof google | null>(null);
