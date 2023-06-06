@@ -5,6 +5,8 @@ import { GMapsMarker } from "../gmaps-marker";
 import { useGMapsMarker } from "../../hooks/use-gmaps-marker";
 import { animation } from "../../lib/animation";
 import { Animate } from "../../lib/animation/animate";
+import { geo } from "../../lib/geo";
+import { shenanigan } from "../../lib/shenanigan";
 
 export namespace GMapsAnimatedMarker {
   type Options = Pick<GMapsMarker.Options, "location" | "zIndex"> & {
@@ -35,26 +37,17 @@ export const GMapsAnimatedMarker = React.forwardRef<
     (opts) => {
       if (!marker.current) return;
 
-      if (runningAnimation.current) {
-        runningAnimation.current.stop();
-      }
+      const source = shenanigan.unwrapLatLng(marker.current.location);
+      const target = shenanigan.unwrapLatLng(opts.location);
 
-      const lat = marker.current.location.lat();
-      const lng = marker.current.location.lng();
-
+      runningAnimation.current?.stop();
       runningAnimation.current = animation.animate({
         duration: opts.duration || duration,
         easing: animation.easings.easeInOutCubic,
         tick: (t) => {
-          const latDiff = opts.location.lat - lat;
-          const lngDiff = opts.location.lng - lng;
-
           marker.current?.update({
             ...opts,
-            location: {
-              lat: lat + latDiff * t,
-              lng: lng + lngDiff * t,
-            },
+            location: geo.interpolatePoint(source, target, t),
           });
         },
       });

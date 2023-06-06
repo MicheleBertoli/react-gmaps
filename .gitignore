@@ -13,3 +13,5 @@ node_modules
 # Build output
 dist
 
+# Env vars
+.env

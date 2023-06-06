@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { GMapsMarker, GMaps, useGMapsMarker } from "@gmaps/reactjs";
 
-const apiKey = "YOUR API KEY";
-const mapID = "YOUR MAP ID";
+const apiKey = import.meta.env.GMAPS_API_KEY || "YOUR API KEY";
+const mapID = import.meta.env.GMAPS_MAP_ID || "YOUR MAP ID";
 
 const defaultLocation = {
   // New York

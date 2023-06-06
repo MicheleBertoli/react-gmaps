@@ -1,21 +1,19 @@
-import { GMapsMarker, GMaps } from "@gmaps/reactjs";
+import { GMaps, GMapsPolyline } from "@gmaps/reactjs";
 
 const apiKey = import.meta.env.GMAPS_API_KEY || "YOUR API KEY";
 const mapID = import.meta.env.GMAPS_MAP_ID || "YOUR MAP ID";
 
 const defaultLocation = {
-  // New York
-  lat: 40.73061,
-  lng: -73.935242,
+  lat: 0,
+  lng: -180,
 };
 
-function MyMarker() {
-  return (
-    <GMapsMarker location={defaultLocation}>
-      <p style={{ backgroundColor: "red" }}>Hello World</p>
-    </GMapsMarker>
-  );
-}
+const defaultPath = [
+  { lat: 37.772, lng: -122.214 },
+  { lat: 21.291, lng: -157.821 },
+  { lat: -18.142, lng: 178.431 },
+  { lat: -27.467, lng: 153.027 },
+];
 
 function App() {
   return (
@@ -24,9 +22,9 @@ function App() {
         loaderOptions={{ apiKey }}
         mapId={mapID}
         center={defaultLocation}
-        zoom={12}
+        zoom={3}
       >
-        <MyMarker />
+        <GMapsPolyline path={defaultPath} />
       </GMaps>
     </div>
   );

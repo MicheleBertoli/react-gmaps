@@ -9,6 +9,19 @@ const unwrapGetter = <T extends Primitive>(
   return typeof getter === "function" ? getter() : getter;
 };
 
+const unwrapLatLng = (
+  latLng:
+    | google.maps.LatLng
+    | google.maps.LatLngLiteral
+    | {
+        lat(): number;
+        lng(): number;
+      }
+): google.maps.LatLngLiteral => ({
+  lat: unwrapGetter(latLng.lat),
+  lng: unwrapGetter(latLng.lng),
+});
+
 const unwrapMVCArray = <T>(array: google.maps.MVCArray<T> | T[]): T[] => {
   if (array instanceof google.maps.MVCArray) {
     return array.getArray();
@@ -19,5 +32,6 @@ const unwrapMVCArray = <T>(array: google.maps.MVCArray<T> | T[]): T[] => {
 
 export const shenanigan = {
   unwrapGetter,
+  unwrapLatLng,
   unwrapMVCArray,
 };
