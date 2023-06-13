@@ -1,6 +1,6 @@
 # React GMaps
 
-A modern Google Maps integration for React
+A modern Google Maps integration for ReactJS
 
 ## Features
 
@@ -8,3 +8,13 @@ A modern Google Maps integration for React
 - Hook based
 - Highly extensible
 - Interpolation animations for everything (markers, polygons, etc.)
+
+## TODOs
+
+- [x] Marker component (displays ReactJS components)
+- [ ] LegacyMarker component (displays images only)
+- [x] Polyline component
+- [x] Polygon component
+- [ ] Circle component
+- [ ] Rectangle component
+- [ ] Overlays
