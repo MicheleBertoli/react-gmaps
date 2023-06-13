@@ -5,11 +5,11 @@ import { shenanigan } from "../../lib/shenanigan";
 
 type EventHandler = (event: google.maps.MapMouseEvent) => void;
 
-export namespace GMapsPolyline {
+export namespace GMapsPolygon {
   type Events = "click" | "drag" | "dragend" | "dragstart";
 
   export type Options = Omit<
-    google.maps.PolylineOptions,
+    google.maps.PolygonOptions,
     "map" | "path" | "paths"
   > & {
     path?: (google.maps.LatLngLiteral | google.maps.LatLng)[];
@@ -33,15 +33,15 @@ export namespace GMapsPolyline {
   export type Get = <T extends keyof Options>(key: T) => Options[T];
 
   export type Ref = {
-    get: GMapsPolyline.Get;
-    update: GMapsPolyline.Update;
-    on: GMapsPolyline.On;
+    get: GMapsPolygon.Get;
+    update: GMapsPolygon.Update;
+    on: GMapsPolygon.On;
   };
 }
 
 const noop = () => {};
 
-const defaultOptions: Partial<GMapsPolyline.Options> = {
+const defaultOptions: Partial<GMapsPolygon.Options> = {
   zIndex: 0,
   visible: true,
   editable: false,
@@ -50,9 +50,9 @@ const defaultOptions: Partial<GMapsPolyline.Options> = {
   geodesic: false,
 };
 
-export const GMapsPolyline = React.forwardRef<
-  GMapsPolyline.Ref,
-  GMapsPolyline.Props
+export const GMapsPolygon = React.forwardRef<
+  GMapsPolygon.Ref,
+  GMapsPolygon.Props
 >(
   (
     {
@@ -68,14 +68,23 @@ export const GMapsPolyline = React.forwardRef<
     const map = useGMapsInstance();
     const google = useGMapsSDK();
 
-    const polyline = React.useRef<google.maps.Polyline | null>(null);
+    const polyline = React.useRef<google.maps.Polygon | null>(null);
 
-    const get = React.useCallback<GMapsPolyline.Get>(
+    const get = React.useCallback<GMapsPolygon.Get>(
       (key) => {
         if (!polyline.current) return;
 
         if (key === "path") {
-          return shenanigan.unwrapMVCArray(polyline.current.getPath());
+          const path = polyline.current.getPath();
+
+          return shenanigan.unwrapMVCArray(path);
+        }
+        if (key === "paths") {
+          const paths = polyline.current.getPaths();
+
+          return shenanigan
+            .unwrapMVCArray(paths)
+            .map(shenanigan.unwrapMVCArray);
         }
 
         return polyline.current.get(key);
@@ -83,7 +92,7 @@ export const GMapsPolyline = React.forwardRef<
       [polyline.current]
     );
 
-    const update = React.useCallback<GMapsPolyline.Update>(
+    const update = React.useCallback<GMapsPolygon.Update>(
       (opts) => {
         if (!polyline.current) return;
 
@@ -92,7 +101,7 @@ export const GMapsPolyline = React.forwardRef<
       [polyline.current]
     );
 
-    const on = React.useCallback<GMapsPolyline.On>(
+    const on = React.useCallback<GMapsPolygon.On>(
       (name, handler) => {
         if (!google || !polyline.current || !handler) return null;
 
@@ -137,7 +146,7 @@ export const GMapsPolyline = React.forwardRef<
     React.useEffect(() => {
       if (!map || !google || polyline.current) return;
 
-      polyline.current = new google.maps.Polyline({
+      polyline.current = new google.maps.Polygon({
         map,
         ...defaultOptions,
         ...options,

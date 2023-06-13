@@ -22,7 +22,7 @@ const unwrapLatLng = (
   lng: unwrapGetter(latLng.lng),
 });
 
-const unwrapMVCArray = <T>(array: google.maps.MVCArray<T> | T[]): T[] => {
+const unwrapMVCArray = <T>(array: google.maps.MVCArray<T> | T[] = []): T[] => {
   if (array instanceof google.maps.MVCArray) {
     return array.getArray();
   }

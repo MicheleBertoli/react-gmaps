@@ -54,3 +54,25 @@ export const interpolateLine = (
 
   return interpolatedLine;
 };
+
+export const interpolateLines = (
+  source: (google.maps.LatLng | google.maps.LatLngLiteral)[][],
+  target: (google.maps.LatLng | google.maps.LatLngLiteral)[][],
+  t: number
+): google.maps.LatLngLiteral[][] => {
+  const interpolatedLines = [];
+  const length = Math.max(source.length, target.length);
+
+  for (let i = 0; i < length; i++) {
+    const sourceLine = source[i] ?? source[source.length - 1];
+    const targetLine = target[i] ?? target[target.length - 1];
+
+    if (!sourceLine || !targetLine) {
+      continue;
+    }
+
+    interpolatedLines.push(interpolateLine(sourceLine, targetLine, t));
+  }
+
+  return interpolatedLines;
+};

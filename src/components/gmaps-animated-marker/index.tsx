@@ -7,10 +7,12 @@ import { animation } from "../../lib/animation";
 import { Animate } from "../../lib/animation/animate";
 import { geo } from "../../lib/geo";
 import { shenanigan } from "../../lib/shenanigan";
+import { EasingFunction } from "../../lib/animation/easings";
 
 export namespace GMapsAnimatedMarker {
   type Options = Pick<GMapsMarker.Options, "location" | "zIndex"> & {
     duration?: number;
+    easing?: EasingFunction;
   };
 
   export type Props = React.PropsWithChildren<GMapsMarker.Props & Options>;
@@ -43,8 +45,15 @@ export const GMapsAnimatedMarker = React.forwardRef<
       runningAnimation.current?.stop();
       runningAnimation.current = animation.animate({
         duration: opts.duration || duration,
-        easing: animation.easings.easeInOutCubic,
+        easing: opts.easing || animation.easings.easeInOutCubic,
         tick: (t) => {
+          const lastFrame = t >= 1;
+          if (lastFrame) {
+            // make sure we end up with exact coordinates
+            marker.current?.update(opts);
+            return;
+          }
+
           marker.current?.update({
             ...opts,
             location: geo.interpolatePoint(source, target, t),

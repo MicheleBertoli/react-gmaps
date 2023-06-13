@@ -3,44 +3,50 @@ import { useGMapsInstance } from "../../hooks/use-gmaps-instance";
 import { useGMapsSDK } from "../../hooks/use-gmaps-sdk";
 import { animation } from "../../lib/animation";
 import { Animate } from "../../lib/animation/animate";
-import { useGMapsPolyline } from "../../hooks/use-gmaps-polyline";
-import { GMapsPolyline } from "../gmaps-polyline";
 import { geo } from "../../lib/geo";
 import { EasingFunction } from "../../lib/animation/easings";
+import { GMapsPolygon } from "../gmaps-polygon";
+import { useGMapsPolygon } from "../../hooks/use-gmaps-polygon";
 
-export namespace GMapsAnimatedPolyline {
-  type Options = Pick<GMapsPolyline.Options, "path" | "zIndex"> & {
+export namespace GMapsAnimatedPolygon {
+  type Options = Pick<GMapsPolygon.Options, "path" | "paths" | "zIndex"> & {
     duration?: number;
     easing?: EasingFunction;
   };
 
-  export type Props = React.PropsWithChildren<GMapsPolyline.Props & Options>;
+  export type Props = React.PropsWithChildren<GMapsPolygon.Props & Options>;
 
   export type Animate = (options: Options) => void;
 
-  export type Ref = GMapsPolyline.Ref & {
+  export type Ref = GMapsPolygon.Ref & {
     animate: Animate;
   };
 }
 
-export const GMapsAnimatedPolyline = React.forwardRef<
-  GMapsAnimatedPolyline.Ref,
-  GMapsAnimatedPolyline.Props
+export const GMapsAnimatedPolygon = React.forwardRef<
+  GMapsAnimatedPolygon.Ref,
+  GMapsAnimatedPolygon.Props
 >(({ path, zIndex, duration = 1000, ...props }, ref) => {
   const map = useGMapsInstance();
   const google = useGMapsSDK();
-  const polyline = useGMapsPolyline();
+  const polyline = useGMapsPolygon();
 
   const initialPath = React.useRef(path);
   const runningAnimation = React.useRef<Animate | null>(null);
 
-  const animate = React.useCallback<GMapsAnimatedPolyline.Animate>(
+  const animate = React.useCallback<GMapsAnimatedPolygon.Animate>(
     (opts) => {
       const sourcePath = polyline.current?.get("path");
       const targetPath = opts.path;
 
+      const sourcePaths = polyline.current?.get("paths");
+      const targetPaths = opts.paths;
+
+      const canAnimatePath = sourcePath && targetPath;
+      const canAnimatePaths = sourcePaths?.length && targetPaths?.length;
+
       // nothing to animate
-      if (!sourcePath || !targetPath) {
+      if (!canAnimatePath && !canAnimatePaths) {
         polyline.current?.update(opts);
         return;
       }
@@ -57,10 +63,19 @@ export const GMapsAnimatedPolyline = React.forwardRef<
             return;
           }
 
-          polyline.current?.update({
-            ...opts,
-            path: geo.interpolateLine(sourcePath, targetPath, t),
-          });
+          if (canAnimatePath) {
+            polyline.current?.update({
+              ...opts,
+              path: geo.interpolateLine(sourcePath, targetPath, t),
+            });
+          }
+
+          if (canAnimatePaths) {
+            polyline.current?.update({
+              ...opts,
+              paths: geo.interpolateLines(sourcePaths, targetPaths, t),
+            });
+          }
         },
       });
     },
@@ -79,9 +94,9 @@ export const GMapsAnimatedPolyline = React.forwardRef<
   }, [map, google, location, zIndex]);
 
   React.useImperativeHandle(ref, () => ({
-    ...(polyline.current as GMapsPolyline.Ref),
+    ...(polyline.current as GMapsPolygon.Ref),
     animate,
   }));
 
-  return <GMapsPolyline ref={polyline} path={initialPath.current} {...props} />;
+  return <GMapsPolygon ref={polyline} path={initialPath.current} {...props} />;
 });
