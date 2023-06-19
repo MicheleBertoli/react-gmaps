@@ -1,4 +1,4 @@
-import { GMaps } from "@gmaps/reactjs";
+import { GMaps } from "react-gmaps";
 
 function App() {
   return (

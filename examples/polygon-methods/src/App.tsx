@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { GMaps, GMapsPolygon, useGMapsPolygon } from "@gmaps/reactjs";
+import { GMaps, GMapsPolygon, useGMapsPolygon } from "react-gmaps";
 
 const apiKey = import.meta.env.GMAPS_API_KEY || "YOUR API KEY";
 const mapID = import.meta.env.GMAPS_MAP_ID || "YOUR MAP ID";

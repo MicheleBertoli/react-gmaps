@@ -1,9 +1,16 @@
 {
-  "name": "@gmaps/reactjs",
-  "version": "1.0.0-next.0",
-  "author": "anatole-lucet",
+  "name": "react-gmaps",
+  "version": "2.0.0-next.0",
+  "license": "MIT",
+  "author": "michelebertoli <michele@berto.li>",
+  "contributors": [
+    "michelebertoli <michele@berto.li>",
+    "AnatoleLucet <anatole@hey.com>"
+  ],
   "description": "A modern Google Maps implementation for React",
   "keywords": [
+    "React.js",
+    "Google Maps",
     "google",
     "google-map",
     "gmaps",
@@ -15,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/AnatoleLucet/react-gmaps.git"
+    "url": "https://github.com/MicheleBertoli/react-gmaps.git"
   },
   "type": "module",
   "main": "dist/index.js",
