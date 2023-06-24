@@ -7,7 +7,7 @@
     "michelebertoli <michele@berto.li>",
     "AnatoleLucet <anatole@hey.com>"
   ],
-  "description": "A modern Google Maps implementation for React",
+  "description": "A modern Google Maps integration for ReactJS",
   "keywords": [
     "React.js",
     "Google Maps",

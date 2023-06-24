@@ -31,7 +31,7 @@ function App() {
           lng: p.lng + Math.random() * 10 - 0.5,
         }))
         .slice(0, Math.round(4 - Math.random() * 2));
-      console.log(path);
+
       polyline.current?.animate({
         path,
       });

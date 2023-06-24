@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useGMapsInstance } from "../../hooks/use-gmaps-instance";
 import { useGMapsSDK } from "../../hooks/use-gmaps-sdk";
-import { shenanigan } from "../../lib/shenanigan";
+import { utils } from "../../lib/utils";
 
 type EventHandler = (event: google.maps.MapMouseEvent) => void;
 
@@ -77,14 +77,12 @@ export const GMapsPolygon = React.forwardRef<
         if (key === "path") {
           const path = polyline.current.getPath();
 
-          return shenanigan.unwrapMVCArray(path);
+          return utils.unwrapMVCArray(path);
         }
         if (key === "paths") {
           const paths = polyline.current.getPaths();
 
-          return shenanigan
-            .unwrapMVCArray(paths)
-            .map(shenanigan.unwrapMVCArray);
+          return utils.unwrapMVCArray(paths).map(utils.unwrapMVCArray);
         }
 
         return polyline.current.get(key);

@@ -6,7 +6,7 @@ import { useGMapsMarker } from "../../hooks/use-gmaps-marker";
 import { animation } from "../../lib/animation";
 import { Animate } from "../../lib/animation/animate";
 import { geo } from "../../lib/geo";
-import { shenanigan } from "../../lib/shenanigan";
+import { utils } from "../../lib/utils";
 import { EasingFunction } from "../../lib/animation/easings";
 
 export namespace GMapsAnimatedMarker {
@@ -39,8 +39,8 @@ export const GMapsAnimatedMarker = React.forwardRef<
     (opts) => {
       if (!marker.current) return;
 
-      const source = shenanigan.unwrapLatLng(marker.current.location);
-      const target = shenanigan.unwrapLatLng(opts.location);
+      const source = utils.unwrapLatLng(marker.current.location);
+      const target = utils.unwrapLatLng(opts.location);
 
       runningAnimation.current?.stop();
       runningAnimation.current = animation.animate({

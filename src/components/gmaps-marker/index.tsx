@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { useGMapsInstance } from "../../hooks/use-gmaps-instance";
 import { useGMapsSDK } from "../../hooks/use-gmaps-sdk";
-import { shenanigan } from "../../lib/shenanigan";
+import { utils } from "../../lib/utils";
 
 type EventHandler = (event: google.maps.MapMouseEvent) => void;
 
@@ -41,7 +41,7 @@ export namespace GMapsMarker {
   };
 }
 
-const noop = () => { };
+const noop = () => {};
 
 export const GMapsMarker = React.forwardRef<GMapsMarker.Ref, GMapsMarker.Props>(
   (
@@ -87,8 +87,8 @@ export const GMapsMarker = React.forwardRef<GMapsMarker.Ref, GMapsMarker.Props>(
 
     React.useImperativeHandle(ref, () => ({
       location: {
-        lat: () => shenanigan.unwrapGetter(marker.current?.position?.lat) ?? 0,
-        lng: () => shenanigan.unwrapGetter(marker.current?.position?.lng) ?? 0,
+        lat: () => utils.unwrapGetter(marker.current?.position?.lat) ?? 0,
+        lng: () => utils.unwrapGetter(marker.current?.position?.lng) ?? 0,
       },
       update,
       on,

@@ -1,5 +1,5 @@
-// This file is mainly composed of functions for dealing with
-// weird google-map's SDK APIs
+// This lib is mainly composed of functions for dealing with
+// google-map's SDK APIs
 
 type Primitive = string | number | boolean | null | undefined;
 
@@ -30,7 +30,7 @@ const unwrapMVCArray = <T>(array: google.maps.MVCArray<T> | T[] = []): T[] => {
   return array;
 };
 
-export const shenanigan = {
+export const utils = {
   unwrapGetter,
   unwrapLatLng,
   unwrapMVCArray,

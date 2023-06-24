@@ -1,4 +1,4 @@
-import { shenanigan } from "../shenanigan";
+import { utils } from "../utils";
 import { clampLatLng } from "./location";
 
 export const interpolatePoint = (
@@ -6,10 +6,10 @@ export const interpolatePoint = (
   target: google.maps.LatLng | google.maps.LatLngLiteral,
   t: number
 ): google.maps.LatLngLiteral => {
-  const sourceLat = shenanigan.unwrapGetter(source?.lat) ?? 0;
-  const sourceLng = shenanigan.unwrapGetter(source?.lng) ?? 0;
-  const targetLat = shenanigan.unwrapGetter(target?.lat) ?? 0;
-  const targetLng = shenanigan.unwrapGetter(target?.lng) ?? 0;
+  const sourceLat = utils.unwrapGetter(source?.lat) ?? 0;
+  const sourceLng = utils.unwrapGetter(source?.lng) ?? 0;
+  const targetLat = utils.unwrapGetter(target?.lat) ?? 0;
+  const targetLng = utils.unwrapGetter(target?.lng) ?? 0;
 
   const lngIncrDistance = (360 + (180 + sourceLng) - (180 + targetLng)) % 360;
   const lngDecrDistance = (360 + (180 + targetLng) - (180 + sourceLng)) % 360;
