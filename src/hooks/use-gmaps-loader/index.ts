@@ -5,7 +5,7 @@ import { Loader, LoaderOptions } from "@googlemaps/js-api-loader";
 type Options = Partial<LoaderOptions>;
 
 const defaultOptions: Options = {
-  version: "beta",
+  version: "weekly",
   libraries: ["marker"],
 };
 

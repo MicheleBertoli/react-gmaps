@@ -8,12 +8,8 @@ type EventHandler = (event: google.maps.MapMouseEvent) => void;
 export namespace GMapsPolyline {
   type Events = "click" | "drag" | "dragend" | "dragstart";
 
-  export type Options = Omit<
-    google.maps.PolylineOptions,
-    "map" | "path" | "paths"
-  > & {
+  export type Options = Omit<google.maps.PolylineOptions, "map" | "path"> & {
     path?: (google.maps.LatLngLiteral | google.maps.LatLng)[];
-    paths?: (google.maps.LatLngLiteral | google.maps.LatLng)[][];
   };
 
   export type Props = Options & {

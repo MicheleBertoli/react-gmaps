@@ -1,7 +1,7 @@
-import { GMaps, GMapsPolyline } from "react-gmaps";
+import { GMaps, GMapsPolyline } from "@gmaps/reactjs";
 
-const apiKey = import.meta.env.GMAPS_API_KEY || "YOUR API KEY";
-const mapID = import.meta.env.GMAPS_MAP_ID || "YOUR MAP ID";
+const apiKey = "YOUR API KEY";
+const mapID = "YOUR MAP ID";
 
 const defaultLocation = {
   lat: 0,
