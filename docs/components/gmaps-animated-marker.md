@@ -1,6 +1,6 @@
 # `<GMapsAnimatedMarker />`
 
-<p align="center">TODO: screen capture</p>
+<p align="center"><img width="800" src="/docs/assets/marker-animated.gif" /></p>
 
 Creates a new marker with animated interpolation when updating the `lat`/`lnt`. This components extends [`<GMapsMarker />`](/docs/components/gmaps-marker.md).
 

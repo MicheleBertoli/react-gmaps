@@ -1,6 +1,6 @@
 # `<GMapsAnimatedPolygon />`
 
-<p align="center">TODO: screen capture</p>
+<p align="center"><img width="800" src="/docs/assets/polygon-animated.gif" /></p>
 
 Creates a new polygon with animated interpolation when updating the path. This components extends [`<GMapsPolygon />`](/docs/components/gmaps-polygon.md).
 

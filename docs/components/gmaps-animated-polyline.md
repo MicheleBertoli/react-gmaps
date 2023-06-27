@@ -1,6 +1,6 @@
 # `<GMapsAnimatedPolyline />`
 
-<p align="center">TODO: screen capture</p>
+<p align="center"><img width="800" src="/docs/assets/polyline-animated.gif" /></p>
 
 Creates a new polyline with animated interpolation when updating the path. This components extends [`<GMapsPolyline />`](/docs/components/gmaps-polyline.md).
 
