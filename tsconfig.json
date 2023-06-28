@@ -5,10 +5,7 @@
     "module": "es2020",
     "target": "es2020",
     "jsx": "react",
-    "lib": [
-      "es2020",
-      "DOM"
-    ],
+    "lib": ["es2020", "DOM"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true,
@@ -17,7 +14,5 @@
     "skipLibCheck": true,
     "declaration": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

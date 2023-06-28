@@ -4,7 +4,7 @@
 type Primitive = string | number | boolean | null | undefined;
 
 const unwrapGetter = <T extends Primitive>(
-  getter: T | ((...args: any[]) => T)
+  getter: T | ((..._args: any[]) => T)
 ): T => {
   return typeof getter === "function" ? getter() : getter;
 };
