@@ -4,6 +4,7 @@ type AnimateOptions = {
   duration?: number;
   easing?: EasingFunction;
   tick: (t: number) => void;
+  end?: () => void;
 };
 
 export type Animate = {
@@ -26,12 +27,12 @@ export const animate = (opts: AnimateOptions): Animate => {
     const elapsed = now - last;
 
     progress += elapsed / duration;
+    last = now;
+
     opts.tick(easing(progress));
 
-    if (progress < 1) {
-      last = now;
-      requestAnimationFrame(run);
-    }
+    if (progress < 1) requestAnimationFrame(run);
+    else opts.end?.();
   };
 
   requestAnimationFrame(run);
@@ -39,6 +40,7 @@ export const animate = (opts: AnimateOptions): Animate => {
   return {
     stop: () => {
       stopped = true;
+      opts.end?.();
     },
   };
 };

@@ -36,14 +36,18 @@ export const GMapsAnimatedPolygon = React.forwardRef<
 
   const animate = React.useCallback<GMapsAnimatedPolygon.Animate>(
     (opts) => {
+      runningAnimation.current?.stop();
+
       const sourcePath = polyline.current?.get("path");
       const targetPath = opts.path;
 
       const sourcePaths = polyline.current?.get("paths");
       const targetPaths = opts.paths;
 
-      const canAnimatePath = sourcePath && targetPath;
-      const canAnimatePaths = sourcePaths?.length && targetPaths?.length;
+      const canAnimatePath = sourcePath || targetPath;
+      const canAnimatePaths =
+        (sourcePaths && sourcePaths.length >= 0) ||
+        (targetPaths && targetPaths.length >= 0);
 
       // nothing to animate
       if (!canAnimatePath && !canAnimatePaths) {
@@ -51,29 +55,26 @@ export const GMapsAnimatedPolygon = React.forwardRef<
         return;
       }
 
-      runningAnimation.current?.stop();
       runningAnimation.current = animation.animate({
         duration: opts.duration || duration,
         easing: opts.easing || animation.easings.easeInOutCubic,
+        end: () => polyline.current?.update(opts),
         tick: (t) => {
-          const lastFrame = t >= 1;
-          if (lastFrame) {
-            // make sure we end up with exact coordinates
-            polyline.current?.update(opts);
-            return;
-          }
-
           if (canAnimatePath) {
             polyline.current?.update({
               ...opts,
-              path: geo.interpolateLine(sourcePath, targetPath, t),
+              path: geo.interpolateShape(sourcePath, targetPath, t),
             });
           }
 
           if (canAnimatePaths) {
             polyline.current?.update({
               ...opts,
-              paths: geo.interpolateLines(sourcePaths, targetPaths, t),
+              paths: geo.interpolateShapes(
+                sourcePaths ?? [],
+                targetPaths ?? [],
+                t
+              ),
             });
           }
         },

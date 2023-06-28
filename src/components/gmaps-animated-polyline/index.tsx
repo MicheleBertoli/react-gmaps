@@ -36,6 +36,8 @@ export const GMapsAnimatedPolyline = React.forwardRef<
 
   const animate = React.useCallback<GMapsAnimatedPolyline.Animate>(
     (opts) => {
+      runningAnimation.current?.stop();
+
       const sourcePath = polyline.current?.get("path");
       const targetPath = opts.path;
 
@@ -45,18 +47,11 @@ export const GMapsAnimatedPolyline = React.forwardRef<
         return;
       }
 
-      runningAnimation.current?.stop();
       runningAnimation.current = animation.animate({
         duration: opts.duration || duration,
         easing: opts.easing || animation.easings.easeInOutCubic,
+        end: () => polyline.current?.update(opts),
         tick: (t) => {
-          const lastFrame = t >= 1;
-          if (lastFrame) {
-            // make sure we end up with exact coordinates
-            polyline.current?.update(opts);
-            return;
-          }
-
           polyline.current?.update({
             ...opts,
             path: geo.interpolateLine(sourcePath, targetPath, t),

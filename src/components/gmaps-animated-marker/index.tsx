@@ -37,23 +37,18 @@ export const GMapsAnimatedMarker = React.forwardRef<
 
   const animate = React.useCallback<GMapsAnimatedMarker.Animate>(
     (opts) => {
+      runningAnimation.current?.stop();
+
       if (!marker.current) return;
 
       const source = utils.unwrapLatLng(marker.current.location);
       const target = utils.unwrapLatLng(opts.location);
 
-      runningAnimation.current?.stop();
       runningAnimation.current = animation.animate({
         duration: opts.duration || duration,
         easing: opts.easing || animation.easings.easeInOutCubic,
+        end: () => marker.current?.update(opts),
         tick: (t) => {
-          const lastFrame = t >= 1;
-          if (lastFrame) {
-            // make sure we end up with exact coordinates
-            marker.current?.update(opts);
-            return;
-          }
-
           marker.current?.update({
             ...opts,
             location: geo.interpolatePoint(source, target, t),

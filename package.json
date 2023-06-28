@@ -48,6 +48,7 @@
   "devDependencies": {
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "jsdom": "^22.1.0",
     "prettier": "^2.8.7",
     "react": "^18",
     "react-dom": "^18",
@@ -60,7 +61,7 @@
     "react-dom": "^16.8 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "@types/google.maps": "^3.53.0",
-    "@googlemaps/js-api-loader": "^1.15.1"
+    "@googlemaps/js-api-loader": "^1.15.1",
+    "@types/google.maps": "^3.53.0"
   }
 }
