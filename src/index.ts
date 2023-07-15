@@ -1,3 +1,5 @@
+export * as easings from "./lib/animation/easings";
+
 export * from "./components/gmaps";
 export * from "./components/gmaps-animated-marker";
 export * from "./components/gmaps-animated-polygon";

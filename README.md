@@ -1,6 +1,34 @@
-# React GMaps
+<h1 align="center">React GMaps</h1>
 
-A modern Google Maps integration for ReactJS
+<h4 align="center">A modern Google Maps integration for ReactJS.</h4>
+
+---
+
+| Marker                                | Polyline                                | Polygon                                |
+| ------------------------------------- | --------------------------------------- | -------------------------------------- |
+| ![](/docs/assets/marker-animated.gif) | ![](/docs/assets/polyline-animated.gif) | ![](/docs/assets/polygon-animated.gif) |
+
+```jsx
+const location = { lat: 40.73061, lng: -73.935242 };
+
+function MyMarker() {
+  return (
+    <GMapsMarker location={location}>
+      <p style={{ backgroundColor: "red" }}>Hello World</p>
+    </GMapsMarker>
+  );
+}
+
+function MyMap() {
+  return (
+    <div style={{ height: "100vh" }}>
+      <GMaps center={location} zoom={12}>
+        <MyMarker />
+      </GMaps>
+    </div>
+  );
+}
+```
 
 ## Features
 
@@ -34,3 +62,4 @@ Wanna help? See our [`contributing.md`](/CONTRIBUTING.md).
 - [ ] Circle component
 - [ ] Rectangle component
 - [ ] Overlays
+- [ ] Hooks to access the `google` sdk and `google.maps.Map` instance using a `ref` to `<GMaps />`
