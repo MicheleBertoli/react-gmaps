@@ -1,5 +1,5 @@
 import { utils } from "../utils";
-import { clampLat } from "./location";
+import { clampLatLng } from "./location";
 
 export const findShapeCenter = (
   shape: (google.maps.LatLng | google.maps.LatLngLiteral)[]
@@ -10,8 +10,7 @@ export const findShapeCenter = (
   let west = 180;
 
   for (const point of shape) {
-    const lat = clampLat(utils.unwrapGetter(point.lat));
-    const lng = clampLat(utils.unwrapGetter(point.lng));
+    const { lat, lng } = clampLatLng(utils.unwrapLatLng(point));
 
     if (lat > north) north = lat;
     if (lat < south) south = lat;

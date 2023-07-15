@@ -104,8 +104,8 @@ describe("interpolateLine", () => {
     expect(interpolateLine(source, target, 1)).toEqual([
       ...target,
       // regrouped points should be the same as the last point of the target
-      source[2],
-      source[2],
+      target[1],
+      target[1],
     ]);
   });
 
@@ -129,6 +129,7 @@ describe("interpolateLine", () => {
 
     expect(interpolateLine(source, target, 0)).toEqual([
       ...source,
+      // yet to be grown-out points should be the same as the first point of the source
       source[1],
       source[1],
     ]);

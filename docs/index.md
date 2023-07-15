@@ -47,6 +47,14 @@ function MyMap() {
 
 ## Examples
 
+To run an example:
+
+```
+cd examples/<folder>
+pnpm i
+pnpm dev
+```
+
 - [Basic](/examples/basic)
 - [Marker](/examples/marker)
 - [Marker Animated](/examples/marker-animmated)

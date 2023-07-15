@@ -21,7 +21,7 @@ Existing implementations tends to be old/unmaintained, outdated, lacking feature
 
 React GMaps aims to be more flexible, extensible, and composable by exposing simple primitives that can be used in various ways.
 It utilizes modern GoogleMaps features such as [AdvancedMarkers](https://developers.google.com/maps/documentation/javascript/reference/advanced-markers) to avoid wacky hacks and unstable integrations.
-Plus its context base architecture, ables users to easly access GMaps fonctionallities programmaticaly and create GoogleMaps related libraries for others to use (such as Animated components for example).
+Plus its context base architecture, enables users to easly access GMaps functionalities programmaticaly and create GoogleMaps related libraries for others to use (similarly to the built-in [Animated components](/docs/components/gmaps-animated-marker.md)).
 
 ## TODOs
 
