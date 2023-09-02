@@ -14,16 +14,18 @@ Creates a new marker with animated interpolation when updating the `lat`/`lnt`. 
 <summary>Full example</summary>
 
 ```jsx
-
 function MyMap() {
-    const [location, setLocation] = useState({ lat: 40.73061, lng: -73.935242 });
+  const [location, setLocation] = useState({ lat: 40.73061, lng: -73.935242 });
 
   return (
     <div style={{ height: "100vh" }}>
       <GMaps center={location} zoom={12}>
-        <GMapsAnimatedMarker location={{ lat: 40.73061, lng: -73.935242 }} duration={1000}>
+        <GMapsAnimatedMarker
+          location={{ lat: 40.73061, lng: -73.935242 }}
+          duration={1000}
+        >
           <p style={{ backgroundColor: "red" }}>Hello World</p>
-        </GMapsMarker>
+        </GMapsAnimatedMarker>
       </GMaps>
     </div>
   );
@@ -61,9 +63,9 @@ function App() {
       </button>
 
       <GMaps center={location} zoom={12}>
-        <GMapsMarker ref={marker} location={location}>
+        <GMapsAnimatedMarker ref={marker} location={location}>
           <p style={{ backgroundColor: "red" }}>Hello World</p>
-        </GMapsMarker>
+        </GMapsAnimatedMarker>
       </GMaps>
     </div>
   );
