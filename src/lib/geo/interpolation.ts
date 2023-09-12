@@ -91,12 +91,12 @@ export const interpolateShapes = (
   target: (google.maps.LatLng | google.maps.LatLngLiteral)[][],
   t: number
 ): google.maps.LatLngLiteral[][] => {
-  const interpolatedLines = [];
+  const interpolatedShapes = [];
   const length = Math.max(source.length, target.length);
 
   for (let i = 0; i < length; i++) {
-    interpolatedLines.push(interpolateShape(source[i], target[i], t));
+    interpolatedShapes.push(interpolateShape(source[i], target[i], t));
   }
 
-  return interpolatedLines;
+  return interpolatedShapes;
 };
