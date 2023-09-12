@@ -1,101 +1,65 @@
-[![Build Status](https://travis-ci.org/MicheleBertoli/react-gmaps.svg?branch=master)](https://travis-ci.org/MicheleBertoli/react-gmaps)
+<h1 align="center">React GMaps</h1>
 
-React Gmaps
-===========
+<h4 align="center">A modern Google Maps integration for ReactJS.</h4>
 
-A [Google Maps](https://developers.google.com/maps/documentation/javascript/) component for [React.js](http://facebook.github.io/react/)
+---
 
-Features
---------
+| Marker                                | Polyline                                | Polygon                                |
+| ------------------------------------- | --------------------------------------- | -------------------------------------- |
+| ![](/docs/assets/marker-animated.gif) | ![](/docs/assets/polyline-animated.gif) | ![](/docs/assets/polygon-animated.gif) |
 
-- Lazy Google Maps loading
-- Easy to use
+```jsx
+const location = { lat: 40.73061, lng: -73.935242 };
 
-Installation
-------------
+function MyMarker() {
+  return (
+    <GMapsMarker location={location}>
+      <p style={{ backgroundColor: "red" }}>Hello World</p>
+    </GMapsMarker>
+  );
+}
 
-```sh
-$ npm install react-gmaps --save
+function MyMap() {
+  return (
+    <div style={{ height: "100vh" }}>
+      <GMaps center={location} zoom={12}>
+        <MyMarker />
+      </GMaps>
+    </div>
+  );
+}
 ```
 
-Demo
-------------
+## Features
 
-[http://react-gmaps.herokuapp.com/](http://react-gmaps.herokuapp.com/)
+- Marker, Polyline, Polygon components and more
+- Hook based
+- Highly extensible
+- Interpolation animations for everything (markers, polygons, etc.)
 
-Usage
------
+## Documentation
 
-```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
+[See our documentation](/docs/index.md)
 
-const coords = {
-  lat: 51.5258541,
-  lng: -0.08040660000006028
-};
+## Why yet another Google Maps integration for ReactJS?
 
-const params = {v: '3.exp', key: 'YOUR_API_KEY'};
+Why choose React GMaps when there's already [react-google-maps-api](https://github.com/JustFly1984/react-google-maps-api), [google-maps-react](https://github.com/fullstackreact/google-maps-react), [google-map-react](https://github.com/google-map-react/google-map-react), etc. ?
+The current landscape doesn't really provide a smooth integration for GoogleMaps in a ReactJS application with hooks and modern patterns.
+Existing implementations tends to be old/unmaintained, outdated, lacking features, and/or a bit wobbly.
 
-class App extends React.Component {
+React GMaps aims to be more flexible, extensible, and composable by exposing simple primitives that can be used in various ways.
+It utilizes modern GoogleMaps features such as [AdvancedMarkers](https://developers.google.com/maps/documentation/javascript/reference/advanced-markers) to avoid wacky hacks and unstable integrations.
+Plus its context base architecture, enables users to easly access GMaps functionalities programmaticaly and create GoogleMaps related libraries for others to use (similarly to the built-in [Animated components](/docs/components/gmaps-animated-marker.md)).
 
-  onMapCreated(map) {
-    map.setOptions({
-      disableDefaultUI: true
-    });
-  }
+## TODOs
 
-  onDragEnd(e) {
-    console.log('onDragEnd', e);
-  }
+Wanna help? See our [`contributing.md`](/CONTRIBUTING.md).
 
-  onCloseClick() {
-    console.log('onCloseClick');
-  }
-
-  onClick(e) {
-    console.log('onClick', e);
-  }
-
-  render() {
-    return (
-      <Gmaps
-        width={'800px'}
-        height={'600px'}
-        lat={coords.lat}
-        lng={coords.lng}
-        zoom={12}
-        loadingMessage={'Be happy'}
-        params={params}
-        onMapCreated={this.onMapCreated}>
-        <Marker
-          lat={coords.lat}
-          lng={coords.lng}
-          draggable={true}
-          onDragEnd={this.onDragEnd} />
-        <InfoWindow
-          lat={coords.lat}
-          lng={coords.lng}
-          content={'Hello, React :)'}
-          onCloseClick={this.onCloseClick} />
-        <Circle
-          lat={coords.lat}
-          lng={coords.lng}
-          radius={500}
-          onClick={this.onClick} />
-      </Gmaps>
-    );
-  }
-
-};
-
-ReactDOM.render(<App />, document.getElementById('gmaps'));
-```
-
-Test
-----
-
-```sh
-$ npm test
-```
+- [x] Marker component (displays ReactJS components)
+- [ ] LegacyMarker component (displays images only)
+- [x] Polyline component
+- [x] Polygon component
+- [ ] Circle component
+- [ ] Rectangle component
+- [ ] Overlays
+- [ ] Hooks to access the `google` sdk and `google.maps.Map` instance using a `ref` to `<GMaps />`

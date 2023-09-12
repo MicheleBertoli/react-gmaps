@@ -1,5 +1,22 @@
-demo/
-src/
-.babelrc
-Procfile
-server.js
+# MacOS
+.DS_Store
+
+# NodeJS
+node_modules
+.pnpm-store
+
+# IDEs
+.idea
+.vscode
+.fleet
+
+# config files
+/*.js
+/*.mjs
+/*.cjs
+/*.ts
+/tsconfig.json
+
+# source
+/src/
+

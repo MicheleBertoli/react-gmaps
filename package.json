@@ -1,67 +1,75 @@
 {
   "name": "react-gmaps",
-  "version": "1.9.0",
-  "description": "A Google Maps component for React.js",
-  "main": "dist/index.js",
-  "scripts": {
-    "prepublish": "npm run build",
-    "build": "babel ./src --out-dir ./dist --ignore __tests__",
-    "pretest": "eslint ./src",
-    "test": "jest",
-    "demo": "browserify -t babelify ./demo/index.js -o ./demo/build.js",
-    "start": "node server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MicheleBertoli/react-gmaps"
-  },
+  "version": "2.0.0-next.0",
+  "license": "MIT",
+  "author": "michelebertoli <michele@berto.li>",
+  "contributors": [
+    "michelebertoli <michele@berto.li>",
+    "AnatoleLucet <anatole@hey.com>"
+  ],
+  "description": "A modern Google Maps integration for ReactJS",
   "keywords": [
     "React.js",
     "Google Maps",
-    "react-component"
+    "google",
+    "google-map",
+    "gmaps",
+    "gmap",
+    "typescript",
+    "javascript",
+    "react",
+    "reactjs"
   ],
-  "author": "Michele Bertoli",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/MicheleBertoli/react-gmaps/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MicheleBertoli/react-gmaps.git"
   },
-  "homepage": "https://github.com/MicheleBertoli/react-gmaps",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest --run",
+    "test:dev": "vitest --watch",
+    "test:coverage": "vitest run --coverage",
+    "lint": "pnpm run lint:eslint && pnpm run lint:prettier",
+    "lint:eslint": "eslint --ignore-path=.gitignore --ignore-path=.eslintignore --ext js,cjs,js,ts,tsx .",
+    "lint:prettier": "prettier --check --ignore-path=.gitignore .",
+    "check": "tsc --noEmit",
+    "format": "prettier --write --ignore-path=.gitignore ."
+  },
   "devDependencies": {
-    "babel": "^5.8.21",
-    "babel-eslint": "^4.0.5",
-    "babel-jest": "^5.3.0",
-    "babelify": "^8.0.0",
-    "browserify": "^16.1.1",
-    "eslint": "^1.1.0",
-    "eslint-plugin-react": "^3.2.1",
-    "express": "^4.11.2",
-    "jest-cli": "^12.0.0",
-    "raf": "^3.4.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
-  },
-  "jest": {
-    "testPathDirs": [
-      "./src"
-    ],
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/raf",
-      "<rootDir>/node_modules/create-react-class",
-      "<rootDir>/node_modules/fbjs"
-    ],
-    "setupFiles": [
-      "<rootDir>/node_modules/raf/polyfill.js"
-    ]
-  },
-  "dependencies": {
-    "create-react-class": "^15.5.2",
-    "object-assign": "^4.0.1"
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jsdom": "^22.1.0",
+    "prettier": "^2.8.7",
+    "react": "^18",
+    "react-dom": "^18",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.1"
   },
   "peerDependencies": {
-    "react": "^15.0.1 || ^16.0.0",
-    "react-dom": "^15.0.1 || ^16.0.0"
+    "react": "^16.8 || ^17.0 || ^18.0",
+    "react-dom": "^16.8 || ^17.0 || ^18.0"
+  },
+  "dependencies": {
+    "@googlemaps/js-api-loader": "^1.15.1",
+    "@types/google.maps": "^3.53.0"
   }
 }
