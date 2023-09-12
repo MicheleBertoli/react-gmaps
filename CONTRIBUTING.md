@@ -21,6 +21,9 @@ Then you can start the build toolchain with:
 pnpm dev
 ```
 
+If you want to use a GoogleMaps API Key and/or a Map ID: at the root of the repo, copy the `.env.dist` and name it `.env` and fill-in with your secrets.
+Theses env variables are going to be picked up by the projects in the `examples/` folder.
+
 ### Live preview
 
 The easiest way to see a live preview of the changes you make, is to link your local version of react-gmaps to an example.
